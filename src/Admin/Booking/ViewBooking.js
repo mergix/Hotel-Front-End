@@ -50,7 +50,7 @@ export default function ViewBooking() {
     <>
     <Container  style={{marginTop: '100px'}}>
     <Card sx={{
-      minHeight: 850,minWidth: 800, mx: 'auto', mt: 10,
+      minHeight: 600,minWidth: 600, mx: 'auto', mt: 10, 
   }}>
 
     <CardContent style={{marginLeft: 180,marginTop:70,alignItems:'center'}}>

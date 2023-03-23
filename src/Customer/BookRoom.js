@@ -18,9 +18,6 @@ const[dateIn,setDateIn] = useState(new Date())
 const[dateOut,setDateOut] = useState(new Date())
 
 
-const handleDateIn = (newValue) => {
-  setDateIn(newValue);
-};
 
 
 const navigate = useNavigate()
@@ -92,17 +89,18 @@ useEffect(() => {
   return (
     <>
  
-   <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
+   <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:300}}>
       <Grid container spacing={20} justify = "center">
     <Grid item>
-      <Card style={{height: '300px', width:'550px'}}>
+      <Card sx={{
+      minHeight: 850,minWidth: 800, mx: 'auto', mt: 0,marginLeft:15
+  }}>
       <CardMedia image="https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg" style={{height: '100px', width:'100%'}}/>
-      <CardContent>
+      <CardContent >
           <Typography>
          Please confirm your details  
           </Typography>
           <form noValidate autoComplete='on' onSubmit={book}>
-
           <Button variant="outlined" onClick={handleClickOpen}>
           Select Room
         </Button>

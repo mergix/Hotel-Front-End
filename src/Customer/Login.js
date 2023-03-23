@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react'
-import { Card, CardContent, TextField, Typography } from '@mui/material'
+import { Card, CardContent, TextField, Typography,Alert,AlertTitle,Collapse } from '@mui/material'
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
 import Center from '../Center'
@@ -8,6 +8,7 @@ import { createAPIEndpoint, ENDPOINTS } from '../api'
 import useStateContext from '../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
+import IconButton from '@mui/material/IconButton';
 
 
 
@@ -19,6 +20,7 @@ const getFreshModel = () =>({
 export default function Login() {
 
     const{context,setContext,resetContext} = useStateContext()
+    const [open, setOpen] = React.useState(false);
     const navigate = useNavigate()
 
     const{
@@ -38,9 +40,14 @@ export default function Login() {
         e.preventDefault();
         if(validate())
        axios.post('https://localhost:7099/Login',values).then(res => {
-        setContext({userId: res.data.userId})
-        console.log(res.data)
-        navigate('/')
+        if (res.data.userEmail == "No User") {
+            setOpen(true)
+        } else {
+            setContext({userId: res.data.userId})
+            console.log(res.data)
+            navigate('/')
+            
+        }
        }).catch(err => console.log(err))
     }
 
@@ -88,6 +95,23 @@ export default function Login() {
         sx = {{width: '90%'}}> Login</Button>
         
     </form>
+    <Collapse in={open}>
+    <Alert severity="info" action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <IconButton fontSize="inherit" />
+            </IconButton>
+          }>
+<AlertTitle>Something Went wrong</AlertTitle>
+ <strong>Your details are incorrect please try again or New User Click here to sign up</strong>
+</Alert>
+</Collapse>
     </Box>
 
         </CardContent>

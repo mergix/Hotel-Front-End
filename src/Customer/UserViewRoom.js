@@ -1,14 +1,16 @@
-import { Card,Typography,CardActions,CardContent,Button,CardMedia } from '@mui/material';
+import { Card,Typography,CardActions,CardContent,Button,CardMedia,Alert,AlertTitle,Collapse } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState,useEffect } from 'react'
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
 
 export default function UserViewRoom() {
     const navigate = useNavigate()
     const{context,setContext,resetContext} = useStateContext()
     const [room,setRoom] = useState([])
+    const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
       axios.get(`https://localhost:7099/api/Room/${context.roomId}`)
@@ -42,6 +44,15 @@ export default function UserViewRoom() {
         return "no value"
     }
   }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
     <Container  style={{marginTop: '140px'}}>
@@ -72,10 +83,30 @@ export default function UserViewRoom() {
         <br />
       Last Modified : {room.lastModified}
       </Typography>
+      <Collapse in={open}>
+      <Alert severity="info" action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <IconButton fontSize="inherit" />
+            </IconButton>
+          }>
+      <AlertTitle>Something Went wrong</AlertTitle>
+          You have not Logged In  — <strong>Please Login before booking a room</strong>
+      </Alert>
+      </Collapse>
     </CardContent>
     <CardActions  style={{marginLeft: 800,marginTop:70,alignItems:'center'}}>
       <Button sx={{ fontSize: 34 }} onClick={() => {
-       navigate('/book');
+        if (context.userId == 0) {
+          setOpen(true) 
+        }else{
+       navigate('/book')}
        }}>Book</Button>
     </CardActions>
     </Card>

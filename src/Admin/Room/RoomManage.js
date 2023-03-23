@@ -59,22 +59,22 @@ export default function RoomManage() {
 
 
 function singleFilter(){
-    let single = room.filter(x => x.room.categoryType == 1)
+    let single = room.filter(x => x.categoryType == 1)
     setTest(single)
   }
   function doubleFilter(){
-    let double = room.filter(x => x.room.categoryType == 2)
+    let double = room.filter(x => x.categoryType == 2)
     console.log(double)
     setTest(double)
 
   }
   function deluxeFilter(){
-    let deluxe = room.filter(x => x.room.categoryType == 3)
+    let deluxe = room.filter(x => x.categoryType == 3)
     console.log(deluxe)
     setTest(deluxe)
   }
   function presidentialFilter(){
-    let president = room.filter(x => x.room.categoryType == 4)
+    let president = room.filter(x => x.categoryType == 4)
     console.log(president)
     setTest(president)
   }

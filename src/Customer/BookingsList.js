@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, Typography,Grid,CardActions,Button, Container } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography,Grid,CardActions,Button, Container, Alert, AlertTitle } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
 
 
 export default function BookingsList() {
@@ -37,9 +38,10 @@ export default function BookingsList() {
   }
  function booklist(){
   if(context.userId == 0){
-    return  <Container  style={{marginTop: '140px'}}>
-    <div> You have not made any bookings please check the rooms tab to start booking or login to view them</div>
-    </Container>
+    return <div style={{marginTop:'140px'}}><Alert severity="info">
+<AlertTitle>Something Went wrong</AlertTitle>
+    You have not Logged In  — <strong>Please Login before you can view your bookings</strong>
+</Alert></div>
  }else{
   return <Container  style={{marginTop: '140px'}}>
   {book.map(p => (
