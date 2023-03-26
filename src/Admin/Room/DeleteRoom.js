@@ -55,7 +55,7 @@ function status(p){
 }
   return (
     <>
-    <Container  style={{marginTop: '100px'}}>
+    <Container  style={{marginTop: '150px'}}>
     <Card sx={{
       minHeight: 600,minWidth: 650, mx: 'auto', mt: 10,
   }}>
@@ -63,7 +63,7 @@ function status(p){
         component="img"
         alt="green iguana"
         height="140"
-        image="https://picsum.photos/id/237/200/300"
+        image={`/Users/mergixf/RiderProjects/Hotel-Front-End/src/Img/Rooms/${room.roomPicture}`}
       />
     <CardContent style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
       <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>

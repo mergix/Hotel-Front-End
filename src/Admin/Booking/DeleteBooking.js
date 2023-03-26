@@ -48,10 +48,17 @@ export default function DeleteBooking() {
         return "no value"
     }
   }
+  function image(x) {
+    if (x === undefined) {
+      return require(`../../img/EvangelionFinally.jpg`)
+    } else {
+      return require(`../../img/Rooms/${x}`)
+    }
+  }
 
     const done = e =>{
       e.preventDefault();
-        createAPIEndpoint(ENDPOINTS.booking).delete({}).then(res => {
+      axios.delete(`https://localhost:7099/api/Booking/${context.bookId}`).then(res => {
         console.log(res)
         navigate('/booklist')
          }).catch(err => console.log(err))
@@ -59,50 +66,51 @@ export default function DeleteBooking() {
   return (
     <>
     <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
-       <Grid container spacing={20} justify = "center">
-     <Grid item>
        <Card style={{height: '750px', width:'750px',marginLeft: 200,marginTop:50,alignItems:'center'}}>
-       <CardMedia image="https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg" style={{height: '100px', width:'100%'}}/>
+       <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
        <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>
            <Typography sx={{ fontSize: 22 }} style={{marginLeft:130,marginBottom:30}}>
           This is the booking you want to Delete 
            </Typography>
            <form noValidate autoComplete='on' onSubmit={done}>
-      <Typography sx={{ fontSize: 24 }} style={{marginLeft:200,marginBottom:30}} component="div">
+      <Typography sx={{ fontSize: 24 }} style={{marginBottom:30}} component="div">
        Room Name:{book.roomName}
       </Typography>
-      <Grid container spacing={2} style ={{marginLeft: 100,marginBottom:50}}>
-      <Grid item xs={'auto'} style={{marginRight:110}}>
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Status:{status(book.status)}
       </Typography >
-      </Grid>
-      <Grid item xs={8}>
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:{book.roomName}
       </Typography >
-      </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-      <Grid item xs={'auto'} style={{marginRight:110}}>
+
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         datein: {book.dateIn}
       </Typography >
-    </Grid>
-   <Grid item xs={'auto'}>
+
    <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         dateout: {book.dateOut}
       </Typography >
-   </Grid>
-   </Grid>
-        <Button  type = "submit" variant='outlined' style={{marginTop:100,marginLeft:200}}>
+      <Typography sx={{ fontSize: 24 }} style={{marginBottom:10}} component="div">
+      Owner of booking:{book.firstName}
+      </Typography>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Email:{book.userEmail}
+      </Typography >
+
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Booked at : {book.dateIn}
+      </Typography >
+
+
+
+        <Button  type = "submit" variant='outlined' style={{marginTop:30,marginLeft:500}}>
          Delete the Booking
        </Button>
          </form>
        </CardContent>
        </Card>
-     </Grid>
-   </Grid>
+
     </Container>
      <footer style={{ padding: '50px' ,  }}>
  

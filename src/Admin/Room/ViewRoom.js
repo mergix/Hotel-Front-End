@@ -8,14 +8,16 @@ import axios from 'axios';
 
 export default function ViewRoom() {
 
+  const [room,setRoom] = useState([])
     const navigate = useNavigate()
     const{context,setContext,resetContext} = useStateContext()
-    const [room,setRoom] = useState([])
+  
 
     useEffect(() => {
       axios.get(`https://localhost:7099/api/Room/${context.roomId}`)
       .then(res =>{
           setRoom(res.data) 
+          console.log(res.data)
           }).catch(err => console.log(err))
   },[])
 
@@ -54,17 +56,24 @@ export default function ViewRoom() {
         return "no value"
     }
   }
+
+  function image(x){
+    if(x === undefined){
+     return require(`../../img/EvangelionFinally.jpg`)
+    }
+    else{ return require(`../../img/Rooms/${x}`)}
+  }
   return (
     <>
-    <Container  style={{marginTop: '100px'}}>
+    <Container  style={{marginTop: '150px'}}>
     <Card sx={{
       minHeight: 600,minWidth: 650, mx: 'auto', mt: 10,
   }}>
      <CardMedia
         component="img"
-        alt="green iguana"
-        height="140"
-        image="https://picsum.photos/id/237/200/300"
+        alt={room.roomPicture}
+        height="194"
+        image={image(room.roomPicture)}
       />
     <CardContent style={{marginLeft: 300,marginTop:70,alignItems:'center'}}>
       <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>

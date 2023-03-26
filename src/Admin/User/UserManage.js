@@ -26,20 +26,22 @@ export default function UserManage() {
 
   return (
     <>
- <Container  style={{marginTop: '100px'}}>
- <Stack container spacing={3} >
+ <Container  style={{marginTop: '150px'}}>
+
+
+
  {user.map(p => (
    <Card sx={{
       maxWidth: 650, mx: 'auto', mt: 10,
   }} key = {p.userId}>
       <CardHeader
-          title = {p.firstName + "   "+ p.lastName}
+          title = {"Customer Name: "+p.firstName + "   "+ p.lastName}
       />
       <CardContent>
           <Typography variant='h6'>
-              {p.userEmail}
+              Email: {p.userEmail}
           </Typography>
-          <div> {p.lastModified}</div>
+          <div> Last Modifed At:{p.lastModified}</div>
       </CardContent>
       <CardActions>
         <Button  onClick={() => {setContext({userId: p.userId});
@@ -48,7 +50,6 @@ export default function UserManage() {
       </CardActions>
   </Card>
   ))}
-  </Stack>
   </Container>
     </>
   )

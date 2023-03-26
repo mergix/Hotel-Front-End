@@ -1,9 +1,12 @@
-import { Typography , CssBaseline,Card,CardActions,CardContent,Container, Grid, Button, CardMedia} from '@mui/material'
+import { Typography , CssBaseline,Card,CardActions,CardContent,Container, Grid, Button, CardMedia,Box} from '@mui/material'
 import { height, width } from '@mui/system'
 import React,{ useEffect, useState } from 'react'
 import { createAPIEndpoint, ENDPOINTS } from '../api';
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
+import { FaHotel } from 'react-icons/fa';
+import { grey} from '@mui/material/colors';
+
 export default function UserHome() {
 
   const{context,setContext,resetContext} = useStateContext()
@@ -32,8 +35,6 @@ export default function UserHome() {
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc mattis enim ut tellus. Ultrices dui sapien eget mi proin. Sed elementum tempus egestas sed sed risus pretium. Mattis pellentesque id nibh
 </Typography>
  </Container>
-
-
 </section>
 
 <footer style={{ padding: '50px' ,  }}>

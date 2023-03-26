@@ -13,11 +13,12 @@ export default function useForm(getFreshModelObject) {
         })
     }
 
+
   return {
     values,
     setValues,
     errors,
     setErrors,
-    handleInputChange
+    handleInputChange,
   }
 }

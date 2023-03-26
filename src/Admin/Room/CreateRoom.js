@@ -10,7 +10,6 @@ import useForm from '../../useForm';
 const getFreshModel = () =>({
   roomName: '',
   cost: 0,
-  roomPicture: '',
   categoryType:0
 })
 export default function CreateRoom() {
@@ -23,18 +22,20 @@ export default function CreateRoom() {
       setValues,
       errors,
       setErrors,
-      handleInputChange
+      handleInputChange,
   } = useForm(getFreshModel);
 
     function handleImage(e){
-        console.log(e.target.files)
-        setImage(e.target.files[0])
+        console.log(e.target.files[0])
+        setImage(e.target.files[0].name)
     }
 
     const create = e =>{
       e.preventDefault();
       console.log(values)
-     axios.post('https://localhost:7099/api/Room',values).then(res => {
+      console.log(image)
+     axios.post('https://localhost:7099/api/Room',{roomName:values.roomName,cost: values.cost,
+     categoryType:values.categoryType,roomPicture:image}).then(res => {
       console.log(res.data)
       navigate('/roomManage')
      }).catch(err => console.log(err))
@@ -86,7 +87,7 @@ export default function CreateRoom() {
           <MenuItem value={3}>Deluxe Room</MenuItem>
           <MenuItem value={4}>Presidential Suite</MenuItem>
         </Select>
-        <input style={{marginLeft: 130}} type='file' name= 'roomPicture' onChange={handleInputChange} value={values.roomPicture}/>
+        <input style={{marginLeft: 130}} type='file' name= 'roomPicture' onChange={handleImage} />
       <Typography sx={{ fontSize: 34 }} >
         ------------
       </Typography>

@@ -5,6 +5,7 @@ import useStateContext from '../../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
 
+
 export default function RoomManage() {
 
 
@@ -157,8 +158,8 @@ function singleFilter(){
       <CardMedia
         component="img"
         height="194"
-        image="https://picsum.photos/id/237/200/300"
-        alt="Paella dish"
+        image={require(`../../img/Rooms/${p.roomPicture}`)}
+        alt={p.roomPicture.slice(0,-4)}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
@@ -170,7 +171,7 @@ function singleFilter(){
       </CardContent>
       <CardActions disableSpacing>
       <Button  onClick={() => {setContext({roomId: p.roomId});
-          navigate('/userViewRoom');
+          navigate('/roomView');
           }}>View</Button>
       </CardActions>
       </Card>

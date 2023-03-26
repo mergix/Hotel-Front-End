@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Typography,Grid,Stack,CardActions,Button, Container,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions } from '@mui/material';
+import { Card, CardContent, CardHeader,CardMedia, Typography,Grid,Stack,CardActions,Button, Container,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import useStateContext from '../../useStateContext';
 import { useNavigate } from 'react-router'
@@ -84,15 +84,18 @@ export default function BookingManage() {
   return (
     <>
     <Container  style={{marginTop: '160px'}}>
-
+    <Grid container spacing={3} style={{marginTop: '40px',marginBottom:"50px"}}>
+    <Grid item >
     <Button variant="contained" sx ={{mx:'auto',marginLeft:'auto'}} onClick={() => {
           navigate('/bookCreate');
           }}>Create a  New Booking +</Button>
-
-<div>
+          </Grid>
+    <Grid item >
+   <div>
       <Button variant="outlined" onClick={handleClickOpen}>
         Filter the list
       </Button>
+      
       <Dialog
         open={open}
         onClose={handleClose}
@@ -119,23 +122,33 @@ export default function BookingManage() {
         </DialogActions>
       </Dialog>
     </div>
-    <Stack  spacing={3} >
+    </Grid>
+    </Grid>
     {test.map(p => (
       <Card sx={{
-         minWidth: 150, mx: 'auto', mt: 10,
+         minHeight:300,width: 1000, mx: 'auto', mb: 8,
          '& .MuiCardHeader-action': { m: 0, alignSelf: 'center',paddingTop:100 }
      }}>
+
+
          <CardHeader
-             title = {p.user.firstName +'  '+ p.user.lastName}
+             title = { p.user.firstName +'  '+ p.user.lastName+' ' + 'Booked a: ' + category(p.room.categoryType)}
          />
+
+<CardMedia
+        component="img"
+        height="194"
+        image={require(`../../img/Rooms/${p.room.roomPicture}`)}
+        alt={p.room.roomPicture.slice(0,-4)}
+      />
          <CardContent>
              <Typography variant='h6'>
-             {p.room.roomName}
+             Description: {p.room.roomName}
              </Typography>
-             {/* <img src={book.roomPicture}/> */}
-          <div> {p.dateIn}</div>
-          <div> {p.dateOut}</div>
-          <div> {p.room.status}</div>
+          <div> Check-In: {p.dateIn}</div>
+          <div> Check-Out: {p.dateOut}</div>
+          <div> Status: {status(p.room.status)}</div>
+          <div> Booking made at: {p.lastModified}</div>
          </CardContent>
          <CardActions>
           <Button  onClick={() => {
@@ -146,7 +159,6 @@ export default function BookingManage() {
          </CardActions>
      </Card>
      ))}
-      </Stack>
      </Container>
        </>
   )

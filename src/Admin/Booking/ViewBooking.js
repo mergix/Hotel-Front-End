@@ -45,6 +45,13 @@ export default function ViewBooking() {
           return "no value"
       }
     }
+    function image(x) {
+      if (x === undefined) {
+        return require(`../../img/EvangelionFinally.jpg`)
+      } else {
+        return require(`../../img/Rooms/${x}`)
+      }
+    }
   
   return (
     <>
@@ -53,44 +60,36 @@ export default function ViewBooking() {
       minHeight: 600,minWidth: 600, mx: 'auto', mt: 10, 
   }}>
 
-    <CardContent style={{marginLeft: 180,marginTop:70,alignItems:'center'}}>
+    <CardContent style={{marginLeft: 80,marginTop:70,alignItems:'center'}}>
       <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
-        headers
+        Booking
       </Typography>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="https://picsum.photos/id/237/200/300"
-      />
-      <Grid container spacing={3} sx >
+      <CardMedia image={image(book.roomPicture)} style={{height: '190px',padding:"50px"}}/>
+      <Grid container spacing={3} sx={{paddingTop:5}} >
       <Grid item xs container direction="column" spacing={2}>
-      <Typography sx={{ fontSize: 34 }} component="div">
+      <Typography sx={{ fontSize: 20 }} component="div">
        Room Name:{book.roomName}
       </Typography>
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Status:{status(book.status)}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:{book.cost}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Type:{category(book.categoryType)}
       </Typography >
       </Grid>
       <Grid item xs container direction="column" spacing={2}>
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Customer Name:{book.firstName}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Email: {book.userEmail}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
-        placeholder 
-      </Typography >
       </Grid>
       </Grid>
-      <Typography sx={{ fontSize: 34 }} >
+      <Typography sx={{ fontSize: 20 }} >
         ------------------------------------------------------
         <br />
         Last Modified:{book.lastModified}

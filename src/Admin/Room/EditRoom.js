@@ -9,7 +9,6 @@ import useForm from '../../useForm';
 const getFreshModel = () =>({
   roomName: '',
   cost: 0,
-  roomPicture: '',
   categoryType:0
 })
 export default function EditRoom() {
@@ -28,10 +27,10 @@ export default function EditRoom() {
     handleInputChange
 } = useForm(getFreshModel);
 
-  function handleImage(e){
-      console.log(e.target.files)
-      setImage(e.target.files[0])
-  }
+function handleImage(e){
+  console.log(e.target.files[0])
+  setImage(e.target.files[0].name)
+}
 
   function category(p){
     switch (p) {
@@ -71,7 +70,8 @@ export default function EditRoom() {
   const edit = e =>{
     e.preventDefault();
     console.log(values)
-   axios.put(`https://localhost:7099/api/Room/${context.roomId}`,values).then(res => {
+   axios.put(`https://localhost:7099/api/Room/${context.roomId}`,{roomId:context.roomId,roomName:values.roomName,cost: values.cost,
+   categoryType:values.categoryType,roomPicture:image}).then(res => {
     console.log(res.data)
     navigate('/roomManage')
    }).catch(err => console.log(err))
@@ -122,13 +122,13 @@ export default function EditRoom() {
           <MenuItem value={3}>Deluxe Room</MenuItem>
           <MenuItem value={4}>Presidential Suite</MenuItem>
         </Select>
-        <input style={{marginLeft: 130}} type='file' name= 'roomPicture' onChange={handleInputChange} value={values.roomPicture}/>
+        <input style={{marginLeft: 130}} type='file' name= 'roomPicture' onChange={handleImage} />
       <Typography sx={{ fontSize: 34 }} >
         ------------
       </Typography>
     </CardContent>
     <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 34 }} type = "submit">Create</Button>
+      <Button sx={{ fontSize: 34 }} type = "submit">Edit</Button>
       
     </CardActions>
       </form>

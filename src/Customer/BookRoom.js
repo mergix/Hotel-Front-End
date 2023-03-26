@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../useStateContext';
 import axios from 'axios';
-
+import IconButton from '@mui/material/IconButton';
 
 export default function BookRoom() {
 
@@ -89,11 +89,11 @@ useEffect(() => {
   return (
     <>
  
-   <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:300}}>
+   <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '130vh',marginBottom: '100px' ,marginTop:300}}>
       <Grid container spacing={20} justify = "center">
     <Grid item>
       <Card sx={{
-      minHeight: 850,minWidth: 800, mx: 'auto', mt: 0,marginLeft:15
+      minHeight: 800,minWidth: 800, mx: 'auto', mt: 0,marginLeft:15
   }}>
       <CardMedia image="https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg" style={{height: '100px', width:'100%'}}/>
       <CardContent >
@@ -118,32 +118,42 @@ useEffect(() => {
               Let Google help apps determine location. This means sending anonymous
               location data to Google, even when no apps are running.
   
-              {room.map(p => (
-        <Card sx={{
-           minWidth: 250, mx: 'auto', mt: 10,
-           '& .MuiCardHeader-action': { m: 0, alignSelf: 'center',paddingTop:100 }
-       }} key={p.userId}>
-           <CardHeader
-               title = {p.roomName}
-               key={p.userId}
-           />
-           <CardContent>
-               <Typography variant='h6' key={p.userId}>
-               {category(p.categoryType)}
-               </Typography>
-               {/* <img src={book.roomPicture}/> */}
-               <div key={p.userId}> {p.cost}</div>
-               <div key={p.userId}> {status(p.status)}</div>
-               <div key={p.userId}> {p.lastModified}</div>
-           </CardContent>
-           <CardActions>
-             <Button  onClick={() => {
+              <Grid container spacing={3} >
+            {room.map(p => (
+              <Grid item >
+      <Card sx={{ minWidth: 500 }}>
+      <CardHeader
+        action={
+          <IconButton aria-label="settings">
+            Price: £{p.cost}
+          </IconButton>
+        }
+        title= {category(p.categoryType)}
+      />
+      <CardMedia
+        component="img"
+        height="194"
+        image={require(`../img/Rooms/${p.roomPicture}`)}
+        alt={p.roomPicture.slice(0,-4)}
+      />
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+         Description:{p.roomName}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+         Status :{status(p.status)}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+      <Button  onClick={() => {
               setContext({roomId: p.roomId});
              handleClose();
-            }}>Pick</Button>
-           </CardActions>
-       </Card>
-       ))}
+            }}>View</Button>
+      </CardActions>
+      </Card>
+      </Grid>
+     ))}
+     </Grid>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
