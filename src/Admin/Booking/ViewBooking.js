@@ -55,52 +55,57 @@ export default function ViewBooking() {
   
   return (
     <>
-    <Container  style={{marginTop: '100px'}}>
+    <Container  style={{marginTop: '150px'}}>
     <Card sx={{
-      minHeight: 600,minWidth: 600, mx: 'auto', mt: 10, 
+      height: '650px',
+      width: '900px',
+      mx: 'auto',
+      mt: 5, 
   }}>
 
-    <CardContent style={{marginLeft: 80,marginTop:70,alignItems:'center'}}>
-      <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
+    <CardContent style={{marginLeft: '30px',marginTop:'30px',alignItems:'center'}}>
+      <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
         Booking
       </Typography>
-      <CardMedia image={image(book.roomPicture)} style={{height: '190px',padding:"50px"}}/>
-      <Grid container spacing={3} sx={{paddingTop:5}} >
+      <CardMedia image={image(book.roomPicture)} style={{height: '190px',padding:'10px'}}/>
+      <Grid container spacing={3} sx={{mt:'20px',ml:'5px'}} style={{
+        borderBottom: '5px solid #ddd',
+        }}>
       <Grid item xs container direction="column" spacing={2}>
-      <Typography sx={{ fontSize: 20 }} component="div">
-       Room Name:{book.roomName}
+      <Typography sx={{ fontSize: 18 }} component="div">
+       Room Description:{book.roomName}
       </Typography>
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 18 }}>
         Status:{status(book.status)}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 18 }}>
         Cost:{book.cost}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 18 }}>
         Type:{category(book.categoryType)}
       </Typography >
       </Grid>
-      <Grid item xs container direction="column" spacing={2}>
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      <Grid item xs container direction="column" spacing={2} style={{
+        borderLeft: '5px solid #ddd',
+        }}>
+      <Typography sx={{ mb: 1.5,fontSize: 18 }}>
         Customer Name:{book.firstName}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      <Typography sx={{ mb: 1.5,fontSize: 18 }}>
         Email: {book.userEmail}
       </Typography >
       </Grid>
       </Grid>
-      <Typography sx={{ fontSize: 20 }} >
-        ------------------------------------------------------
-        <br />
+      <Typography sx={{ fontSize: 18,ml:'5px' }} >
         Last Modified:{book.lastModified}
       </Typography>
     </CardContent>
-    <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 34 }} onClick={() => {
+    <CardActions  style={{marginLeft: 700,marginTop:'20px',alignItems:'center'}}>
+      <Button sx={{ fontSize: 20 }} onClick={() => {
         setContext({bookId: book.bookingId});
        navigate('/bookEdit');
        }}>Edit</Button>
-      <Button sx={{ fontSize: 34 }} onClick={() => {
+      <Button sx={{ fontSize: 20 }} onClick={() => {
         setContext({bookId: book.bookingId});
        navigate('/bookDelete');
        }}>Delete</Button>

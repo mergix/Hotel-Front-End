@@ -27,6 +27,10 @@ import DeleteBooking from './Admin/Booking/DeleteBooking';
 import LoginAdmin from './Admin/User/LoginAdmin';
 import UserViewBooking from './Customer/UserViewBooking';
 import UserViewRoom from './Customer/UserViewRoom';
+import Rebook from './Customer/Rebook';
+import CustomerDeleteBooking from './Customer/CustomerDeleteBooking';
+import CustomerEditBooking from './Customer/CustomerEditBooking';
+import './index.css';
 
 function App() {
 
@@ -36,14 +40,18 @@ function App() {
     <BrowserRouter>
     <Routes>
     <Route path='/' element = {<Navbar/>}>
+    
       <Route path='/' element = {<UserHome/>}/>
       <Route path='/login' element = {<Login/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/room' element = {<Room/>}/>
       <Route path='/book' element = {<BookRoom/>}/>
       <Route path='/booklist' element = {<BookingsList/>}/>
-      <Route path='/userViewBook' element = {<UserViewBooking/>}/>
       <Route path='/userViewRoom' element = {<UserViewRoom/>}/>
+      <Route path='/userViewBook' element = {<UserViewBooking/>}/>
+      <Route path='/editBooking' element = {<CustomerEditBooking/>}/>
+      <Route path='/deleteBooking' element = {<CustomerDeleteBooking/>}/>
+      <Route path='/rebook' element = {<Rebook/>}/>
 
     </Route>
     <Route path='/' element = {<NavbarAdmin/>}>

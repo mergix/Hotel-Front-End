@@ -58,7 +58,7 @@ export default function ViewRoom() {
   }
 
   function image(x){
-    if(x === undefined){
+    if(x === undefined || x === ''){
      return require(`../../img/EvangelionFinally.jpg`)
     }
     else{ return require(`../../img/Rooms/${x}`)}
@@ -67,7 +67,10 @@ export default function ViewRoom() {
     <>
     <Container  style={{marginTop: '150px'}}>
     <Card sx={{
-      minHeight: 600,minWidth: 650, mx: 'auto', mt: 10,
+      height: '650px',
+      width: '700px',
+       mx: 'auto',
+        mt: 10,
   }}>
      <CardMedia
         component="img"
@@ -75,34 +78,39 @@ export default function ViewRoom() {
         height="194"
         image={image(room.roomPicture)}
       />
-    <CardContent style={{marginLeft: 300,marginTop:70,alignItems:'center'}}>
-      <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
+    <CardContent style={{
+      marginLeft: '50px',
+      marginTop:'50px',
+      alignItems:'center',
+      padding: '10px',
+      }}>
+      <Typography sx={{ fontSize: '25px' }} color="text.secondary" gutterBottom>
         Room Details
       </Typography>
-      <Typography sx={{ fontSize: '19pt' }} component="div">
+      <Typography sx={{ fontSize: '20px' }} component="div">
        Room Name: {room.roomName}
       </Typography>
-      <Typography sx={{ fontSize: '19pt' }} component="div">
+      <Typography sx={{ fontSize: '20px' }} component="div">
        Room Type: {category(room.categoryType)}
       </Typography>
-      <Typography sx={{ mb: 1.5,fontSize: '19pt' }}>
+      <Typography sx={{ mb: 1.5,fontSize: '20px' }}>
         Status:{status(room.status)}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: '19pt' }}>
+      <Typography sx={{ mb: 1.5,fontSize: '20px' }}>
         Cost:£{room.cost}
       </Typography >
-      <Typography sx={{ fontSize: '19pt' }} >
+      <Typography sx={{ fontSize: '20px' }} >
         ------------
         <br />
         Last Modified: {room.lastModified}
       </Typography>
     </CardContent>
-    <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: '19pt' }} onClick={() => {
+    <CardActions  style={{marginLeft: '500px',marginTop:70,alignItems:'center'}}>
+      <Button sx={{ fontSize: '20px' }} onClick={() => {
       setContext({roomId: room.roomId});
        navigate('/roomEdit');
        }}>Edit</Button>
-      <Button sx={{ fontSize: '19pt' }} onClick={() => {
+      <Button sx={{ fontSize: '20px' }} onClick={() => {
       setContext({roomId: room.roomId});
        navigate('/roomDelete');
        }}>Delete</Button>

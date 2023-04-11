@@ -5,10 +5,23 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 import { ContextProvider } from './useStateContext';
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    primary:{
+      main: '#0052cc'
+    },
+    secondary:{
+      main:'#edf2ff'
+    },
+    background:{
+      default:'#562424'
+    },
+    text:{
+      primary:'#0052cc'
+    },
+    
   },
 });
 

@@ -124,42 +124,79 @@ export default function BookingManage() {
     </div>
     </Grid>
     </Grid>
+
+    <table id="basic-data-table" class="table nowrap">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>E-mail</th>
+      <th>Type Of Room</th>
+      <th>Cost</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Time Booked</th>
+    </tr>
+  </thead>
+  <tbody>
     {test.map(p => (
-      <Card sx={{
-         minHeight:300,width: 1000, mx: 'auto', mb: 8,
-         '& .MuiCardHeader-action': { m: 0, alignSelf: 'center',paddingTop:100 }
-     }}>
-
-
-         <CardHeader
-             title = { p.user.firstName +'  '+ p.user.lastName+' ' + 'Booked a: ' + category(p.room.categoryType)}
-         />
-
-<CardMedia
-        component="img"
-        height="194"
-        image={require(`../../img/Rooms/${p.room.roomPicture}`)}
-        alt={p.room.roomPicture.slice(0,-4)}
-      />
-         <CardContent>
-             <Typography variant='h6'>
-             Description: {p.room.roomName}
-             </Typography>
-          <div> Check-In: {p.dateIn}</div>
-          <div> Check-Out: {p.dateOut}</div>
-          <div> Status: {status(p.room.status)}</div>
-          <div> Booking made at: {p.lastModified}</div>
-         </CardContent>
-         <CardActions>
-          <Button  onClick={() => {
-          setContext({bookId: p.bookingId});
-          console.log(context.bookId);
-          navigate('/bookView');
-          }}>View</Button>
-         </CardActions>
-     </Card>
+    <tr>
+    <td> {p.user.firstName}</td>
+    <td>{p.user.firstName}</td>
+    <td>{p.user.firstName}</td>
+    <td>{p.user.firstName}</td>
+    <td>{p.user.firstName}</td>
+    <td>{p.user.firstName}</td>
+    <td>{p.user.firstName}</td>
+    <td>{p.user.firstName}</td>
+    <td>  <Button  onClick={() => {
+            setContext({bookId: p.bookingId});
+      console.log(context.bookId);
+       navigate('/bookView');
+   }}>View</Button>
+   </td> 
+  </tr>
      ))}
+    </tbody>
+  </table>
+
      </Container>
        </>
   )
 }
+
+// {test.map(p => (
+//   <Card sx={{
+//      minHeight:300,width: 1000, mx: 'auto', mb: 8,
+//      '& .MuiCardHeader-action': { m: 0, alignSelf: 'center',paddingTop:100 }
+//  }}>
+
+
+//      <CardHeader
+//          title = { p.user.firstName +'  '+ p.user.lastName+' ' + 'Booked a: ' + category(p.room.categoryType)}
+//      />
+
+// <CardMedia
+//     component="img"
+//     height="194"
+//     image={require(`../../img/Rooms/${p.room.roomPicture}`)}
+//     alt={p.room.roomPicture.slice(0,-4)}
+//   />
+//      <CardContent>
+//          <Typography variant='h6'>
+//          Description: {p.room.roomName}
+//          </Typography>
+//       <div> Check-In: {p.dateIn}</div>
+//       <div> Check-Out: {p.dateOut}</div>
+//       <div> Status: {status(p.room.status)}</div>
+//       <div> Booking made at: {p.lastModified}</div>
+//      </CardContent>
+//      <CardActions>
+//       <Button  onClick={() => {
+//       setContext({bookId: p.bookingId});
+//       console.log(context.bookId);
+//       navigate('/bookView');
+//       }}>View</Button>
+//      </CardActions>
+//  </Card>
+//  ))}

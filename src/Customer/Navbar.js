@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar, Typography,Box } from '@mui/material'
+import { AppBar, Button, Toolbar, Typography,Box, Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
@@ -8,7 +8,7 @@ import { grey} from '@mui/material/colors';
 
 export default function Navbar() {
 
-    const{resetContext} = useStateContext()
+    const{context,resetContext} = useStateContext()
     const navigate = useNavigate()
 
     const logout = () =>{
@@ -30,9 +30,25 @@ const home = () =>{
 const register = () =>{
   navigate("/register")
 }
+
+function LoginButtons(){
+  if (context.currentUserId == 0) {
+    return <Grid container spacing={1}>
+    <Grid item  sx={{mr:0}}>
+    <Button onClick={login}>Login</Button>
+    </Grid>
+    <Grid item  sx={{mr:0}}>
+    <Button onClick={register}>SignUp</Button>
+    </Grid>
+    </Grid>
+  } else {
+    return <Button onClick={logout}>Logout</Button>
+    
+  }
+}
   return (
     <>
-    <AppBar  sx={{position : 'fixed' ,height: '80px'}}>
+    <AppBar  sx={{position : 'fixed' ,height: '80px' ,backgroundColor:'#2d386d'}}>
         <Toolbar sx={{width: 650, margin:'auto'}}>
         <Box sx={ { display: 'flex',
   justifyContent: 'center',
@@ -52,12 +68,10 @@ const register = () =>{
     </Box>
         <Box sx={{ flexGrow: 1, display: {flexDirection: 'row', md: 'flex' } }} >
         <Button  onClick={home} style={{marginRight: '20px'}}>Discover More</Button>
-        <Button  onClick={toRoom} style={{marginRight: '20px'}}>View Rooms</Button>
+        <Button  onClick={toRoom} style={{marginRight: '20px'}}>Rooms</Button>
         <Button  onClick={toBookingList}style={{marginRight: '20px'}}>View Your Bookings</Button>
         </Box>
-        <Button onClick={login}>Login</Button>
-        <Button onClick={logout}>Logout</Button>
-        <Button onClick={register}>SignUp</Button>
+        {LoginButtons()}
         </Toolbar>
     </AppBar>
     <Container>

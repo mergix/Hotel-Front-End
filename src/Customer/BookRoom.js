@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import useForm from '../useForm'
-import { Typography ,Card,CardActions,CardContent,Container, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader} from '@mui/material'
+import { Typography ,Card,CardActions,CardContent,Container, Grid,Box,Stack ,Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader} from '@mui/material'
 import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../useStateContext';
@@ -13,6 +13,7 @@ export default function BookRoom() {
   const [room,setRoom] = useState([])
   const [open, setOpen] = React.useState(false);
 const [oneRoom,setOneRoom] = useState([])
+const [cUser, setcUser] = useState([])
 
 const[dateIn,setDateIn] = useState(new Date())
 const[dateOut,setDateOut] = useState(new Date())
@@ -24,16 +25,25 @@ const navigate = useNavigate()
 
 
 useEffect(() => {
-  axios.get(`https://localhost:7099/api/Room/${context.roomId}`)
+  axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{headers: {
+    'Authorization': 'Bearer ' + context.jwt
+  }})
   .then(res =>{
-      setOneRoom(res.data) 
+      setOneRoom(res.data)
+      console.log(res.data)  
+      }).catch(err => console.log(err))
+},[])
+
+useEffect(() => {
+  axios.get(`https://localhost:7099/api/User/${context.currentUserId}`)
+  .then(res =>{
+      setcUser(res.data) 
       }).catch(err => console.log(err))
 },[])
 
   const book = e =>{
     e.preventDefault();
-      console.log(dateOut)
-      axios.post(`https://localhost:7099/api/Booking`,{userId:context.userId,roomId:context.roomId,dateIn:dateIn,dateOut:dateOut}).then(res => {
+      axios.post(`https://localhost:7099/api/Booking`,{dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:context.roomId}).then(res => {
       console.log(res)
       navigate('/booklist')
        }).catch(err => console.log(err))
@@ -85,6 +95,16 @@ useEffect(() => {
     }
   }
 
+  function image(x) {
+    if (x === undefined) {
+      return require(`../img/EvangelionFinally.jpg`)
+    } else {
+      return require(`../img/Rooms/${x}`)
+    }
+  }
+
+
+
 
   return (
     <>
@@ -92,33 +112,48 @@ useEffect(() => {
    <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '130vh',marginBottom: '100px' ,marginTop:300}}>
       <Grid container spacing={20} justify = "center">
     <Grid item>
+      <form noValidate autoComplete='on' onSubmit={book}>
       <Card sx={{
-      minHeight: 800,minWidth: 800, mx: 'auto', mt: 0,marginLeft:15
+      minHeight: 800,minWidth: 800, mx: 'auto', mt: 0,marginLeft:10
   }}>
-      <CardMedia image="https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg" style={{height: '100px', width:'100%'}}/>
-      <CardContent >
+    <CardMedia image={image(oneRoom.roomPicture)} style={{height: '190px'}}/> 
+         <CardContent >
           <Typography>
          Please confirm your details  
           </Typography>
-          <form noValidate autoComplete='on' onSubmit={book}>
-          <Button variant="outlined" onClick={handleClickOpen}>
-          Select Room
-        </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Pick a Room"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Let Google help apps determine location. This means sending anonymous
-              location data to Google, even when no apps are running.
-  
-              <Grid container spacing={3} >
+        <Box sx={{ml:1,padding:4}}>
+      <Grid container spacing={2} >
+      <Grid item >
+      <Stack spacing={1} direction="column" sx={{minWidth:400}}>
+      <Typography sx={{ fontSize: 18 }} style={{marginBottom:2}}>
+       Room Name:{oneRoom.roomName}
+      </Typography>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Status:{status(oneRoom.status)}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Cost:{oneRoom.cost}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Type:{category(oneRoom.categoryType)}
+      </Typography >
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Select Room
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Pick a Room"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+             Please pick a room you wish to book 
+
+             <Grid container spacing={3} >
             {room.map(p => (
               <Grid item >
       <Card sx={{ minWidth: 500 }}>
@@ -148,45 +183,73 @@ useEffect(() => {
       <Button  onClick={() => {
               setContext({roomId: p.roomId});
              handleClose();
-            }}>View</Button>
+             console.log(oneRoom.roomPicture);
+            }}>Choose</Button>
       </CardActions>
       </Card>
       </Grid>
      ))}
      </Grid>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={handleClose} autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
- <DesktopDatePicker
-    label="Start Date"
-    id='dateIn'
-    renderInput={(params) => {
-      return <TextField {...params} />;
-    }}
-    onChange={setDateIn}
-    value={dateIn}
-  />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </Stack>
+      </Grid>
 
+      <Grid item>
+      <Stack spacing={2} direction="column">
+      <Stack item>
+      <Typography sx={{ fontSize: 20 }} style={{marginBottom:30}} component="div">
+       Name: {cUser.firstName + "  "+ cUser.lastName}
+      </Typography>
+      </Stack>
+      <Stack item>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Email:{cUser.userEmail}
+      </Typography >
+      </Stack>
+      </Stack>
+      </Grid>
+      </Grid>
+      </Box>
+        <Box sx={{ml:15,padding:2,mt: 5 }}>
+      <Grid container spacing={5}>
+      <Grid item  sx={{mr:15}}>
   <DesktopDatePicker
-    label="End Date"
-    id='dateOut'
-    renderInput={(params) => <TextField {...params} />}
-    onChange={setDateOut}
-    value={dateOut}
-  />
-       <Button  type = "submit">
-        Confirm the Booking
-      </Button>
-        </form>
+     label="Start Date"
+     id='dateIn'
+     renderInput={(params) => {
+       return <TextField {...params} />;
+     }}
+     value={dateIn}
+     onChange={setDateIn}
+   />
+</Grid>
+<Grid item >
+   <DesktopDatePicker
+     label="End Date"
+     value={dateOut}
+     id='dateOut'
+     renderInput={(params) => <TextField {...params} />}
+     onChange={setDateOut}
+     sx = {{ml: 20}}
+   />
+   </Grid>
+   </Grid>
+   </Box>
+   <Button  type = "submit" variant='outlined' style={{marginTop:90,marginLeft:800}}>
+         Confirm the Booking
+       </Button>
 
       </CardContent>
       </Card>
+        </form>
     </Grid>
   </Grid>
    </Container>

@@ -80,12 +80,19 @@ function handleImage(e){
 
   return (
     <>
-    <Container  style={{marginTop: '100px'}}>
+    <Container  style={{marginTop: '200px'}}>
     <Card sx={{
-      minHeight: 600,minWidth: 650, mx: 'auto', mt: 10,
+      height: '600px',
+      width: '800px',
+       mx: 'auto', 
+       mt: 10,
   }}>
  <form noValidate autoComplete='on' onSubmit={edit}>
-    <CardContent style={{marginLeft: 300,marginTop:70,alignItems:'center'}}>
+    <CardContent style={{marginLeft: '50px',
+    marginTop:'50px',
+    padding: '10px',
+    alignItems:'center'
+    }}>
       <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
         These are the details of the room you want to edit
       </Typography>
@@ -95,6 +102,8 @@ function handleImage(e){
           required
           name = "roomName"
           label="RoomName"
+          multiline
+          rows={4}
           value={values.roomName}
           onChange = {handleInputChange}
         />
@@ -122,13 +131,13 @@ function handleImage(e){
           <MenuItem value={3}>Deluxe Room</MenuItem>
           <MenuItem value={4}>Presidential Suite</MenuItem>
         </Select>
-        <input style={{marginLeft: 130}} type='file' name= 'roomPicture' onChange={handleImage} />
+        <input style={{marginLeft: '100px'}} type='file' name= 'roomPicture' onChange={handleImage} />
       <Typography sx={{ fontSize: 34 }} >
         ------------
       </Typography>
     </CardContent>
-    <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 34 }} type = "submit">Edit</Button>
+    <CardActions  style={{marginLeft: '650px',alignItems:'center'}}>
+      <Button sx={{ fontSize: '25px' }} type = "submit">Edit</Button>
       
     </CardActions>
       </form>

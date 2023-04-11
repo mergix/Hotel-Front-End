@@ -2,7 +2,6 @@ import React,{ useEffect } from 'react'
 import { Card, CardContent, TextField, Typography } from '@mui/material'
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
-import Center from '../../Center'
 import useForm from '../../useForm'
 import { createAPIEndpoint, ENDPOINTS } from '../../api'
 import useStateContext from '../../useStateContext'
@@ -38,10 +37,10 @@ export default function LoginAdmin() {
   const login = e =>{
       e.preventDefault();
       if(validate())
-     axios.post('https://localhost:7099/Login',values).then(res => {
-      setContext({userId: res.data.userId})
+     axios.post('https://localhost:7099/LoginAdmin',values).then(res => {
+      setContext({currentUserId: res.data.userId})
       console.log(res.data)
-      navigate('/')
+      navigate('/adminhome')
      }).catch(err => console.log(err))
   }
 
@@ -53,7 +52,6 @@ export default function LoginAdmin() {
       return Object.values(temp).every(x => x == "")
   }
   return (
-    <Center>
     <Card sx = {{width: '400px'}}>
        <CardContent sx={{textAlign:'center'}}>
            <Typography variant='h3' sx={{marginY: 3}}> Login</Typography>
@@ -93,6 +91,5 @@ export default function LoginAdmin() {
 
        </CardContent>
    </Card>
-  </Center>
      )
 }

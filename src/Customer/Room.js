@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { createAPIEndpoint, ENDPOINTS } from '../api';
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
+import { margin } from '@mui/system';
 
 export default function Room() {
 
@@ -25,13 +26,8 @@ export default function Room() {
             }).catch(err => console.log(err))
     },[])
 
-    const book = e =>{
-      e.preventDefault();
-      // setContext({roomId: p.roomId})
-      // console.log(userId)
-      navigate('/')
 
-  }
+  
 
   function category(p){
     switch (p) {
@@ -65,10 +61,18 @@ export default function Room() {
 <Container style={{marginTop: '20vh'}}>
 
   <Typography> All the Rooms</Typography>
-<Grid container spacing={5}  direction="row" justify = "center">
+<Grid container spacing={5}  direction="row" justify = "center" style={{
+  backgroundColor : '#fff',
+  padding: '5px',
+  paddingBottom:'60px',
+  marginBottom: '100px'
+}}>
 {room.map(p => (
   <Grid item >
-<Card sx={{ minWidth: 345 }}>
+<Card style={{ 
+  width: '505px',
+  height:'405px'
+  }}>
 <CardHeader
   action={
     <IconButton aria-label="settings">
@@ -80,7 +84,7 @@ export default function Room() {
 <CardMedia
   component="img"
   height="194"
-  image="https://picsum.photos/id/237/200/300"
+  image={require(`../img/Rooms/${p.roomPicture}`)}
   alt="Paella dish"
 />
 <CardContent>

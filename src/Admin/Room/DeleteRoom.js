@@ -53,40 +53,49 @@ function status(p){
       return "no value"
   }
 }
+function image(x){
+  if(x === undefined || x === ''){
+   return require(`../../img/EvangelionFinally.jpg`)
+  }
+  else{ return require(`../../img/Rooms/${x}`)}
+}
   return (
     <>
     <Container  style={{marginTop: '150px'}}>
     <Card sx={{
-      minHeight: 600,minWidth: 650, mx: 'auto', mt: 10,
+      height: '600px',
+      width: '700px',
+       mx: 'auto',
+        mt: 10,
   }}>
      <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
-        image={`/Users/mergixf/RiderProjects/Hotel-Front-End/src/Img/Rooms/${room.roomPicture}`}
+        height="160"
+        image={image(room.roomPicture)}
       />
-    <CardContent style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
+    <CardContent style={{marginLeft: '50px',marginTop:'30px',alignItems:'center'}}>
+      <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
         This is the room you want to delete
       </Typography>
-      <Typography sx={{ fontSize: 34 }} component="div">
+      <Typography sx={{ fontSize: '20px' }} component="div">
        Room Name: {room.roomName}
       </Typography>
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: '20px' }}>
       Status: {status(room.status)}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 34 }}>
+      <Typography sx={{ mb: 1.5,fontSize: '20px' }}>
         Cost: £{room.cost}
       </Typography >
-      <Typography sx={{ fontSize: 34 }} >
+      <Typography sx={{ fontSize: '20px' }} >
         ------------
         <br />
         Last Modified: {room.lastModified}
       </Typography>
     </CardContent>
     <form noValidate autoComplete='on' onSubmit={del}>
-    <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 34 }} type='sumbit'>Delete</Button>
+    <CardActions  style={{marginLeft: '500px',marginTop:70,alignItems:'center'}}>
+      <Button sx={{ fontSize: '20px' }} type='sumbit'>Delete</Button>
     </CardActions>
     </form>
     </Card>

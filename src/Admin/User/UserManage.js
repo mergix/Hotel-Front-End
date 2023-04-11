@@ -28,28 +28,32 @@ export default function UserManage() {
     <>
  <Container  style={{marginTop: '150px'}}>
 
-
-
- {user.map(p => (
-   <Card sx={{
-      maxWidth: 650, mx: 'auto', mt: 10,
-  }} key = {p.userId}>
-      <CardHeader
-          title = {"Customer Name: "+p.firstName + "   "+ p.lastName}
-      />
-      <CardContent>
-          <Typography variant='h6'>
-              Email: {p.userEmail}
-          </Typography>
-          <div> Last Modifed At:{p.lastModified}</div>
-      </CardContent>
-      <CardActions>
-        <Button  onClick={() => {setContext({userId: p.userId});
+ <table id="basic-data-table" class="table nowrap">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>E-mail</th>
+      <th>Last Modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    {user.map(p => (
+    <tr>
+    <td> {p.firstName}</td>
+    <td>{p.firstName}</td>
+    <td>{p.firstName}</td>
+    <td>{p.firstName}</td>
+    <td>  <Button  onClick={() => {
+            setContext({userId: p.userId});
+      console.log(context.bookId);
        navigate('/userView');
-       }}>View</Button>
-      </CardActions>
-  </Card>
-  ))}
+   }}>View</Button>
+   </td> 
+  </tr>
+     ))}
+    </tbody>
+  </table>
   </Container>
     </>
   )

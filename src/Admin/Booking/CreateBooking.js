@@ -123,13 +123,13 @@ export default function CreateBooking() {
     e.preventDefault();
     console.log(values)
     createAPIEndpoint(ENDPOINTS.booking).post({
-      userId: context.userId,
+      userId: context.currentUserId,
       roomId: context.roomId,
       dateIn: dateIn,
       dateOut: dateOut
     }).then(res => {
       console.log(res)
-      navigate('/booklist')
+      navigate('/bookManage')
     }).catch(err => console.log(err))
   }
   return (

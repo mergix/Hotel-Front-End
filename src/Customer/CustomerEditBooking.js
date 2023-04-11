@@ -1,13 +1,14 @@
 import React, { useState,useEffect } from 'react'
-import useForm from '../../useForm'
-import { createAPIEndpoint, ENDPOINTS } from '../../api'
+import useForm from '../useForm'
 import { Typography ,Card,CardActions,CardContent,Container,Stack,Box, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader} from '@mui/material'
 import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import useStateContext from '../../useStateContext'
+import useStateContext from '../useStateContext'
 import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
-export default function EditBooking() {
+
+export default function CustomerEditBooking() {
+
 
 
   const{context,setContext,resetContext} = useStateContext()
@@ -48,39 +49,7 @@ useEffect(() => {
       }).catch(err => console.log(err))
 },[])
 
-function category(p){
-  switch (p) {
-    case 1:
-      return "Single Room"
-      case 2:
-        return "Double Room"
-      case 3:
-        return "Deluxe Room"
-      case 4:
-        return "Presidential Suite"
-    default:
-      return "no value"
-  }
-}
 
-function status(p){
-  switch (p) {
-    case 0:
-      return "Available"
-      case 1:
-        return "Booked"
-    default:
-      return "no value"
-  }
-}
-
-function image(x) {
-  if (x === undefined) {
-    return require(`../../img/EvangelionFinally.jpg`)
-  } else {
-    return require(`../../img/Rooms/${x}`)
-  }
-}
 
   const done = e =>{
     e.preventDefault();
@@ -112,27 +81,53 @@ function image(x) {
         }).catch(err => console.log(err))
   };
 
-
-
+  function category(p){
+    switch (p) {
+      case 1:
+        return "Single Room"
+        case 2:
+          return "Double Room"
+        case 3:
+          return "Deluxe Room"
+        case 4:
+          return "Presidential Suite"
+      default:
+        return "no value"
+    }
+  }
+  
+  function status(p){
+    switch (p) {
+      case 0:
+        return "Available"
+        case 1:
+          return "Booked"
+      default:
+        return "no value"
+    }
+  }
+  
+        function image(x) {
+          if (x === undefined) {
+            return require(`../img/EvangelionFinally.jpg`)
+          } else {
+            return require(`../img/Rooms/${x}`)
+          }
+        }
   return (
     <>
     <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
       
      
-       <Card style={{
-        height: '730px',
-         width:'890px',
-         marginLeft: 100,
-         marginTop:50,
-         alignItems:'center'}}>
+       <Card style={{height: '900px', width:'900px',marginLeft: 100,marginTop:50,alignItems:'center'}}>
        <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
        <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>
-       <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
-        Booking
-      </Typography>
+           <Typography sx={{ fontSize: 22 }} style={{marginLeft:130,marginBottom:30}}>
+          This is the booking you want to edit 
+           </Typography>
            <form noValidate autoComplete='on' onSubmit={done}>
  
-      <Grid container spacing={2} >
+      <Grid container spacing={1} >
       <Grid item >
       <Stack spacing={1} direction="column" sx={{maxWidth:400}}>
       <Typography sx={{ fontSize: 20 }} component="div">
@@ -150,6 +145,28 @@ function image(x) {
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:£{oneRoom.cost}
       </Typography >
+      </Stack>
+      </Grid>
+      <Grid item >
+      <Stack spacing={1} direction="column" sx={{minWidth:400}}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Customer Name:{book.firstName}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Email: {book.userEmail}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        datein: {book.dateIn}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        dateout: {book.dateOut}
+      </Typography >
+      </Stack>
+      </Grid>
+      </Grid>
+     
+
+      
       <Button variant="outlined" onClick={handleClickOpen}>
         Select Room
       </Button>
@@ -181,7 +198,7 @@ function image(x) {
       <CardMedia
         component="img"
         height="194"
-        image={require(`../../img/Rooms/${p.roomPicture}`)}
+        image={require(`../img/Rooms/${p.roomPicture}`)}
         alt={p.roomPicture.slice(0,-4)}
       />
       <CardContent>
@@ -212,31 +229,8 @@ function image(x) {
           </Button>
         </DialogActions>
       </Dialog>
-      </Stack>
-      </Grid>
-      <Grid item >
-      <Stack spacing={1} direction="column" sx={{minWidth:400}}>
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Customer Name:{book.firstName}
-      </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Email: {book.userEmail}
-      </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        datein: {book.dateIn}
-      </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        dateout: {book.dateOut}
-      </Typography >
-      </Stack>
-      </Grid>
-      </Grid>
-     
 
-      
-
-
-     <Box sx={{ml:15,padding:2,mt: 5 }}>
+        <Box sx={{ml:15,padding:2,mt: 5 }}></Box>
       <Grid container spacing={5}>
       <Grid item xs={'auto'}>
   <DesktopDatePicker
@@ -260,9 +254,8 @@ function image(x) {
    />
    </Grid>
    </Grid>
-   </Box>
 
-        <Button  type = "submit" variant='outlined' style={{marginTop:10,marginLeft:650}}>
+        <Button  type = "submit" variant='outlined' style={{marginTop:100,marginLeft:200}}>
          Confirm Changes
        </Button>
          </form>

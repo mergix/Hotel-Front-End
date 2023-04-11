@@ -19,58 +19,89 @@ export default function UserViewBooking() {
               setBook(res.data)   
               }).catch(err => console.log(err))
       },[])
+
+      function category(p){
+        switch (p) {
+          case 1:
+            return "Single Room"
+            case 2:
+              return "Double Room"
+            case 3:
+              return "Deluxe Room"
+            case 4:
+              return "Presidential Suite"
+          default:
+            return "no value"
+        }
+      }
+    
+      function status(p){
+        switch (p) {
+          case 0:
+            return "Available"
+            case 1:
+              return "Booked"
+          default:
+            return "no value"
+        }
+      }
+      function image(x) {
+        if (x === undefined) {
+          return require(`../img/EvangelionFinally.jpg`)
+        } else {
+          return require(`../img/Rooms/${x}`)
+        }
+      }
     
   return (
     <>
     <Container  style={{marginTop: '100px'}}>
     <Card sx={{
-      minHeight: 850,minWidth: 800, mx: 'auto', mt: 10,
+      minHeight: 850,minWidth: 800, mx: 'auto', mt: 5,
   }}>
 
-    <CardContent style={{marginLeft: 180,marginTop:70,alignItems:'center'}}>
+    <CardContent style={{marginLeft: 80,marginTop:70,alignItems:'center'}}>
       <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
         headers
       </Typography>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="https://picsum.photos/id/237/200/300"
-        style={{padding:30}}
-      />
-      <Grid container spacing={3} sx={{padding:20}} >
+      <CardMedia image={image(book.roomPicture)} style={{height: '190px',padding:"50px"}}/>
+      <Grid container spacing={3} sx={{padding:5}} >
       <Grid item xs container direction="column" spacing={2}>
-      <Typography sx={{ fontSize: 34 }} component="div">
-       Room Name : 
+      <Typography sx={{ mb: 1.5, fontSize: 20 }} component="div">
+       Room Name : {book.roomName}
       </Typography>
-      <Typography sx={{ mb: 1.5,fontSize: 28 }}>
-        Status : 
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Status : {status(book.status)}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 28 }}>
-        Cost: 
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Cost: {book.cost}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Type: {category(book.categoryType)}
       </Typography >
       </Grid>
       <Grid item xs container direction="column" spacing={2}>
-      <Typography sx={{ mb: 1.5,fontSize: 28 }}>
-        Name: 
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Name: {book.firstName + " "+ book.lastName}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 28 }}>
-        Email: 
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Email: {book.userEmail}
       </Typography >
       </Grid>
       </Grid>
-      <Typography sx={{ fontSize: 28 }} >
+      <Typography sx={{ fontSize: 20 }} >
         ------------------------------------------------------
         <br />
-        last lastModified
+        Last Modified:{book.lastModified}
       </Typography>
     </CardContent>
     <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 34 }} onClick={() => {
-       navigate('/');
+      <Button sx={{ fontSize: 24 }} onClick={() => {
+        setContext({bookId: book.bookingId});
+       navigate('/editBooking');
        }}>Edit</Button>
-      <Button sx={{ fontSize: 34 }} onClick={() => {
-       navigate('/');
+      <Button sx={{ fontSize: 24 }} onClick={() => {
+       navigate('/deleteBooking');
        }}>Delete</Button>
     </CardActions>
     </Card>

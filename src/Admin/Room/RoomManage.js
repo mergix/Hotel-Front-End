@@ -96,9 +96,18 @@ function singleFilter(){
 
   return (
     <>
-    <Container  style={{marginTop: '140px'}}>
+    <Container  style={{
+      marginTop: '140px',
+      backgroundColor : '#fff',
+      padding: '20px',
+      paddingBottom:'60px',
+      marginBottom: '100px'
+      }}>
 
-    <Grid container spacing={3} style={{marginTop: '40px',marginBottom:"50px"}}>
+    <Grid container spacing={5} style={{
+      marginTop: '40px',
+      marginBottom: '50px'
+      }}>
     <Grid item >
     <Button variant="contained" sx ={{mx:'auto',marginLeft:'auto'}} onClick={() => {
           navigate('/roomCreate');
@@ -144,39 +153,35 @@ function singleFilter(){
     </Grid>
 
     <Grid container spacing={3} >
+
+    <table id="basic-data-table" class="table nowrap">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Cost</th>
+      <th>Last Modified</th>
+    </tr>
+  </thead>
+  <tbody>
     {test.map(p => (
-      <Grid item >
-      <Card sx={{ minWidth: 345 }}>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            Price: £{p.cost}
-          </IconButton>
-        }
-        title= {category(p.categoryType)}
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={require(`../../img/Rooms/${p.roomPicture}`)}
-        alt={p.roomPicture.slice(0,-4)}
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-         Description:{p.roomName}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-         Status :{status(p.status)}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-      <Button  onClick={() => {setContext({roomId: p.roomId});
-          navigate('/roomView');
-          }}>View</Button>
-      </CardActions>
-      </Card>
-      </Grid>
+    <tr>
+    <td> {p.roomId}</td>
+    <td>{category(p.categoryType)}</td>
+    <td>{status(p.status)}</td>
+    <td>£{p.cost}</td>
+    <td>{p.lastModified}</td>
+    <td>  <Button  onClick={() => {
+            setContext({roomId: p.roomId});
+      console.log(context.bookId);
+       navigate('/roomView');
+   }}>View</Button>
+   </td> 
+  </tr>
      ))}
+    </tbody>
+  </table>
 
      </Grid>
      </Container>
@@ -184,33 +189,3 @@ function singleFilter(){
   )
 }
 
-
-{/* <Card sx={{ maxWidth: 345 }}>
-<CardHeader
-  action={
-    <IconButton aria-label="settings">
-      cost
-    </IconButton>
-  }
-  title="Category Type"
-  subheader="September 14, 2016"
-/>
-<CardMedia
-  component="img"
-  height="194"
-  image="/static/images/cards/paella.jpg"
-  alt="Paella dish"
-/>
-<CardContent>
-  <Typography variant="body2" color="text.secondary">
-    This impressive paella is a perfect party dish and a fun meal to cook
-    together with your guests. Add 1 cup of frozen peas along with the mussels,
-    if you like.
-  </Typography>
-</CardContent>
-<CardActions disableSpacing>
-<Button  onClick={() => {setContext({roomId: room.roomId});
-    navigate('/userViewRoom');
-    }}>View</Button>
-</CardActions>
-</Card> */}

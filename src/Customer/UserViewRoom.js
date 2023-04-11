@@ -53,6 +53,14 @@ export default function UserViewRoom() {
     setOpen(false);
   };
 
+  function image(x) {
+    if (x === undefined) {
+      return require(`../img/EvangelionFinally.jpg`)
+    } else {
+      return require(`../img/Rooms/${x}`)
+    }
+  }
+
   return (
     <>
     <Container  style={{marginTop: '140px'}}>
@@ -63,7 +71,7 @@ export default function UserViewRoom() {
         component="img"
         alt="green iguana"
         height="140"
-        image="https://picsum.photos/id/237/200/300"
+        image={image(room.roomPicture)}
       />
     <CardContent style={{marginLeft: 300,marginTop:70,alignItems:'center'}}>
       <Typography sx={{ mb: 1.5,fontSize: 22 }} component="div">
@@ -103,7 +111,7 @@ export default function UserViewRoom() {
     </CardContent>
     <CardActions  style={{marginLeft: 800,marginTop:70,alignItems:'center'}}>
       <Button sx={{ fontSize: 34 }} onClick={() => {
-        if (context.userId == 0) {
+        if (context.currentUserId == 0) {
           setOpen(true) 
         }else{
        navigate('/book')}

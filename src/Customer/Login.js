@@ -2,7 +2,6 @@ import React,{ useEffect } from 'react'
 import { Card, CardContent, TextField, Typography,Alert,AlertTitle,Collapse } from '@mui/material'
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
-import Center from '../Center'
 import useForm from '../useForm'
 import { createAPIEndpoint, ENDPOINTS } from '../api'
 import useStateContext from '../useStateContext'
@@ -42,8 +41,9 @@ export default function Login() {
        axios.post('https://localhost:7099/Login',values).then(res => {
         if (res.data.userEmail == "No User") {
             setOpen(true)
-        } else {
-            setContext({userId: res.data.userId})
+        } 
+        else {
+            setContext({currentUserId: res.data.userId})
             console.log(res.data)
             navigate('/')
             
@@ -59,7 +59,6 @@ export default function Login() {
         return Object.values(temp).every(x => x == "")
     }
   return (
-   <Center>
      <Card sx = {{width: '400px'}}>
         <CardContent sx={{textAlign:'center'}}>
             <Typography variant='h3' sx={{marginY: 3}}> Login</Typography>
@@ -116,6 +115,5 @@ export default function Login() {
 
         </CardContent>
     </Card>
-   </Center>
       )
 }

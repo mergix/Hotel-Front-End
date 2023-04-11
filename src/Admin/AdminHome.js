@@ -27,7 +27,7 @@ export default function AdminHome() {
 
     <section >
      <Container maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '30vh',marginBottom: '100px' }}>
-    <Typography variant="h2" marginTop={10} gutterBottom>
+    <Typography variant="h2" marginTop={20} gutterBottom>
             This is the Adminstative Side for the management of the Hotel Spectrum
     </Typography>
     <Typography variant='h6' gutterBottom>

@@ -2,7 +2,6 @@ import React,{ useEffect } from 'react'
 import { Card, CardContent, TextField, Typography } from '@mui/material'
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
-import Center from '../Center'
 import useForm from '../useForm'
 import { createAPIEndpoint, ENDPOINTS } from '../api'
 import useStateContext from '../useStateContext'
@@ -44,7 +43,6 @@ export default function Register() {
     }
 
   return (
-    <Center>
     <Card sx = {{width: '400px'}}>
        <CardContent sx={{textAlign:'center'}}>
            <Typography variant='h3' sx={{marginY: 3}}> Make a new account</Typography>
@@ -101,6 +99,5 @@ export default function Register() {
 
 </CardContent>
    </Card>
-  </Center>
   )
 }
