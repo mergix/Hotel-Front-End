@@ -59,9 +59,7 @@ function handleImage(e){
   }
 
   useEffect(() => {
-    axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{headers: {
-      'Authorization': 'Bearer ' + context.jwt
-    }})
+    axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
     .then(res =>{
         setValues(res.data)   
         }).catch(err => console.log(err))
@@ -71,7 +69,7 @@ function handleImage(e){
     e.preventDefault();
     console.log(values)
    axios.put(`https://localhost:7099/api/Room/${context.roomId}`,{roomId:context.roomId,roomName:values.roomName,cost: values.cost,
-   categoryType:values.categoryType,roomPicture:image}).then(res => {
+   categoryType:values.categoryType,roomPicture:image},{ withCredentials: true }).then(res => {
     console.log(res.data)
     navigate('/roomManage')
    }).catch(err => console.log(err))

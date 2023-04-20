@@ -14,7 +14,7 @@ export default function ViewRoom() {
   
 
     useEffect(() => {
-      axios.get(`https://localhost:7099/api/Room/${context.roomId}`)
+      axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
       .then(res =>{
           setRoom(res.data) 
           console.log(res.data)

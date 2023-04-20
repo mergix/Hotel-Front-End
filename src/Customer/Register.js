@@ -34,7 +34,7 @@ export default function Register() {
 
     const register = e =>{
         e.preventDefault();
-       axios.post('https://localhost:7099/api/User',values).then(res => {
+       axios.post('https://localhost:7099/api/User',values,{ withCredentials: true }).then(res => {
         setContext({userId: res.data.userId})
         console.log(res.data.userId)
         console.log(values)

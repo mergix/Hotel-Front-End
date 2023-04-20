@@ -1,4 +1,4 @@
-import { Typography , CssBaseline,Card,CardActions,CardContent,Container, Grid, Button, CardMedia,Box} from '@mui/material'
+import { Typography , CssBaseline,Card,CardActions,CardContent,Container, Grid, Button, CardMedia,Box,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle} from '@mui/material'
 import { height, width } from '@mui/system'
 import React,{ useEffect, useState } from 'react'
 import { createAPIEndpoint, ENDPOINTS } from '../api';
@@ -13,15 +13,32 @@ export default function UserHome() {
   const navigate = useNavigate()
   const [room,setRoom] = useState([])
 
-  useEffect(() => {
-      createAPIEndpoint(ENDPOINTS.room)
-      .fetch()
-      .then(res =>{
-          setRoom(res.data)   
-          }).catch(err => console.log(err))
-  },[])
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  const alertCookie = () =>{
+	if (context.token == false) {
+		setOpen(true)
+		resetContext()
+	}
+	else{
+		console.log('No problem')
+	}
+  }
+
+
+  useEffect(()=>{
+	alertCookie()
+}, [])
+
   return (
     <>
+
 
 <Container id="banner">
 			<div id="banner-2">
@@ -30,6 +47,23 @@ export default function UserHome() {
 				<p>Test Text Lorem ipsum dolor sit amet.</p>
 				<a href="#" class="button">Explore</a>
 			</div>
+
+			<Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Your current session has expired please login again"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>Login</Button>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 		</Container>
 
     <section class="part-1">

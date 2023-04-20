@@ -13,16 +13,14 @@ export default function DeleteRoom() {
     const [room,setRoom] = useState([])
 
     useEffect(() => {
-      axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
       .then(res =>{
           setRoom(res.data)   
           }).catch(err => console.log(err))
   },[])
   const del = e =>{
     e.preventDefault();
-   axios.delete(`https://localhost:7099/api/Room/${context.roomId}`).then(res => {
+   axios.delete(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true }).then(res => {
     console.log(res.data)
     navigate('/roomManage')
    }).catch(err => console.log(err))

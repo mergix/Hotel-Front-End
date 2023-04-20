@@ -17,12 +17,15 @@ export default function RoomManage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-      axios.get(`https://localhost:7099/api/Room`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true })
       .then(res =>{
-          setRoom(res.data)
-          setTest(res.data) 
+        if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/adminhome")
+        }
+          setRoom(res.data.result)
+          setTest(res.data.result)
+          console.log(res.data)
           }).catch(err => console.log(err))
   },[])
   function category(p){

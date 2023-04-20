@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
-import IconButton from '@mui/material/IconButton';
 
 
 export default function BookingsList() {
@@ -17,23 +16,28 @@ export default function BookingsList() {
     setAlignment(newAlignment);
   };
   const navigate = useNavigate()
-  console.log(context.jwt)
 
   useEffect(() => {
-      axios.get(`https://localhost:7099/userlist/${context.currentUserId}`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/userlist/${context.currentUserId}`,{ withCredentials: true })
       .then(res =>{
-          setBook(res.data)   
+        if (res.data == "No cookie") {
+          console.log('yes no cookie')
+        } else {
+          setBook(res.data.result)
+          console.log(res)  
+        }
+          console.log(res)   
           }).catch(err => console.log(err))
   },[])
 
   useEffect(() => {
-    axios.get(`https://localhost:7099/userlist/past/${context.currentUserId}`,{headers: {
-      'Authorization': 'Bearer ' + context.jwt
-    }})
+    axios.get(`https://localhost:7099/userlist/past/${context.currentUserId}`,{ withCredentials: true })
     .then(res =>{
-        setPast(res.data)   
+      if (res.data == "No cookie") {
+        console.log('yes no cookie')
+      } else {
+        setPast(res.data.result)
+      }
         }).catch(err => console.log(err))
 },[])
 
@@ -116,7 +120,7 @@ export default function BookingsList() {
     You have not Logged In  — <strong>Please Login before you can view your bookings</strong>
 </Alert></div>
  }
- else if (book.length == 0){
+ else if (book.length == 0 && past.length == 0){
   return <div style={{marginTop:'140px'}}><Alert severity="info">
   <AlertTitle>You dont Have Bookings</AlertTitle>
      You can check our rooms available and book from there — 😁

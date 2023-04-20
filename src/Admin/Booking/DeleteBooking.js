@@ -14,11 +14,9 @@ export default function DeleteBooking() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{headers: {
-      'Authorization': 'Bearer ' + context.jwt
-    }})
+    axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
     .then(res =>{
-        setBook(res.data)
+        setBook(res.data.result)
         console.log(res.data)
         }).catch(err => console.log(err))
   },[])
@@ -58,9 +56,9 @@ export default function DeleteBooking() {
 
     const done = e =>{
       e.preventDefault();
-      axios.delete(`https://localhost:7099/api/Booking/${context.bookId}`).then(res => {
+      axios.delete(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true }).then(res => {
         console.log(res)
-        navigate('/booklist')
+        navigate('/bookManage')
          }).catch(err => console.log(err))
     }
   return (

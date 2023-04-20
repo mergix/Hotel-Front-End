@@ -12,7 +12,7 @@ const getFreshContext = () => {
         roomId:0,
         bookId:0,
         currentUserId:0,
-        token:0
+        token:false
     }))
 
     return JSON.parse(localStorage.getItem('context'))

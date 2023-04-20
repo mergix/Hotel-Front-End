@@ -11,19 +11,18 @@ export default function DeleteUser() {
     const [user,setUser] = useState([])
 
     useEffect(() => {
-      axios.get(`https://localhost:7099/api/User/${context.userId}`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/User/${context.userId}`,{ withCredentials: true })
       .then(res =>{
-          setUser(res.data)   
+          setUser(res.data.result)
+          console.log(res.data.result)   
           }).catch(err => console.log(err))
   },[])
 
   const del = e =>{
     e.preventDefault();
-      axios.delete(`https://localhost:7099/api/User/${context.userId}`).then(res => {
+      axios.delete(`https://localhost:7099/api/User/${context.userId}`,{ withCredentials: true }).then(res => {
       console.log(res)
-      navigate('/booklist')
+      navigate('/userManage')
        }).catch(err => console.log(err))
   }
   return (
@@ -58,7 +57,7 @@ export default function DeleteUser() {
       <Typography sx={{ fontSize: 34 }} >
         ------------
         <br />
-        last lastModified
+        last lastModified:{user.lastModified}
       </Typography>
     </CardContent>
     <form noValidate autoComplete='on' onSubmit={del}>

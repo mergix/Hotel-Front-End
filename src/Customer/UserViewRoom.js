@@ -13,9 +13,13 @@ export default function UserViewRoom() {
     const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
-      axios.get(`https://localhost:7099/api/Room/${context.roomId}`)
+      axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
       .then(res =>{
-          setRoom(res.data) 
+        if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/")
+        }
+          setRoom(res.data)
           }).catch(err => console.log(err))
   },[])
 
@@ -73,7 +77,7 @@ export default function UserViewRoom() {
         height="140"
         image={image(room.roomPicture)}
       />
-    <CardContent style={{marginLeft: 300,marginTop:70,alignItems:'center'}}>
+    <CardContent style={{marginLeft: 100,marginTop:70,alignItems:'center'}}>
       <Typography sx={{ mb: 1.5,fontSize: 22 }} component="div">
        Type: {category(room.categoryType)}
       </Typography>
@@ -109,7 +113,7 @@ export default function UserViewRoom() {
       </Alert>
       </Collapse>
     </CardContent>
-    <CardActions  style={{marginLeft: 800,marginTop:70,alignItems:'center'}}>
+    <CardActions  style={{marginLeft: 550,marginTop:70,alignItems:'center'}}>
       <Button sx={{ fontSize: 34 }} onClick={() => {
         if (context.currentUserId == 0) {
           setOpen(true) 

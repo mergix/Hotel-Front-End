@@ -1,4 +1,4 @@
-import { Typography , CssBaseline,Card,CardActions,CardContent,Container, Grid, Button, CardMedia} from '@mui/material'
+import { Typography , CssBaseline,Card,CardActions,CardContent,Container, Grid, Button, CardMedia,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle} from '@mui/material'
 import { height, width } from '@mui/system'
 import React,{ useEffect, useState } from 'react'
 import { createAPIEndpoint, ENDPOINTS } from '../api';
@@ -11,13 +11,27 @@ export default function AdminHome() {
   const navigate = useNavigate()
   const [room,setRoom] = useState([])
 
-  useEffect(() => {
-      createAPIEndpoint(ENDPOINTS.room)
-      .fetch()
-      .then(res =>{
-          setRoom(res.data)   
-          }).catch(err => console.log(err))
-  },[])
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  const alertCookie = () =>{
+	if (context.token == false) {
+		setOpen(true)
+		resetContext()
+	}
+	else{
+		console.log('No problem')
+	}
+  }
+
+  useEffect(()=>{
+    alertCookie()
+  }, [])
 
 
 
@@ -25,7 +39,25 @@ export default function AdminHome() {
   return (
     <>
 
+
     <section >
+
+    <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Your current session has expired please login again"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>Login</Button>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
      <Container maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '30vh',marginBottom: '100px' }}>
     <Typography variant="h2" marginTop={20} gutterBottom>
             This is the Adminstative Side for the management of the Hotel Spectrum

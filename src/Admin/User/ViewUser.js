@@ -12,11 +12,10 @@ export default function ViewUser() {
     const [user,setUser] = useState([])
 
     useEffect(() => {
-      axios.get(`https://localhost:7099/api/User/${context.userId}`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/User/${context.userId}`,{ withCredentials: true })
       .then(res =>{
-          setUser(res.data)   
+          setUser(res.data.result)
+          console.log(res)   
           }).catch(err => console.log(err))
   },[])
   return (

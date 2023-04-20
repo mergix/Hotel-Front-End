@@ -25,9 +25,7 @@ const navigate = useNavigate()
 
 
 useEffect(() => {
-  axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{headers: {
-    'Authorization': 'Bearer ' + context.jwt
-  }})
+  axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
   .then(res =>{
       setOneRoom(res.data)
       console.log(res.data)  
@@ -35,34 +33,30 @@ useEffect(() => {
 },[])
 
 useEffect(() => {
-  axios.get(`https://localhost:7099/api/User/${context.currentUserId}`)
+  axios.get(`https://localhost:7099/api/User/${context.currentUserId}`,{ withCredentials: true })
   .then(res =>{
-      setcUser(res.data) 
+      setcUser(res.data)
       }).catch(err => console.log(err))
 },[])
 
   const book = e =>{
     e.preventDefault();
-      axios.post(`https://localhost:7099/api/Booking`,{dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:context.roomId}).then(res => {
+      axios.post(`https://localhost:7099/api/Booking`,{dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:context.roomId},{ withCredentials: true }).then(res => {
       console.log(res)
       navigate('/booklist')
        }).catch(err => console.log(err))
   }
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`https://localhost:7099/api/Room`,{headers: {
-    'Authorization': 'Bearer ' + context.jwt
-  }})
+    axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true })
   .then(res =>{
-      setRoom(res.data)   
+      setRoom(res.data.result)   
       }).catch(err => console.log(err))
   };
   
   const handleClose = () => {
     setOpen(false);
-    axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{headers: {
-      'Authorization': 'Bearer ' + context.jwt
-    }})
+    axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
     .then(res =>{
         setOneRoom(res.data)
         console.log(res.data)  

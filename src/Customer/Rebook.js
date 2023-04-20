@@ -39,13 +39,15 @@ export default function Rebook() {
   
   
   useEffect(() => {
-    axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{headers: {
-      'Authorization': 'Bearer ' + context.jwt
-    }})
+    axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
     .then(res =>{
-        setBook(res.data)
-        setOneRoom(res.data)
-        console.log(res.data)
+      if (res.data == "No cookie") {
+        setContext({token: false})
+        navigate("/")
+      }
+        setBook(res.data.result)
+        setOneRoom(res.data.result)
+        console.log(res.data.result)
         }).catch(err => console.log(err))
   },[])
   
@@ -54,7 +56,12 @@ export default function Rebook() {
     const done = e =>{
       e.preventDefault();
         console.log(values)
-        axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,userId:context.userId,roomId:oneRoom.roomId,dateIn: dateIn,dateOut:dateOut}).then(res => {
+        console.log({dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:oneRoom.roomId})
+        axios.post(`https://localhost:7099/api/Booking/`,{dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:context.roomId},{ withCredentials: true }).then(res => {
+          if (res.data == "No cookie") {
+            setContext({token: false})
+            navigate("/")
+          }
         console.log(res)
         navigate('/bookManage')
          }).catch(err => console.log(err))
@@ -62,20 +69,24 @@ export default function Rebook() {
   
     const handleClickOpen = () => {
       setOpen(true);
-      axios.get(`https://localhost:7099/api/Room`,{headers: {
-      'Authorization': 'Bearer ' + context.jwt
-    }})
+      axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true })
     .then(res =>{
-        setRoom(res.data)   
+      if (res.data == "No cookie") {
+        setContext({token: false})
+        navigate("/")
+      }
+        setRoom(res.data.result)   
         }).catch(err => console.log(err))
     };
     
     const handleClose = () => {
       setOpen(false);
-      axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
       .then(res =>{
+        if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/")
+        }
           setOneRoom(res.data)
           console.log(res.data)  
           }).catch(err => console.log(err))
@@ -213,6 +224,7 @@ export default function Rebook() {
       <Button  onClick={() => {
               setContext({roomId: p.roomId});
              handleClose();
+             console.log(p.roomId)
              console.log(oneRoom.roomPicture);
             }}>Choose</Button>
       </CardActions>

@@ -30,11 +30,11 @@ function LoginButtons(){
   if (context.currentUserId == 0) {
     return <Grid container spacing={1}>
     <Grid item  sx={{mr:0}}>
-    <Button onClick={login}style={{marginLeft: '300px'}}>Login</Button>
+    <Button onClick={login}style={{marginLeft: '100px'}}>Login</Button>
     </Grid>
     </Grid>
   } else {
-    return    <Button onClick={logout} style={{marginLeft: '300px'}}>Logout</Button>
+    return    <Button onClick={logout} style={{marginLeft: '100px'}}>Logout</Button>
     
   }
 }

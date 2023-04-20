@@ -11,12 +11,14 @@ export default function UserViewBooking() {
     const{context,setContext,resetContext} = useStateContext()
     const [book,setBook] = useState([])
       useEffect(() => {
-          axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{headers: {
-            'Authorization': 'Bearer ' + context.jwt
-          }})
+          axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
           .then(res =>{
+            if (res.data == "No cookie") {
+              setContext({token: false})
+              navigate("/")
+            }
             console.log(res)
-              setBook(res.data)   
+              setBook(res.data.result)   
               }).catch(err => console.log(err))
       },[])
 

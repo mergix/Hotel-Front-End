@@ -20,12 +20,15 @@ export default function BookingManage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-      axios.get(`https://localhost:7099/api/Booking`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/Booking`,{ withCredentials: true })
       .then(res =>{
-          setBook(res.data)
-          setTest(res.data)  
+        if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/adminhome")
+        }
+          setBook(res.data.result)
+          setTest(res.data.result)
+          console.log(res.data)
           }).catch(err => console.log(err))
   },[])
 

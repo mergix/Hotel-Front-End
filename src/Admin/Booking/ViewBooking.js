@@ -11,11 +11,9 @@ export default function ViewBooking() {
   const{context,setContext,resetContext} = useStateContext()
   const [book,setBook] = useState([])
     useEffect(() => {
-        axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{headers: {
-          'Authorization': 'Bearer ' + context.jwt
-        }})
+        axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
         .then(res =>{
-            setBook(res.data)
+            setBook(res.data.result)
             console.log(res.data)
             }).catch(err => console.log(err))
     },[])

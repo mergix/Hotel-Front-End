@@ -18,7 +18,7 @@ export default function CreateBooking() {
   const {context, setContext, resetContext } = useStateContext()
   const [room, setRoom] = useState([])
   const [cUser, setcUser] = useState([])
-  const [oneRoom, setOneRoom] = useState([])
+  let [oneRoom, setOneRoom] = useState([])
   const [dateIn, setDateIn] = useState(new Date())
   const [dateOut, setDateOut] = useState(new Date())
 
@@ -58,26 +58,19 @@ export default function CreateBooking() {
 
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`https://localhost:7099/api/Room`, {
-      headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }
-    })
+    axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true })
       .then(res => {
-        setRoom(res.data)
+        setRoom(res.data.result)
       }).catch(err => console.log(err))
   };
 
   const handleClose = () => {
     setOpen(false);
-    axios.get(`https://localhost:7099/api/Room/${context.roomId}`, {
-      headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }
-    })
+    axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
       .then(res => {
         setOneRoom(res.data)
         console.log(res.data)
+        console.log(oneRoom)
       }).catch(err => console.log(err))
   };
 
@@ -97,37 +90,28 @@ export default function CreateBooking() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get(`https://localhost:7099/api/Room`, {
-      headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }
-    })
+    axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true })
       .then(res => {
-        setRoom(res.data)
+        setRoom(res.data.result)
       }).catch(err => console.log(err))
   }, [])
 
   useEffect(() => {
-    axios.get(`https://localhost:7099/api/User/${context.currentUserId}`, {
-      headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }
-    })
+    axios.get(`https://localhost:7099/api/User/${context.currentUserId}`,{ withCredentials: true })
       .then(res => {
-        setcUser(res.data)
-        console.log(res.data)
+        setcUser(res.data.result)
       }).catch(err => console.log(err))
   }, [])
 
   const book = e => {
     e.preventDefault();
     console.log(values)
-    createAPIEndpoint(ENDPOINTS.booking).post({
+    axios.post(`https://localhost:7099/api/Booking`,{
       userId: context.currentUserId,
       roomId: context.roomId,
       dateIn: dateIn,
       dateOut: dateOut
-    }).then(res => {
+    },{ withCredentials: true }).then(res => {
       console.log(res)
       navigate('/bookManage')
     }).catch(err => console.log(err))

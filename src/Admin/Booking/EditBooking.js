@@ -38,12 +38,10 @@ const navigate = useNavigate()
 
 
 useEffect(() => {
-  axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{headers: {
-    'Authorization': 'Bearer ' + context.jwt
-  }})
+  axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
   .then(res =>{
-      setBook(res.data)
-      setOneRoom(res.data)
+      setBook(res.data.result)
+      setOneRoom(res.data.result)
       console.log(res.data)
       }).catch(err => console.log(err))
 },[])
@@ -85,7 +83,7 @@ function image(x) {
   const done = e =>{
     e.preventDefault();
       console.log(values)
-      axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,userId:context.userId,roomId:oneRoom.roomId,dateIn: dateIn,dateOut:dateOut}).then(res => {
+      axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,userId:context.userId,roomId:oneRoom.roomId,dateIn: dateIn,dateOut:dateOut},{ withCredentials: true }).then(res => {
       console.log(res)
       navigate('/bookManage')
        }).catch(err => console.log(err))

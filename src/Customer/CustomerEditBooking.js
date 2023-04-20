@@ -14,13 +14,15 @@ export default function CustomerEditBooking() {
   const{context,setContext,resetContext} = useStateContext()
   const [book,setBook] = useState([])
 
-const[dateIn,setDateIn] = useState(new Date())
-const[dateOut,setDateOut] = useState(new Date())
+
 
 const [room,setRoom] = useState([])
 
 const [open, setOpen] = React.useState(false);
 const [oneRoom,setOneRoom] = useState([])
+
+const[dateIn,setDateIn] = useState(new Date())
+const[dateOut,setDateOut] = useState(new Date())
 
 
 const getFreshModel = () =>({
@@ -39,13 +41,15 @@ const navigate = useNavigate()
 
 
 useEffect(() => {
-  axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{headers: {
-    'Authorization': 'Bearer ' + context.jwt
-  }})
+  axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
   .then(res =>{
-      setBook(res.data)
-      setOneRoom(res.data)
-      console.log(res.data)
+    if (res.data == "No cookie") {
+      setContext({token: false})
+      navigate("/")
+    }
+      setBook(res.data.result)
+      setOneRoom(res.data.result)
+      console.log(res.data.result)
       }).catch(err => console.log(err))
 },[])
 
@@ -54,7 +58,12 @@ useEffect(() => {
   const done = e =>{
     e.preventDefault();
       console.log(values)
-      axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,userId:context.userId,roomId:oneRoom.roomId,dateIn: dateIn,dateOut:dateOut}).then(res => {
+      console.log(dateIn)
+      axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,dateIn: dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:oneRoom.roomId},{ withCredentials: true }).then(res => {
+        if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/")
+        }
       console.log(res)
       navigate('/bookManage')
        }).catch(err => console.log(err))
@@ -62,21 +71,25 @@ useEffect(() => {
 
   const handleClickOpen = () => {
     setOpen(true);
-    axios.get(`https://localhost:7099/api/Room`,{headers: {
-    'Authorization': 'Bearer ' + context.jwt
-  }})
+    axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true })
   .then(res =>{
-      setRoom(res.data)   
+    if (res.data == "No cookie") {
+      setContext({token: false})
+      navigate("/")
+    }
+      setRoom(res.data.result)   
       }).catch(err => console.log(err))
   };
   
   const handleClose = () => {
     setOpen(false);
-    axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{headers: {
-      'Authorization': 'Bearer ' + context.jwt
-    }})
+    axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
     .then(res =>{
-        setOneRoom(res.data)
+      if (res.data == "No cookie") {
+        setContext({token: false})
+        navigate("/")
+      }
+        setOneRoom(res.data.result)
         console.log(res.data)  
         }).catch(err => console.log(err))
   };

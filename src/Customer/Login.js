@@ -38,13 +38,13 @@ export default function Login() {
     const login = e =>{
         e.preventDefault();
         if(validate())
-       axios.post('https://localhost:7099/Login',values).then(res => {
-        if (res.data.userEmail == "No User") {
+       axios.post('https://localhost:7099/Login',values,{ withCredentials: true }).then(res => {
+        if (res.data.result.userEmail == "No User") {
             setOpen(true)
         } 
         else {
-            setContext({currentUserId: res.data.userId})
-            console.log(res.data)
+            setContext({currentUserId: res.data.result.userId,token:true})
+            console.log(res.data.result.userId)
             navigate('/')
             
         }

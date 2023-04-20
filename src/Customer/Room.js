@@ -1,31 +1,29 @@
-import { Card, CardContent, CardHeader, Typography,Grid, Container,CardActions,Button,CardMedia,Avatar } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography,Grid, Container,CardActions,Button,CardMedia,Alert,AlertTitle } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import { createAPIEndpoint, ENDPOINTS } from '../api';
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
-import { margin } from '@mui/system';
+import axios from 'axios';
 
 export default function Room() {
 
-    // const{context,useContext} = useStateContext()
     const{context,setContext,resetContext} = useStateContext()
     const navigate = useNavigate()
 
-    // console.log(context);
 
-    // const { id } = useParams
     const [room,setRoom] = useState([])
+    const [noCookie,setnoCookie] = useState("")
 
     useEffect(() => {
-        createAPIEndpoint(ENDPOINTS.room)
-        .fetch()
-        .then(res =>{
-            setRoom(res.data)   
+      axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true }).then(res =>{
+            if (res.data == "No cookie") {
+              setContext({token: false})
+              navigate("/")
+            } else {
+              setRoom(res.data.result)
+            }
             }).catch(err => console.log(err))
     },[])
-
 
   
 
@@ -55,7 +53,15 @@ export default function Room() {
     }
   }
 
+  function booklist(){
+    if(context.currentUserId == 0){
+      return <div style={{marginTop:'140px'}}><Alert severity="info">
+  <AlertTitle>Something Went wrong</AlertTitle>
+      You have not Logged In  — <strong>Please Login before you can view your bookings</strong>
+  </Alert></div>
+   }
 
+   }
   return (
 <>
 <Container style={{marginTop: '20vh'}}>

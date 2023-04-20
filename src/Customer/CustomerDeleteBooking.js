@@ -13,11 +13,13 @@ export default function CustomerDeleteBooking() {
     const navigate = useNavigate()
   
     useEffect(() => {
-      axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
       .then(res =>{
-          setBook(res.data)
+        if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/")
+        }
+          setBook(res.data.result)
           console.log(res.data)
           }).catch(err => console.log(err))
     },[])
@@ -57,7 +59,11 @@ export default function CustomerDeleteBooking() {
   
       const done = e =>{
         e.preventDefault();
-        axios.delete(`https://localhost:7099/api/Booking/${context.bookId}`).then(res => {
+        axios.delete(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true }).then(res => {
+          if (res.data == "No cookie") {
+            setContext({token: false})
+            navigate("/")
+          }
           console.log(res)
           navigate('/booklist')
            }).catch(err => console.log(err))

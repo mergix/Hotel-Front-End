@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useStateContext from '../../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
+import moment from 'moment';
 
 export default function UserManage() {
 
@@ -13,15 +14,19 @@ export default function UserManage() {
 
 
   useEffect(() => {
-      axios.get(`https://localhost:7099/api/User`,{headers: {
-        'Authorization': 'Bearer ' + context.jwt
-      }})
+      axios.get(`https://localhost:7099/api/User`,{ withCredentials: true })
       .then(res =>{
-          setUser(res.data)   
+        if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/adminhome")
+        }
+          setUser(res.data.result)   
           }).catch(err => console.log(err))
   },[])
 
+function dateParse(){
 
+}
 
 
   return (
@@ -41,9 +46,9 @@ export default function UserManage() {
     {user.map(p => (
     <tr>
     <td> {p.firstName}</td>
-    <td>{p.firstName}</td>
-    <td>{p.firstName}</td>
-    <td>{p.firstName}</td>
+    <td>{p.lastName}</td>
+    <td>{p.userEmail}</td>
+    <td>{moment(p.lastModified).format('MMMM Do YYYY, h:mm:ss a')}</td>
     <td>  <Button  onClick={() => {
             setContext({userId: p.userId});
       console.log(context.bookId);
