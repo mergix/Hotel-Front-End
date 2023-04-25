@@ -1,9 +1,10 @@
-import { Card,Typography,CardActions,CardContent,Button,CardMedia,Grid } from '@mui/material';
+import { Card,Typography,CardActions,CardContent,Button,CardMedia,Grid,Box } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState,useEffect } from 'react'
 import useStateContext from '../useStateContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router'
+import moment from 'moment';
 
 export default function UserViewBooking() {
 
@@ -59,55 +60,81 @@ export default function UserViewBooking() {
     <>
     <Container  style={{marginTop: '100px'}}>
     <Card sx={{
-      minHeight: 850,minWidth: 800, mx: 'auto', mt: 5,
+      height: '740px',width: '909px', mx: 'auto', mt: 5,
   }}>
 
-    <CardContent style={{marginLeft: 80,marginTop:70,alignItems:'center'}}>
-      <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
-        headers
-      </Typography>
       <CardMedia image={image(book.roomPicture)} style={{height: '190px',padding:"50px"}}/>
-      <Grid container spacing={3} sx={{padding:5}} >
-      <Grid item xs container direction="column" spacing={2}>
-      <Typography sx={{ mb: 1.5, fontSize: 20 }} component="div">
-       Room Name : {book.roomName}
-      </Typography>
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Status : {status(book.status)}
-      </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Cost: {book.cost}
-      </Typography >
+    <CardContent style={{marginLeft: 5,marginTop:30,alignItems:'center'}}>
+    <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+         This is your current booking details 
+          </Typography>
+       <Box sx={{ml:0,padding:2}}>
+      <Grid container spacing={1}  >
+      <Grid item>
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Type: {category(book.categoryType)}
       </Typography >
+      <Typography sx={{ fontSize: 20 }} >
+      Description : {book.roomName}
+      </Typography>
+      <Typography sx={{ fontSize: 20 }}>
+        Status : {status(book.status)}
+      </Typography >
+      <Typography sx={{ fontSize: 20 }}>
+        Cost: {book.cost}
+      </Typography >
       </Grid>
-      <Grid item xs container direction="column" spacing={2}>
+      <Grid item>
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Name: {book.firstName + " "+ book.lastName}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      <Typography sx={{fontSize: 20 }}>
         Email: {book.userEmail}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      Check-In Date: {book.dateIn}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      Check-Out Date: {book.dateOut}
       </Typography >
       </Grid>
       </Grid>
-      <Typography sx={{ fontSize: 20 }} >
-        ------------------------------------------------------
-        <br />
-        Last Modified:{book.lastModified}
+      </Box>
+      <Typography sx={{ fontSize: 20,ml:'25px' }} >
+        Last Modified:{ moment(book.lastModified).format('LLL')}
       </Typography>
     </CardContent>
-    <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 24 }} onClick={() => {
+    <CardActions  style={{marginLeft: '650px',marginTop:'10px',alignItems:'center'}}>
+      <Button variant='contained' sx={{ fontSize: 18 }} onClick={() => {
         setContext({bookId: book.bookingId});
        navigate('/editBooking');
        }}>Edit</Button>
-      <Button sx={{ fontSize: 24 }} onClick={() => {
+      <Button variant='contained' sx={{ fontSize: 18 }} onClick={() => {
        navigate('/deleteBooking');
        }}>Delete</Button>
     </CardActions>
     </Card>
+    
     </Container>
+    <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
     </>
   )
 }

@@ -83,11 +83,11 @@ export default function DeleteBooking() {
       </Typography >
 
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        datein: {book.dateIn}
+      Check-In Date: {book.dateIn}
       </Typography >
 
    <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        dateout: {book.dateOut}
+   Check-Out Date: {book.dateOut}
       </Typography >
       <Typography sx={{ fontSize: 24 }} style={{marginBottom:10}} component="div">
       Owner of booking:{book.firstName}

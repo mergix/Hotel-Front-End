@@ -31,9 +31,20 @@ function dateParse(){
 
   return (
     <>
- <Container  style={{marginTop: '150px'}}>
+ <Container  style={{
+      marginTop: '140px',
+      backgroundColor : '#F5F5F5',
+      padding: '20px',
+      paddingBottom:'60px',
+      marginBottom: '100px',
+      height:'80vh'
+      }}>
 
- <table id="basic-data-table" class="table nowrap">
+ <Grid container spacing={1} >
+ <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+         These are the users registered with the service 
+          </Typography>
+ <table id="basic-data-table" class="table nowrap" style={{padding:'15px' ,height:'30vh'}}>
   <thead>
     <tr>
       <th>First name</th>
@@ -59,6 +70,7 @@ function dateParse(){
      ))}
     </tbody>
   </table>
+  </Grid>
   </Container>
     </>
   )

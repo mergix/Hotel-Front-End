@@ -69,16 +69,16 @@ export default function UserViewRoom() {
     <>
     <Container  style={{marginTop: '140px'}}>
     <Card sx={{
-      minHeight: 600,minWidth: 650, mx: 'auto', mt: 10,
+      height: '620px',width: '850px', mx: 'auto', mt: 10,
   }}>
      <CardMedia
         component="img"
-        alt="green iguana"
-        height="140"
+        height="300"
+        style={{backgroundSize:'cover'}}
         image={image(room.roomPicture)}
       />
-    <CardContent style={{marginLeft: 100,marginTop:70,alignItems:'center'}}>
-      <Typography sx={{ mb: 1.5,fontSize: 22 }} component="div">
+    <CardContent style={{marginLeft: '50px',marginTop:10,alignItems:'center'}}>
+      <Typography sx={{ mb: 1.5,fontSize: 32 }} component="div">
        Type: {category(room.categoryType)}
       </Typography>
       <Typography sx={{ mb: 1.5,fontSize: 22 }} color="text.secondary" gutterBottom>
@@ -90,11 +90,6 @@ export default function UserViewRoom() {
       <Typography sx={{ mb: 1.5,fontSize: 22 }}>
         Cost:£{room.cost}
       </Typography >
-      <Typography sx={{ fontSize: 22 }} >
-        ------------
-        <br />
-      Last Modified : {room.lastModified}
-      </Typography>
       <Collapse in={open}>
       <Alert severity="info" action={
             <IconButton
@@ -113,8 +108,8 @@ export default function UserViewRoom() {
       </Alert>
       </Collapse>
     </CardContent>
-    <CardActions  style={{marginLeft: 550,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 34 }} onClick={() => {
+    <CardActions  style={{marginLeft: '670px',marginTop:0,alignItems:'center'}}>
+      <Button  variant="contained" sx={{ fontSize: 25 }} onClick={() => {
         if (context.currentUserId == 0) {
           setOpen(true) 
         }else{
@@ -123,6 +118,25 @@ export default function UserViewRoom() {
     </CardActions>
     </Card>
     </Container>
+    <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
     </>
   )
 }

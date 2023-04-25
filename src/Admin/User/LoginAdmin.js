@@ -8,6 +8,7 @@ import useStateContext from '../../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
 import IconButton from '@mui/material/IconButton';
+import Center from '../../Center'
 
 
 
@@ -45,7 +46,7 @@ export default function LoginAdmin() {
         }
         else{
             setContext({currentUserId: res.data.result.userId})
-            console.log(res.data.result)
+            console.log(res.data.result.userId)
             navigate('/adminhome')
         }
 
@@ -60,7 +61,9 @@ export default function LoginAdmin() {
       return Object.values(temp).every(x => x == "")
   }
   return (
-    <Card sx = {{width: '400px'}}>
+    <Center>
+
+    <Card sx = {{width: '400px', marginTop:'150px'}}>
        <CardContent sx={{textAlign:'center'}}>
            <Typography variant='h3' sx={{marginY: 3}}> Login</Typography>
        <Box sx={{
@@ -116,5 +119,6 @@ export default function LoginAdmin() {
 
        </CardContent>
    </Card>
+    </Center>
      )
 }

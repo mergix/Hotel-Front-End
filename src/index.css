@@ -6,7 +6,6 @@
     body {
         /* note the indentation here */
         /* background-color: #2d386d; */
-        color: #fffffe;
         font-size: 17px;
         line-height: 1.6;
     }
@@ -56,6 +55,7 @@
     .part-1{
         height: 50vh;
         display: flex;
+        background-color: #353434;
         justify-content: center;
         text-align: center;
         align-items: center;
@@ -74,7 +74,7 @@
         width: 200px;
         border-radius: 10px;
         box-shadow: 0 4px 8px 0 #3c3939, 0 6px 20px 0 #333;
-        background-color:  #92662c;
+        background-color:  #a8a8a8;
     }
     
     .-b{
@@ -114,18 +114,18 @@
         border-radius: 10px;
     }
 
-    tr:hover {background-color: coral;}
+    tr:hover {background-color: #9bb265;}
 
       th, td {
         border-bottom: 1px solid #ddd;
       }
 
       th {
-        background-color: #04AA6D;
+        background-color: #1218cf;
         color: white;
       }
 
-      tr:nth-child(even) {background-color: #f2f2f2;}
+      tr:nth-child(even) {background-color: #f1a660;}
       table{
         width: 100%;
       }
@@ -137,7 +137,7 @@
 
 .footer{
 
-    margin-top: 100px;
+    margin-top: 60px;
 	background-color:#1a203d;
 	height:20vh;
 	display: flex;

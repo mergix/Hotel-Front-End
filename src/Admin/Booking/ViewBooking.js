@@ -92,6 +92,12 @@ export default function ViewBooking() {
       <Typography sx={{ mb: 1.5,fontSize: 18 }}>
         Email: {book.userEmail}
       </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      Check-In Date: {book.dateIn}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      Check-Out Date: {book.dateOut}
+      </Typography >
       </Grid>
       </Grid>
       <Typography sx={{ fontSize: 18,ml:'5px' }} >

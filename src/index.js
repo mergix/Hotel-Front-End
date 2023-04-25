@@ -13,10 +13,10 @@ const darkTheme = createTheme({
       main: '#0052cc'
     },
     secondary:{
-      main:'#edf2ff'
+      main:'#F5F5F5'
     },
     background:{
-      default:'#562424'
+      default:'#353434'
     },
     text:{
       primary:'#0052cc'

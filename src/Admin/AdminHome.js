@@ -40,8 +40,6 @@ export default function AdminHome() {
     <>
 
 
-    <section >
-
     <Dialog
         open={open}
         onClose={handleClose}
@@ -58,7 +56,7 @@ export default function AdminHome() {
           </Button>
         </DialogActions>
       </Dialog>
-     <Container maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '30vh',marginBottom: '100px' }}>
+     <Container maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' }}>
     <Typography variant="h2" marginTop={20} gutterBottom>
             This is the Adminstative Side for the management of the Hotel Spectrum
     </Typography>
@@ -66,20 +64,26 @@ export default function AdminHome() {
           You can view the buttons for management below
     </Typography>
      </Container>
-    <div style = {{margin: 'auto',justify:'center'}}>
-     <Button variant="contained">Users</Button>
-     <Button variant="contained">Bookings</Button>
-     <Button variant="contained">Rooms</Button>
-    </div>
-    </section>
     
-    <footer style={{ padding: '50px' }}>
-    
-      Ismail Fagbenro Made this 🙂
-    </footer>
-    
-    
-    
+    <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
     
     </>
   )

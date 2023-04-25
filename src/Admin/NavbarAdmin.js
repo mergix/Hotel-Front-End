@@ -41,8 +41,8 @@ function LoginButtons(){
   return (
     <>
      <AppBar  sx={{position : 'fixed' ,height: '120px',backgroundColor: '#2d386d'}}>
-        <Toolbar sx={{width: 650, margin:'auto'}}>
-        <Typography  align='left' style={{fontSize:18,marginRight:'50px'}}>
+        <Toolbar sx={{width: 700, marginLeft:'250px',marginTop:'30px'}}>
+        <Typography  style={{fontSize:18,marginRight:'50px',whiteSpace:'nowrap'}}>
             Hotel Spectrum Admin Side
         </Typography>
         <Box sx={{ flexGrow: 1, display: {flexDirection: 'row', md: 'flex' },ml: 10 }} >

@@ -35,7 +35,7 @@ export default function CreateRoom() {
       console.log(values)
       console.log(image)
      axios.post('https://localhost:7099/api/Room',{roomName:values.roomName,cost: values.cost,
-     categoryType:values.categoryType,roomPicture:image}).then(res => {
+     categoryType:values.categoryType,roomPicture:image} ,{ withCredentials: true }).then(res => {
       console.log(res.data)
       navigate('/roomManage')
      }).catch(err => console.log(err))

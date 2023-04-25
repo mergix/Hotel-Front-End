@@ -130,11 +130,11 @@ function image(x) {
       </Typography>
            <form noValidate autoComplete='on' onSubmit={done}>
  
-      <Grid container spacing={2} >
+      <Grid container spacing={1} >
       <Grid item >
-      <Stack spacing={1} direction="column" sx={{maxWidth:400}}>
+      <Stack spacing={1} direction="column" sx={{width:400}}>
       <Typography sx={{ fontSize: 20 }} component="div">
-       Room Name:{oneRoom.roomName}
+      Description:{oneRoom.roomName}
       </Typography>
       
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import useForm from '../useForm'
-import { Typography ,Card,CardActions,CardContent,Container, Grid, Button, CardMedia, TextField} from '@mui/material'
+import { Typography ,Card,CardActions,CardContent,Container, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions} from '@mui/material'
 import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../useStateContext'
@@ -11,6 +11,15 @@ export default function CustomerDeleteBooking() {
     const{context,setContext,resetContext} = useStateContext()
     const [book,setBook] = useState([])
     const navigate = useNavigate()
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
   
     useEffect(() => {
       axios.get(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true })
@@ -57,8 +66,9 @@ export default function CustomerDeleteBooking() {
       }
     }
   
-      const done = e =>{
-        e.preventDefault();
+
+
+      function done2(){
         axios.delete(`https://localhost:7099/api/Booking/${context.bookId}`,{ withCredentials: true }).then(res => {
           if (res.data == "No cookie") {
             setContext({token: false})
@@ -74,27 +84,28 @@ export default function CustomerDeleteBooking() {
        <Card style={{height: '750px', width:'750px',marginLeft: 200,marginTop:50,alignItems:'center'}}>
        <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
        <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>
-           <Typography sx={{ fontSize: 22 }} style={{marginLeft:130,marginBottom:30}}>
-          This is the booking you want to Delete 
-           </Typography>
-           <form noValidate autoComplete='on' onSubmit={done}>
-      <Typography sx={{ fontSize: 24 }} style={{marginBottom:30}} component="div">
-       Room Name:{book.roomName}
+       <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+         This is the details of the booking you want to delete 
+          </Typography>
+           <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Type:{category(book.categoryType)}
+      </Typography >
+      <Typography sx={{ fontSize: 20 }} style={{marginBottom:2}} component="div">
+      Description:{book.roomName}
       </Typography>
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Status:{status(book.status)}
       </Typography >
-
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:{book.roomName}
       </Typography >
 
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        datein: {book.dateIn}
+        Check-In Date: {book.dateIn}
       </Typography >
 
    <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        dateout: {book.dateOut}
+      Check-Out Date: {book.dateOut}
       </Typography >
       <Typography sx={{ fontSize: 24 }} style={{marginBottom:10}} component="div">
       Owner of booking:{book.firstName}
@@ -109,18 +120,58 @@ export default function CustomerDeleteBooking() {
 
 
 
-        <Button  type = "submit" variant='outlined' style={{marginTop:30,marginLeft:500}}>
+        <Button   variant='outlined' style={{marginTop:30,marginLeft:500}} onClick={() => {
+       handleClickOpen()
+       }}>
          Delete the Booking
        </Button>
-         </form>
+       <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+Are you sure you want to Delete this booking?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button type = "submit" onClick={() => {
+       done2()
+       }}>Delete</Button>
+          <Button onClick={handleClose} autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+  
        </CardContent>
        </Card>
 
     </Container>
-     <footer style={{ padding: '50px' ,  }}>
- 
-   Ismail Fagbenro Made this 🙂
- </footer>
+    <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
  </>
   )
 }

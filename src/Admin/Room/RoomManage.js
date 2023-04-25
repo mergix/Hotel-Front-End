@@ -101,12 +101,15 @@ function singleFilter(){
     <>
     <Container  style={{
       marginTop: '140px',
-      backgroundColor : '#fff',
+      backgroundColor : '#F5F5F5',
       padding: '20px',
       paddingBottom:'60px',
       marginBottom: '100px'
       }}>
 
+<Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+         These are the users registered with the service 
+          </Typography>
     <Grid container spacing={5} style={{
       marginTop: '40px',
       marginBottom: '50px'
@@ -155,9 +158,9 @@ function singleFilter(){
     </Grid>
     </Grid>
 
-    <Grid container spacing={3} >
+    <Grid container spacing={3} sx={{height:'80vh'}} >
 
-    <table id="basic-data-table" class="table nowrap">
+    <table id="basic-data-table" class="table nowrap" style={{padding:'15px' ,height:'30vh'}}>
   <thead>
     <tr>
       <th>Id</th>
@@ -188,6 +191,25 @@ function singleFilter(){
 
      </Grid>
      </Container>
+     <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
        </>
   )
 }

@@ -48,7 +48,7 @@ function LoginButtons(){
 }
   return (
     <>
-    <AppBar  sx={{position : 'fixed' ,height: '80px' ,backgroundColor:'#2d386d'}}>
+    <AppBar  sx={{position : 'fixed' ,height: '80px' ,backgroundColor:'#DEDEDE'}}>
         <Toolbar sx={{width: 650, margin:'auto'}}>
         <Box sx={ { display: 'flex',
   justifyContent: 'center',

@@ -86,7 +86,18 @@ export default function BookingManage() {
 
   return (
     <>
-    <Container  style={{marginTop: '160px'}}>
+    <Container  style={{
+      marginTop: '140px',
+      backgroundColor : '#F5F5F5',
+      padding: '20px',
+      paddingBottom:'60px',
+      marginBottom: '100px',
+      height:'80vh'
+      }}>
+
+<Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+         These are the users registered with the service 
+          </Typography>
     <Grid container spacing={3} style={{marginTop: '40px',marginBottom:"50px"}}>
     <Grid item >
     <Button variant="contained" sx ={{mx:'auto',marginLeft:'auto'}} onClick={() => {
@@ -145,13 +156,13 @@ export default function BookingManage() {
     {test.map(p => (
     <tr>
     <td> {p.user.firstName}</td>
-    <td>{p.user.firstName}</td>
-    <td>{p.user.firstName}</td>
-    <td>{p.user.firstName}</td>
-    <td>{p.user.firstName}</td>
-    <td>{p.user.firstName}</td>
-    <td>{p.user.firstName}</td>
-    <td>{p.user.firstName}</td>
+    <td>{p.user.lastName}</td>
+    <td>{p.user.userEmail}</td>
+    <td>{category(p.room.categoryType)}</td>
+    <td>{p.room.cost}</td>
+    <td>{p.dateIn}</td>
+    <td>{p.dateOut}</td>
+    <td>{p.lastModified}</td>
     <td>  <Button  onClick={() => {
             setContext({bookId: p.bookingId});
       console.log(context.bookId);

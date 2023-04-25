@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react'
-import { Card, CardContent, TextField, Typography,Alert,AlertTitle,Collapse } from '@mui/material'
+import { Card, CardContent, TextField, Typography,Alert,AlertTitle,Collapse, Container } from '@mui/material'
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
 import useForm from '../useForm'
@@ -8,6 +8,7 @@ import useStateContext from '../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
 import IconButton from '@mui/material/IconButton';
+import Center from '../Center'
 
 
 
@@ -59,7 +60,13 @@ export default function Login() {
         return Object.values(temp).every(x => x == "")
     }
   return (
-     <Card sx = {{width: '400px'}}>
+    <>
+    <Center>
+     <Card sx = {{
+        width: '400px',
+        marginTop:'100px',
+        backgroundColor: (theme) => theme.palette.secondary.main,
+        }}>
         <CardContent sx={{textAlign:'center'}}>
             <Typography variant='h3' sx={{marginY: 3}}> Login</Typography>
         <Box sx={{
@@ -115,5 +122,27 @@ export default function Login() {
 
         </CardContent>
     </Card>
+
+    </Center>
+    <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
+    </>
       )
 }

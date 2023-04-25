@@ -7,6 +7,7 @@ import { createAPIEndpoint, ENDPOINTS } from '../api'
 import useStateContext from '../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
+import Center from '../Center'
 
 
 const getFreshModel = () =>({
@@ -43,6 +44,9 @@ export default function Register() {
     }
 
   return (
+    <>
+    <Center>
+
     <Card sx = {{width: '400px'}}>
        <CardContent sx={{textAlign:'center'}}>
            <Typography variant='h3' sx={{marginY: 3}}> Make a new account</Typography>
@@ -99,5 +103,28 @@ export default function Register() {
 
 </CardContent>
    </Card>
+    </Center>
+    <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
+    </>
+
+    
   )
 }

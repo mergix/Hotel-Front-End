@@ -6,6 +6,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../useStateContext'
 import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
+import moment from 'moment';
 
 export default function CustomerEditBooking() {
 
@@ -65,7 +66,7 @@ useEffect(() => {
           navigate("/")
         }
       console.log(res)
-      navigate('/bookManage')
+      navigate('/booklist')
        }).catch(err => console.log(err))
   }
 
@@ -129,57 +130,34 @@ useEffect(() => {
         }
   return (
     <>
-    <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
+    <Container  style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
       
      
-       <Card style={{height: '900px', width:'900px',marginLeft: 100,marginTop:50,alignItems:'center'}}>
+       <Card style={{height: '700px', width:'850px',marginLeft: 100,marginTop:50,alignItems:'center'}}>
        <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
        <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>
-           <Typography sx={{ fontSize: 22 }} style={{marginLeft:130,marginBottom:30}}>
-          This is the booking you want to edit 
-           </Typography>
+       <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+         Please Select a room to book as well as Your desired dates  
+          </Typography>
            <form noValidate autoComplete='on' onSubmit={done}>
- 
       <Grid container spacing={1} >
       <Grid item >
       <Stack spacing={1} direction="column" sx={{maxWidth:400}}>
       <Typography sx={{ fontSize: 20 }} component="div">
-       Room Name:{oneRoom.roomName}
+       Description:{oneRoom.roomName}
       </Typography>
       
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Status:{status(oneRoom.status)}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Status:{category(oneRoom.categoryType)}
+        Type:{category(oneRoom.categoryType)}
       </Typography >
       
       
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:£{oneRoom.cost}
       </Typography >
-      </Stack>
-      </Grid>
-      <Grid item >
-      <Stack spacing={1} direction="column" sx={{minWidth:400}}>
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Customer Name:{book.firstName}
-      </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Email: {book.userEmail}
-      </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        datein: {book.dateIn}
-      </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        dateout: {book.dateOut}
-      </Typography >
-      </Stack>
-      </Grid>
-      </Grid>
-     
-
-      
       <Button variant="outlined" onClick={handleClickOpen}>
         Select Room
       </Button>
@@ -242,12 +220,35 @@ useEffect(() => {
           </Button>
         </DialogActions>
       </Dialog>
+      </Stack>
+      </Grid>
+      <Grid item >
+      <Stack spacing={1} direction="column" sx={{minWidth:400}}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Customer Name:{book.firstName + "  "+ book.lastName}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Email: {book.userEmail}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      Check-In Date: {moment(book.dateIn).format('LL')}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+      Check-Out Date: {moment(book.dateIn).format('LL')}
+      </Typography >
+      </Stack>
+      </Grid>
+      </Grid>
+     
 
-        <Box sx={{ml:15,padding:2,mt: 5 }}></Box>
-      <Grid container spacing={5}>
-      <Grid item xs={'auto'}>
+      
+
+
+        <Box sx={{ml:10,padding:2,mt: 5 }}>
+      <Grid container spacing={20}>
+      <Grid item >
   <DesktopDatePicker
-     label="Start Date"
+     label="Check-In Date"
      id='dateIn'
      renderInput={(params) => {
        return <TextField {...params} />;
@@ -255,20 +256,21 @@ useEffect(() => {
      value={dateIn}
      onChange={setDateIn}
    />
-    </Grid>
-   <Grid item xs={'auto'}>
+     </Grid>
+     <Grid item >
    <DesktopDatePicker
-     label="End Date"
+     label="Check-Out Date"
      value={dateOut}
      id='dateOut'
      renderInput={(params) => <TextField {...params} />}
      onChange={setDateOut}
      sx = {{ml: 20}}
    />
-   </Grid>
-   </Grid>
+     </Grid>
+     </Grid>
+     </Box>
 
-        <Button  type = "submit" variant='outlined' style={{marginTop:100,marginLeft:200}}>
+        <Button  type = "submit" variant='contained' style={{marginTop:'20px',marginLeft:'600px'}}>
          Confirm Changes
        </Button>
          </form>
@@ -276,10 +278,25 @@ useEffect(() => {
        </Card>
     
     </Container>
-     <footer style={{ padding: '50px' ,  }}>
- 
-   Ismail Fagbenro Made this 🙂
- </footer>
+    <footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
  </>
   )
 }

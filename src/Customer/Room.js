@@ -18,6 +18,7 @@ export default function Room() {
       axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true }).then(res =>{
             if (res.data == "No cookie") {
               setContext({token: false})
+              resetContext();
               navigate("/")
             } else {
               setRoom(res.data.result)
@@ -42,17 +43,43 @@ export default function Room() {
     }
   }
 
+
+  function disable(p){
+    if (p.status == 0) {
+    return <Button variant='contained' onClick={() => {setContext({roomId: p.roomId});
+    navigate('/userViewRoom');
+    }}>View</Button>
+    } else if(p.status == 1) {
+     return <Button variant='contained' disabled onClick={() => {setContext({roomId: p.roomId});
+    navigate('/userViewRoom');
+    }}>View</Button>
+    }
+  }
   function status(p){
     switch (p) {
       case 0:
         return "Available"
         case 1:
           return "Booked"
-      default:
-        return "no value"
-    }
-  }
-
+          default:
+            return "no value"
+          }
+        }
+        function statusUI(p){
+          switch (p) {
+            case 0:
+              return <Typography variant="body2" color="#2e7d32">
+              Status :Available
+             </Typography>
+              case 1:
+                return <Typography variant="body2" color="#d32f2f">
+                Status : Booked
+               </Typography>
+            default:
+              return "no value gg"
+          }
+        }
+        
   function booklist(){
     if(context.currentUserId == 0){
       return <div style={{marginTop:'140px'}}><Alert severity="info">
@@ -68,7 +95,7 @@ export default function Room() {
 
   <Typography> All the Rooms</Typography>
 <Grid container spacing={5}  direction="row" justify = "center" style={{
-  backgroundColor : '#fff',
+  backgroundColor : '#5E5C5C',
   padding: '5px',
   paddingBottom:'60px',
   marginBottom: '100px'
@@ -81,11 +108,12 @@ export default function Room() {
   }}>
 <CardHeader
   action={
-    <IconButton aria-label="settings">
+    <IconButton aria-label="settings" sx={{color:"text.primary"}}>
       Price: £{p.cost}
     </IconButton>
   }
   title= {category(p.categoryType)}
+  color="text.primary"
 />
 <CardMedia
   component="img"
@@ -94,17 +122,13 @@ export default function Room() {
   alt="Paella dish"
 />
 <CardContent>
-  <Typography variant="body2" color="text.secondary">
+  <Typography variant="body2" color="text.primary">
    Description:{p.roomName}
   </Typography>
-  <Typography variant="body2" color="text.secondary">
-   Status :{status(p.status)}
-  </Typography>
+  {statusUI(p.status)}
 </CardContent>
 <CardActions disableSpacing>
-<Button  onClick={() => {setContext({roomId: p.roomId});
-    navigate('/userViewRoom');
-    }}>View</Button>
+{disable(p)}
 </CardActions>
 </Card>
 </Grid>
@@ -112,6 +136,25 @@ export default function Room() {
   </Grid>
 
 </Container>
+<footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
       </>
   )
 }

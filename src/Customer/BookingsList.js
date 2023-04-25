@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
+import moment from 'moment';
 
 
 export default function BookingsList() {
@@ -73,12 +74,12 @@ export default function BookingsList() {
                {/* <img src={book.roomPicture}/> */}
                <div> Cost : £{p.room.cost}</div>
                <div> Type : {category(p.room.categoryType)}</div>
-               <div> From: {p.dateIn}</div>
-               <div> To :{p.dateOut}</div>
-               <div> Booking made at :{p.lastModified}</div>
+               <div> Check-In Date: {moment(p.dateIn).format('LL')}</div>
+               <div> Check-Out Date :{moment(p.dateOut).format('LL')}</div>
+               <div> Booking made at :{ moment(p.lastModified).format('LLL')}</div>
            </CardContent>
            <CardActions>
-             <Button  onClick={() => {setContext({bookId: p.bookingId});
+             <Button variant='contained' onClick={() => {setContext({bookId: p.bookingId});
             navigate('/userViewBook');
             }}>View</Button>
            </CardActions>
@@ -97,15 +98,14 @@ export default function BookingsList() {
                <Typography variant='h6'>
                Person that booked:{p.user.firstName}
                </Typography>
-               {/* <img src={book.roomPicture}/> */}
                <div> Cost : £{p.room.cost}</div>
                <div> Type : {category(p.room.categoryType)}</div>
-               <div> From: {p.dateIn}</div>
-               <div> To :{p.dateOut}</div>
-               <div> Booking made at :{p.lastModified}</div>
+               <div> Check-In Date: {moment(p.dateIn).format('LL')}</div>
+               <div> Check-Out Date :{moment(p.dateOut).format('LL')}</div>
+               <div> Booking made at :{ moment(p.lastModified).format('LLL')}</div>
            </CardContent>
            <CardActions>
-             <Button  onClick={() => {setContext({bookId: p.bookingId});
+             <Button variant='contained' onClick={() => {setContext({bookId: p.bookingId});
             navigate('/rebook');
             }}>Rebook</Button>
            </CardActions>
@@ -127,7 +127,8 @@ export default function BookingsList() {
   </Alert></div>
  }
  else{
-  return <Container  style={{
+  return<>
+  <Container  style={{
     marginTop: '140px',
     backgroundColor: '#2d386d',
     padding: '20px'
@@ -145,6 +146,26 @@ export default function BookingsList() {
 
 {CurrentPast()}
    </Container>
+<footer class="footer">
+			<p>
+			Ismail Fagbenro
+			</p>
+			<p>
+				These are My links to contact me.
+			</p>
+			<div class="social">
+				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
+				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+			</div>
+			<p>
+				Email
+			</p>
+
+			<p>
+				Mobile
+			</p>
+	</footer>
+  </>
  }
  }
 return (
