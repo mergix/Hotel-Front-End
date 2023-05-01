@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Typography,Grid, Container,CardActions,Button,CardMedia,Alert,AlertTitle } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography,Grid, Container,CardActions,Button,CardMedia,Alert,AlertTitle,Dialog,DialogTitle,Stack,DialogActions,DialogContent } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import React, { useEffect, useState } from 'react'
 import useStateContext from '../useStateContext';
@@ -12,8 +12,16 @@ export default function Room() {
 
 
     const [room,setRoom] = useState([])
+    let [test,setTest] = useState([])
     const [noCookie,setnoCookie] = useState("")
+    const [open, setOpen] = React.useState(false);
 
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
     useEffect(() => {
       axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true }).then(res =>{
             if (res.data == "No cookie") {
@@ -22,6 +30,7 @@ export default function Room() {
               navigate("/")
             } else {
               setRoom(res.data.result)
+              setTest(res.data.result)
             }
             }).catch(err => console.log(err))
     },[])
@@ -65,7 +74,7 @@ export default function Room() {
             return "no value"
           }
         }
-        function statusUI(p){
+ function statusUI(p){
           switch (p) {
             case 0:
               return <Typography variant="body2" color="#2e7d32">
@@ -78,6 +87,41 @@ export default function Room() {
             default:
               return "no value gg"
           }
+        }
+
+        function singleFilter(){
+          let single = room.filter(x => x.categoryType == 1)
+          setTest(single)
+        }
+        function doubleFilter(){
+          let double = room.filter(x => x.categoryType == 2)
+          console.log(double)
+          setTest(double)
+      
+        }
+        function deluxeFilter(){
+          let deluxe = room.filter(x => x.categoryType == 3)
+          console.log(deluxe)
+          setTest(deluxe)
+        }
+        function presidentialFilter(){
+          let president = room.filter(x => x.categoryType == 4)
+          console.log(president)
+          setTest(president)
+        }
+        function noFilter(){
+          let all = room
+          console.log(all)
+          setTest(all)
+        }
+        function bookedFilter(){
+          let bStatus = room.filter(x => x.status == 1)
+          setTest(bStatus)
+        }
+      
+        function availableFilter(){
+          let aStatus = room.filter(x => x.status == 0)
+          setTest(aStatus)
         }
         
   function booklist(){
@@ -93,14 +137,60 @@ export default function Room() {
 <>
 <Container style={{marginTop: '20vh'}}>
 
+
+<Grid container spacing={5} style={{
+      marginTop: '40px',
+      marginBottom: '50px'
+      }}>
+            <Grid item >
   <Typography> All the Rooms</Typography>
+
+            </Grid>
+            <Grid item >
+  <Button variant="outlined" onClick={handleClickOpen}>
+        Filter the list
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Filter By room type Or by Booked and available rooms"}
+        </DialogTitle>
+        <DialogContent>
+        <Stack spacing={2} direction="row">
+      <Button variant="contained" onClick={singleFilter}>Single Rooms</Button>
+      <Button variant="contained" onClick={doubleFilter}>Double Rooms</Button>
+      <Button variant="contained" onClick={deluxeFilter}>Deluxe Rooms</Button>
+      <Button variant="contained" onClick={presidentialFilter}>Presidential Suite </Button>
+      <Button variant="contained" onClick={noFilter}>All Types </Button>
+          </Stack>
+          <br></br>
+          <Stack spacing={2} direction="row">
+      <Button variant="contained" onClick={bookedFilter}>Booked Rooms</Button>
+      <Button variant="contained" onClick={availableFilter}>Available Rooms</Button>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+              
+              </Grid>
+
+      </Grid>
 <Grid container spacing={5}  direction="row" justify = "center" style={{
   backgroundColor : '#5E5C5C',
   padding: '5px',
   paddingBottom:'60px',
   marginBottom: '100px'
 }}>
-{room.map(p => (
+{test.map(p => (
   <Grid item >
 <Card style={{ 
   width: '505px',
