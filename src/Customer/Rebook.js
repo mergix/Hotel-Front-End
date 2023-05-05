@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from 'react'
 import useForm from '../useForm'
-import { Typography ,Card,CardActions,CardContent,Container,Stack,Box, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader} from '@mui/material'
+import { Typography ,Card,CardActions,CardContent,Container,Stack,Box, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader,Collapse,Alert,AlertTitle} from '@mui/material'
 import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../useStateContext'
 import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
+import moment from 'moment';
 
 export default function Rebook() {
 
@@ -20,6 +21,7 @@ export default function Rebook() {
   const [room,setRoom] = useState([])
   
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
   const [oneRoom,setOneRoom] = useState([])
   
   
@@ -56,15 +58,19 @@ export default function Rebook() {
     const done = e =>{
       e.preventDefault();
         console.log(values)
-        console.log({dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:oneRoom.roomId})
-        axios.post(`https://localhost:7099/api/Booking/`,{dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:context.roomId},{ withCredentials: true }).then(res => {
-          if (res.data == "No cookie") {
-            setContext({token: false})
-            navigate("/")
-          }
-        console.log(res)
-        navigate('/bookManage')
-         }).catch(err => console.log(err))
+        if ( dateOut  < Date.now()) {
+          setOpen2(true)
+        }else{
+          axios.post(`https://localhost:7099/api/Booking/`,{dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:context.roomId},{ withCredentials: true }).then(res => {
+            if (res.data == "No cookie") {
+              setContext({token: false})
+              navigate("/")
+            }
+          console.log(res)
+          navigate('/bookManage')
+           }).catch(err => console.log(err))
+
+        }
     }
   
     const handleClickOpen = () => {
@@ -125,16 +131,17 @@ export default function Rebook() {
               return require(`../img/Rooms/${x}`)
             }
           }
+          
   return (
     <>
-    <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
+    <Container style={{ backgroundColor: '#433f3f' ,padding: '20px',marginBottom: '100px' ,marginTop:'200px'}}>
       
      
-       <Card style={{height: '700px', width:'850px',marginLeft: 100,marginTop:50,alignItems:'center'}}>
+       <Card style={{height: '800px', width:'850px',marginLeft: 100,marginTop:50,alignItems:'center'}}>
        <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
        <CardContent style={{marginLeft: 10,marginTop:20,alignItems:'center'}}>
-       <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
-         Please Select a room to book as well as Your desired dates  
+       <Typography sx={{fontSize:"23px", fontWeight:"bold",textDecoration:'underline'}}>
+         This is booking you want to rebook 
           </Typography>
            <form noValidate autoComplete='on' onSubmit={done}>
  
@@ -155,7 +162,7 @@ export default function Rebook() {
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:£{oneRoom.cost}
       </Typography >
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         Select Room
       </Button>
       <Dialog
@@ -229,10 +236,10 @@ export default function Rebook() {
         Email: {book.userEmail}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-      Check-In Date: {book.dateIn}
+      Check-In Date: {moment(book.dateIn).format('LL')}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-      Check-Out Date: {book.dateOut}
+      Check-Out Date: {moment(book.dateOut).format('LL')}
       </Typography >
       </Stack>
       </Grid>
@@ -244,7 +251,8 @@ export default function Rebook() {
      label="Check-In"
      id='dateIn'
      renderInput={(params) => {
-       return <TextField {...params} />;
+       return <TextField {...params} 
+       InputLabelProps={{style: { color: '#25383C' }}}/>;
      }}
      value={dateIn}
      onChange={setDateIn}
@@ -255,16 +263,33 @@ export default function Rebook() {
      label="Check-Out"
      value={dateOut}
      id='dateOut'
-     renderInput={(params) => <TextField {...params} />}
+     renderInput={(params) => <TextField {...params}
+     InputLabelProps={{style: { color: '#25383C' }}} />}
      onChange={setDateOut}
      sx = {{ml: 20}}
    />
    </Grid>
    </Grid>
-
+   <Collapse in={open2}>
+    <Alert  style={{paddingTop:"10px",marginTop:'15px'}} severity="error" action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen2(false);
+              }}
+            >
+              <IconButton fontSize="inherit" />
+            </IconButton>
+          }>
+<AlertTitle>Something Went wrong</AlertTitle>
+ <strong>Your check-out date cannot be the same or be less than the current date </strong>
+</Alert>
+</Collapse>
         </Box>
 
-        <Button  type = "submit" variant='outlined' style={{marginTop:30,marginLeft:550}}>
+        <Button  type = "submit" variant='contained' style={{marginTop:30,marginLeft:550}}>
          Confirm Changes
        </Button>
          </form>

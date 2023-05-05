@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import useForm from '../../useForm'
-import { createAPIEndpoint, ENDPOINTS } from '../../api'
 import {
   Typography, Card, CardHeader, CardActions, CardContent, Stack,
   Container, Grid, Button, CardMedia, TextField, Dialog, DialogTitle,
-  DialogContent, DialogContentText, DialogActions, Box
+  DialogContent, DialogContentText, DialogActions, Box,Collapse,Alert,AlertTitle
 } from '@mui/material'
 import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -14,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 
 export default function CreateBooking() {
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
 
   const {context, setContext, resetContext } = useStateContext()
   const [room, setRoom] = useState([])
@@ -106,32 +106,40 @@ export default function CreateBooking() {
   const book = e => {
     e.preventDefault();
     console.log(values)
-    axios.post(`https://localhost:7099/api/Booking`,{
-      userId: context.currentUserId,
-      roomId: context.roomId,
-      dateIn: dateIn,
-      dateOut: dateOut
-    },{ withCredentials: true }).then(res => {
-      console.log(res)
-      navigate('/bookManage')
-    }).catch(err => console.log(err))
+    if ( dateOut  < Date.now()) {
+      setOpen2(true)
+    }else{
+      axios.post(`https://localhost:7099/api/Booking`,{
+        userId: context.currentUserId,
+        roomId: context.roomId,
+        dateIn: dateIn,
+        dateOut: dateOut
+      },{ withCredentials: true }).then(res => {
+        console.log(res)
+        navigate('/bookManage')
+      }).catch(err => console.log(err))
+
+    }
   }
   return (
     <>
-    <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
-       <Card style={{height: '850px', width:'1000px',marginLeft: 60,marginTop:100,alignItems:'center'}}>
-       <CardContent style={{marginLeft: 0,marginTop:40,alignItems:'center'}}>
-           <Typography sx={{ fontSize: 22 }} style={{marginLeft:130,marginBottom:30}}>
-          Please confirm the details  of your booking
-           </Typography>
-
+    <Container  style={{ backgroundColor: '#433f3f',marginBottom: '100px' ,marginTop:'140px',padding:'20px'}}>
+       <Card style={{height: '820px', width:'870px',marginLeft: '80px'}}>
+       <CardMedia image={image(oneRoom.roomPicture)} style={{height: '230px'}}/>
+       <CardContent style={{marginLeft: 0,marginTop:20,alignItems:'center'}}>
+       <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'30px',textDecoration:'underline'}}>
+         Please Select a room to book as well as Your desired dates  
+          </Typography>
     <form noValidate autoComplete='on' onSubmit={book}>
-    <CardMedia image={image(oneRoom.roomPicture)} style={{height: '190px'}}/>
-     <Box sx={{ml:1,padding:4}}>
+
+     <Box sx={{ml:0,padding:4}}>
       <Grid container spacing={2} >
       <Grid item >
       <Stack spacing={1} direction="column" sx={{minWidth:400}}>
-      <Typography sx={{ fontSize: 18 }} style={{marginBottom:2}}>
+      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
+        Type:{category(oneRoom.categoryType)}
+      </Typography >
+      <Typography sx={{ fontSize: 20 }} style={{marginBottom:2}}>
        Room Name:{oneRoom.roomName}
       </Typography>
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
@@ -140,10 +148,7 @@ export default function CreateBooking() {
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:{oneRoom.cost}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Type:{category(oneRoom.categoryType)}
-      </Typography >
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         Select Room
       </Button>
       <Dialog
@@ -211,8 +216,8 @@ export default function CreateBooking() {
       <Grid item>
       <Stack spacing={2} direction="column">
       <Stack item>
-      <Typography sx={{ fontSize: 20 }} style={{marginBottom:30}} component="div">
-       Name: {cUser.firstName}
+      <Typography sx={{ fontSize: 20 }} style={{marginBottom:30}}>
+       Name: {cUser.firstName + "  "+ cUser.lastName}
       </Typography>
       </Stack>
       <Stack item>
@@ -226,14 +231,15 @@ export default function CreateBooking() {
       </Box>
 
 
-      <Box sx={{ml:15,padding:2,mt: 5 }}>
+      <Box sx={{ml:10,padding:2,mt: 0 }}>
       <Grid container spacing={5}>
       <Grid item  sx={{mr:15}}>
   <DesktopDatePicker
      label="Start Date"
      id='dateIn'
      renderInput={(params) => {
-       return <TextField {...params} />;
+       return <TextField {...params} 
+       InputLabelProps={{style: { color: '#25383C' }}}/>;
      }}
      value={dateIn}
      onChange={setDateIn}
@@ -244,24 +250,38 @@ export default function CreateBooking() {
      label="End Date"
      value={dateOut}
      id='dateOut'
-     renderInput={(params) => <TextField {...params} />}
+     renderInput={(params) => <TextField {...params}
+     InputLabelProps={{style: { color: '#25383C' }}} />}
      onChange={setDateOut}
      sx = {{ml: 20}}
    />
    </Grid>
    </Grid>
+   <Collapse in={open2}>
+    <Alert  style={{paddingTop:"10px",marginTop:'15px'}} severity="error" action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen2(false);
+              }}
+            >
+              <IconButton fontSize="inherit" />
+            </IconButton>
+          }>
+<AlertTitle>Something Went wrong</AlertTitle>
+ <strong>Your check-out date cannot be the same or be less than the current date </strong>
+</Alert>
+</Collapse>
    </Box>
-        <Button  type = "submit" variant='outlined' style={{marginTop:90,marginLeft:800}}>
+        <Button  type = "submit" variant='contained' style={{marginTop:'5px',marginLeft:'580px'}}>
          Confirm the Booking
        </Button>
          </form>
        </CardContent>
        </Card>
     </Container>
-     <footer style={{ padding: '50px' ,  }}>
- 
-   Ismail Fagbenro Made this 🙂
- </footer>
  </>
   )
 }

@@ -4,6 +4,7 @@ import React, { useState,useEffect } from 'react'
 import useStateContext from '../../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
+import moment from 'moment';
 
 
 export default function ViewRoom() {
@@ -67,7 +68,7 @@ export default function ViewRoom() {
     <>
     <Container  style={{marginTop: '150px'}}>
     <Card sx={{
-      height: '650px',
+      height: '630px',
       width: '700px',
        mx: 'auto',
         mt: 10,
@@ -75,20 +76,20 @@ export default function ViewRoom() {
      <CardMedia
         component="img"
         alt={room.roomPicture}
-        height="194"
+        height="230"
         image={image(room.roomPicture)}
       />
     <CardContent style={{
       marginLeft: '50px',
-      marginTop:'50px',
+      marginTop:'10px',
       alignItems:'center',
       padding: '10px',
       }}>
-      <Typography sx={{ fontSize: '25px' }} color="text.secondary" gutterBottom>
+      <Typography sx={{ fontSize: '25px' }} color="text.primary" gutterBottom>
         Room Details
       </Typography>
-      <Typography sx={{ fontSize: '20px' }} component="div">
-       Room Name: {room.roomName}
+      <Typography sx={{ fontSize: '20px' ,paddingBottom:"10px"}} component="div">
+       Description: {room.roomName}
       </Typography>
       <Typography sx={{ fontSize: '20px' }} component="div">
        Room Type: {category(room.categoryType)}
@@ -102,15 +103,15 @@ export default function ViewRoom() {
       <Typography sx={{ fontSize: '20px' }} >
         ------------
         <br />
-        Last Modified: {room.lastModified}
+        Last Modified: {moment(room.lastModified).format('MMMM Do YYYY, h:mm:ss a')}
       </Typography>
     </CardContent>
-    <CardActions  style={{marginLeft: '500px',marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: '20px' }} onClick={() => {
+    <CardActions  style={{marginLeft: '500px',marginTop:30,alignItems:'center'}}>
+      <Button variant='outlined' sx={{ fontSize: '20px' }} onClick={() => {
       setContext({roomId: room.roomId});
        navigate('/roomEdit');
        }}>Edit</Button>
-      <Button sx={{ fontSize: '20px' }} onClick={() => {
+      <Button variant='outlined'sx={{ fontSize: '20px' }} onClick={() => {
       setContext({roomId: room.roomId});
        navigate('/roomDelete');
        }}>Delete</Button>

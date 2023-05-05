@@ -1,9 +1,8 @@
 import React,{ useEffect } from 'react'
-import { Card, CardContent, TextField, Typography,Alert,AlertTitle,Collapse  } from '@mui/material'
+import { Card, CardContent, TextField, Typography,Alert,AlertTitle,Collapse,Container  } from '@mui/material'
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
 import useForm from '../../useForm'
-import { createAPIEndpoint, ENDPOINTS } from '../../api'
 import useStateContext from '../../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
@@ -45,7 +44,7 @@ export default function LoginAdmin() {
             setOpen(true)
         }
         else{
-            setContext({currentUserId: res.data.result.userId})
+            setContext({currentUserId: res.data.result.userId,token:true})
             console.log(res.data.result.userId)
             navigate('/adminhome')
         }
@@ -61,6 +60,7 @@ export default function LoginAdmin() {
       return Object.values(temp).every(x => x == "")
   }
   return (
+    <Container sx={{marginTop:'20vh'}}>
     <Center>
 
     <Card sx = {{width: '400px', marginTop:'150px'}}>
@@ -78,6 +78,7 @@ export default function LoginAdmin() {
        name = "userEmail"
        value={values.userEmail}
        onChange = {handleInputChange}
+       InputLabelProps={{style: { color: '#25383C' }}}
        variant = "outlined"
        {...(errors.userEmail && { error: true, helperText: errors.userEmail })}
        />
@@ -87,6 +88,7 @@ export default function LoginAdmin() {
        name = "userPassword"
        value={values.userPassword}
        onChange = {handleInputChange}
+       InputLabelProps={{style: { color: '#25383C' }}}
        variant = "outlined"
        {...(errors.userPassword && { error: true, helperText: errors.userPassword })}
        />
@@ -120,5 +122,7 @@ export default function LoginAdmin() {
        </CardContent>
    </Card>
     </Center>
+
+    </Container>
      )
 }

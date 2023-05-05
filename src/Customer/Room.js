@@ -24,14 +24,8 @@ export default function Room() {
     };
     useEffect(() => {
       axios.get(`https://localhost:7099/api/Room`,{ withCredentials: true }).then(res =>{
-            if (res.data == "No cookie") {
-              setContext({token: false})
-              resetContext();
-              navigate("/")
-            } else {
               setRoom(res.data.result)
               setTest(res.data.result)
-            }
             }).catch(err => console.log(err))
     },[])
 
@@ -52,6 +46,16 @@ export default function Room() {
     }
   }
 
+  function status(p){
+    switch (p) {
+      case 0:
+        return "Available"
+        case 1:
+          return "Booked"
+          default:
+            return "no value"
+          }
+        }
 
   function disable(p){
     if (p.status == 0) {
@@ -64,16 +68,6 @@ export default function Room() {
     }}>View</Button>
     }
   }
-  function status(p){
-    switch (p) {
-      case 0:
-        return "Available"
-        case 1:
-          return "Booked"
-          default:
-            return "no value"
-          }
-        }
  function statusUI(p){
           switch (p) {
             case 0:
@@ -123,6 +117,16 @@ export default function Room() {
           let aStatus = room.filter(x => x.status == 0)
           setTest(aStatus)
         }
+
+        function costfilter500(){
+          let aStatus = room.filter(x => x.cost <= 500)
+          setTest(aStatus)
+        }
+
+        function costfilter1000(){
+          let aStatus = room.filter(x => x.cost >= 1000)
+          setTest(aStatus)
+        }
         
   function booklist(){
     if(context.currentUserId == 0){
@@ -138,16 +142,17 @@ export default function Room() {
 <Container style={{marginTop: '20vh'}}>
 
 
-<Grid container spacing={5} style={{
+<Grid container spacing={1} sx={{
       marginTop: '40px',
-      marginBottom: '50px'
+      marginBottom: '50px',
+      backgroundColor:'#F5F5F5',
+      padding:'10px',
       }}>
             <Grid item >
   <Typography> All the Rooms</Typography>
-
             </Grid>
             <Grid item >
-  <Button variant="outlined" onClick={handleClickOpen}>
+  <Button variant="outlined" onClick={handleClickOpen} sx={{color: (theme) => theme.palette.text.primary}}>
         Filter the list
       </Button>
       <Dialog
@@ -157,7 +162,7 @@ export default function Room() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Filter By room type Or by Booked and available rooms"}
+          {"Filter the rooms "}
         </DialogTitle>
         <DialogContent>
         <Stack spacing={2} direction="row">
@@ -171,18 +176,17 @@ export default function Room() {
           <Stack spacing={2} direction="row">
       <Button variant="contained" onClick={bookedFilter}>Booked Rooms</Button>
       <Button variant="contained" onClick={availableFilter}>Available Rooms</Button>
+      <Button variant="contained" onClick={costfilter500}>Rooms 500 and under</Button>
+      <Button variant="contained" onClick={costfilter1000}>Rooms 1000 and more</Button>
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
           <Button onClick={handleClose} autoFocus>
-            Agree
+            Close
           </Button>
         </DialogActions>
-      </Dialog>
-              
-              </Grid>
-
+      </Dialog> 
+      </Grid>
       </Grid>
 <Grid container spacing={5}  direction="row" justify = "center" style={{
   backgroundColor : '#5E5C5C',
@@ -226,25 +230,6 @@ export default function Room() {
   </Grid>
 
 </Container>
-<footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
       </>
   )
 }

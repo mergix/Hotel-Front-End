@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react'
 import useStateContext from '../../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios'
-import useForm from '../../useForm';
+import moment from 'moment';
 
 export default function DeleteRoom() {
 
@@ -68,12 +68,11 @@ function image(x){
   }}>
      <CardMedia
         component="img"
-        alt="green iguana"
-        height="160"
+        height="230"
         image={image(room.roomPicture)}
       />
-    <CardContent style={{marginLeft: '50px',marginTop:'30px',alignItems:'center'}}>
-      <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
+    <CardContent style={{marginLeft: '50px',marginTop:'20px',alignItems:'center'}}>
+      <Typography sx={{ fontSize: 30, fontWeight:"bold" }} color="text.primary" gutterBottom>
         This is the room you want to delete
       </Typography>
       <Typography sx={{ fontSize: '20px' }} component="div">
@@ -88,12 +87,12 @@ function image(x){
       <Typography sx={{ fontSize: '20px' }} >
         ------------
         <br />
-        Last Modified: {room.lastModified}
+        Last Modified: {moment(room.lastModified).format('MMMM Do YYYY, h:mm:ss a')}
       </Typography>
     </CardContent>
     <form noValidate autoComplete='on' onSubmit={del}>
-    <CardActions  style={{marginLeft: '500px',marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: '20px' }} type='sumbit'>Delete</Button>
+    <CardActions  style={{marginLeft: '550px',marginTop:20,alignItems:'center'}}>
+      <Button variant= 'outlined'sx={{ fontSize: '20px' }} type='sumbit'>Delete</Button>
     </CardActions>
     </form>
     </Card>

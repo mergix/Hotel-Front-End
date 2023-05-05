@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import useStateContext from '../../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
+import moment from 'moment';
 
 
 export default function RoomManage() {
@@ -101,18 +102,21 @@ function singleFilter(){
     <>
     <Container  style={{
       marginTop: '140px',
-      backgroundColor : '#F5F5F5',
-      padding: '20px',
+      backgroundColor : '#f0efef',
+      padding: '40px',
       paddingBottom:'60px',
       marginBottom: '100px'
       }}>
 
-<Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
-         These are the users registered with the service 
+<Typography sx={{fontSize:"29px", fontWeight:"bold",textDecoration:'underline'}}>
+         ROOMS
+          </Typography>
+          <Typography sx={{fontSize:"25px", fontWeight:"bold",textDecoration:'underline'}}>
+         These are all the rooms currently in service
           </Typography>
     <Grid container spacing={5} style={{
-      marginTop: '40px',
-      marginBottom: '50px'
+      marginTop: '5px',
+      marginBottom: '50px',
       }}>
     <Grid item >
     <Button variant="contained" sx ={{mx:'auto',marginLeft:'auto'}} onClick={() => {
@@ -148,10 +152,7 @@ function singleFilter(){
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
+          <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
     </div>
@@ -166,7 +167,7 @@ function singleFilter(){
       <th>Id</th>
       <th>Type</th>
       <th>Status</th>
-      <th>Cost</th>
+      <th>Cost(£)</th>
       <th>Last Modified</th>
     </tr>
   </thead>
@@ -176,9 +177,9 @@ function singleFilter(){
     <td> {p.roomId}</td>
     <td>{category(p.categoryType)}</td>
     <td>{status(p.status)}</td>
-    <td>£{p.cost}</td>
-    <td>{p.lastModified}</td>
-    <td>  <Button  onClick={() => {
+    <td>{p.cost}</td>
+    <td>{moment(p.lastModified).format('MMMM Do YYYY, h:mm:ss a')}</td>
+    <td>  <Button variant="contained"  onClick={() => {
             setContext({roomId: p.roomId});
       console.log(context.bookId);
        navigate('/roomView');
@@ -191,25 +192,6 @@ function singleFilter(){
 
      </Grid>
      </Container>
-     <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
        </>
   )
 }

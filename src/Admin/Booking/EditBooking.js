@@ -1,12 +1,13 @@
 import React, { useState,useEffect } from 'react'
 import useForm from '../../useForm'
-import { createAPIEndpoint, ENDPOINTS } from '../../api'
-import { Typography ,Card,CardActions,CardContent,Container,Stack,Box, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader} from '@mui/material'
+import { Typography ,Card,CardActions,CardContent,Container,Stack,Box, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader,Collapse,Alert,AlertTitle} from '@mui/material'
 import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../../useStateContext'
 import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
+import moment from 'moment';
+
 export default function EditBooking() {
 
 
@@ -15,6 +16,7 @@ export default function EditBooking() {
 
 const[dateIn,setDateIn] = useState(new Date())
 const[dateOut,setDateOut] = useState(new Date())
+const [open2, setOpen2] = React.useState(false);
 
 const [room,setRoom] = useState([])
 
@@ -83,10 +85,16 @@ function image(x) {
   const done = e =>{
     e.preventDefault();
       console.log(values)
-      axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,userId:context.userId,roomId:oneRoom.roomId,dateIn: dateIn,dateOut:dateOut},{ withCredentials: true }).then(res => {
-      console.log(res)
-      navigate('/bookManage')
-       }).catch(err => console.log(err))
+      console.log(dateIn)
+      if ( dateOut  < Date.now()) {
+        setOpen2(true)
+      }else{
+        axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,userId:context.userId,roomId:oneRoom.roomId,dateIn: dateIn,dateOut:dateOut},{ withCredentials: true }).then(res => {
+        console.log(res)
+        navigate('/bookManage')
+         }).catch(err => console.log(err))
+
+      }
   }
 
   const handleClickOpen = () => {
@@ -114,41 +122,41 @@ function image(x) {
 
   return (
     <>
-    <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
+    <Container  style={{ backgroundColor: '#433f3f' ,padding:'30px',marginBottom: '100px' ,marginTop:'140px'}}>
       
      
        <Card style={{
-        height: '730px',
-         width:'890px',
+        height: '820px',
+         width:'870px',
          marginLeft: 100,
          marginTop:50,
          alignItems:'center'}}>
-       <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
-       <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>
-       <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
-        Booking
+       <CardMedia image={image(book.roomPicture)} style={{height: '230px'}}/>
+       <CardContent style={{marginLeft: 10,marginTop:20,alignItems:'center'}}>
+       <Typography sx={{ fontSize: 23, fontWeight:"bold",textDecoration:'underline' }} color="text.primary" gutterBottom>
+        Booking :{book.bookingId}
       </Typography>
            <form noValidate autoComplete='on' onSubmit={done}>
  
       <Grid container spacing={1} >
       <Grid item >
       <Stack spacing={1} direction="column" sx={{width:400}}>
-      <Typography sx={{ fontSize: 20 }} component="div">
+      <Typography sx={{ fontSize: 20 }}>
+        Type:{category(oneRoom.categoryType)}
+      </Typography >
+      <Typography sx={{ mb: 1.5,fontSize: 20 }} component="div">
       Description:{oneRoom.roomName}
       </Typography>
       
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Status:{status(oneRoom.status)}
       </Typography >
-      <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Status:{category(oneRoom.categoryType)}
-      </Typography >
       
       
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:£{oneRoom.cost}
       </Typography >
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         Select Room
       </Button>
       <Dialog
@@ -221,19 +229,14 @@ function image(x) {
         Email: {book.userEmail}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        datein: {book.dateIn}
+      Check-In Date: {moment(book.dateIn).format('MMMM Do YYYY, h:mm:ss a')}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        dateout: {book.dateOut}
+      Check-Out Date: {moment(book.dateOut).format('MMMM Do YYYY, h:mm:ss a')}
       </Typography >
       </Stack>
       </Grid>
       </Grid>
-     
-
-      
-
-
      <Box sx={{ml:15,padding:2,mt: 5 }}>
       <Grid container spacing={5}>
       <Grid item xs={'auto'}>
@@ -241,7 +244,8 @@ function image(x) {
      label="Start Date"
      id='dateIn'
      renderInput={(params) => {
-       return <TextField {...params} />;
+       return <TextField {...params} 
+       InputLabelProps={{style: { color: '#25383C' }}}/>;
      }}
      value={dateIn}
      onChange={setDateIn}
@@ -252,15 +256,33 @@ function image(x) {
      label="End Date"
      value={dateOut}
      id='dateOut'
-     renderInput={(params) => <TextField {...params} />}
+     renderInput={(params) => <TextField {...params}
+     InputLabelProps={{style: { color: '#25383C' }}} />}
      onChange={setDateOut}
      sx = {{ml: 20}}
    />
    </Grid>
    </Grid>
+   <Collapse in={open2}>
+    <Alert  style={{paddingTop:"10px",marginTop:'15px'}} severity="error" action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen2(false);
+              }}
+            >
+              <IconButton fontSize="inherit" />
+            </IconButton>
+          }>
+<AlertTitle>Something Went wrong</AlertTitle>
+ <strong>Your check-out date cannot be the same or be less than the current date </strong>
+</Alert>
+</Collapse>
    </Box>
 
-        <Button  type = "submit" variant='outlined' style={{marginTop:10,marginLeft:650}}>
+        <Button  type = "submit" variant='contained' style={{marginTop:10,marginLeft:650}}>
          Confirm Changes
        </Button>
          </form>
@@ -268,10 +290,6 @@ function image(x) {
        </Card>
     
     </Container>
-     <footer style={{ padding: '50px' ,  }}>
- 
-   Ismail Fagbenro Made this 🙂
- </footer>
  </>
   )
 }

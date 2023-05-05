@@ -1,4 +1,4 @@
-import { Card,Typography,CardActions,CardContent,Button,TextField,CardMedia,MenuItem,Select,InputLabel } from '@mui/material';
+import { Card,Typography,CardActions,CardContent,Button,TextField,CardMedia,MenuItem,Select,InputLabel,Grid } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState,useEffect } from 'react'
 import useStateContext from '../../useStateContext';
@@ -45,13 +45,13 @@ export default function CreateRoom() {
 
   return (
     <>
-    <Container  style={{marginTop: '100px'}}>
+    <Container  style={{marginTop: '140px'}}>
     <Card sx={{
-      minHeight: 600,minWidth: 650, mx: 'auto', mt: 10,
+      height: 550,width: 800, mx: 'auto', mt: 10,
   }}>
  <form noValidate autoComplete='on' onSubmit={create}>
-    <CardContent style={{marginLeft: 300,marginTop:70,alignItems:'center'}}>
-      <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
+    <CardContent style={{marginLeft: '50px',marginTop:70,alignItems:'center'}}>
+      <Typography sx={{ fontSize: 34 }} color="text.primary" gutterBottom>
         This is the room you want to create
       </Typography>
      
@@ -60,26 +60,33 @@ export default function CreateRoom() {
           required
           name = "roomName"
           label="RoomName"
+          multiline
+          rows={5}
+          InputLabelProps={{style: { color: '#25383C' }}}
           value={values.roomName}
           onChange = {handleInputChange}
         />
         <TextField
           required
           name = "cost"
-          label="Cost"
+          label="Cost(£)"
+          InputLabelProps={{style: { color: '#25383C' }}}
           value={values.cost}
           onChange = {handleInputChange}
         />
-        <InputLabel id="demo-simple-select-autowidth-label">Type</InputLabel>
+
+<Grid container spacing={20}>
+<Grid item>
+<InputLabel id="demo-simple-select-autowidth-label" sx={{color: "#25383C"}}>Room Type</InputLabel>
         <Select
-        
           autoWidth
           label="Type"
           name = "categoryType"
+          InputLabelProps={{style: { color: '#25383C' }}}
           onChange = {handleInputChange}
           value={values.categoryType}
         >
-          <MenuItem value="">
+          <MenuItem value="None">
             <em>None</em>
           </MenuItem>
           <MenuItem value={1}>Single Room</MenuItem>
@@ -87,13 +94,15 @@ export default function CreateRoom() {
           <MenuItem value={3}>Deluxe Room</MenuItem>
           <MenuItem value={4}>Presidential Suite</MenuItem>
         </Select>
-        <input style={{marginLeft: 130}} type='file' name= 'roomPicture' onChange={handleImage} />
-      <Typography sx={{ fontSize: 34 }} >
-        ------------
-      </Typography>
+</Grid>
+<Grid item>
+<InputLabel sx={{color: "#25383C"}}>Room Picture</InputLabel>
+        <input  style={{paddingTop:'20px'}}type='file' name= 'roomPicture' label="Room Picture" onChange={handleImage} />
+</Grid>
+</Grid>
     </CardContent>
-    <CardActions  style={{marginLeft: 400,marginTop:70,alignItems:'center'}}>
-      <Button sx={{ fontSize: 34 }} type = "submit">Create</Button>
+    <CardActions  style={{marginLeft: '600px',marginTop:'30px',alignItems:'center'}}>
+      <Button  variant="outlined" sx={{ fontSize: '23px' }} type = "submit">Create</Button>
       
     </CardActions>
       </form>

@@ -1,9 +1,8 @@
 import React,{ useEffect } from 'react'
-import { Card, CardContent, TextField, Typography } from '@mui/material'
+import { Card, CardContent, TextField, Typography,Container } from '@mui/material'
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
 import useForm from '../useForm'
-import { createAPIEndpoint, ENDPOINTS } from '../api'
 import useStateContext from '../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
@@ -45,8 +44,8 @@ export default function Register() {
 
   return (
     <>
+        <Container sx={{marginTop:'20vh'}}>
     <Center>
-
     <Card sx = {{width: '400px'}}>
        <CardContent sx={{textAlign:'center'}}>
            <Typography variant='h3' sx={{marginY: 3}}> Make a new account</Typography>
@@ -62,6 +61,7 @@ export default function Register() {
        name = "firstName"
        value={values.firstName}
        onChange = {handleInputChange}
+       InputLabelProps={{style: { color: '#25383C' }}} 
        variant = "outlined"
        {...(errors.firstName && { error: true, helperText: errors.firstName })}
        />
@@ -70,6 +70,7 @@ export default function Register() {
        name = "lastName"
        value={values.lastName}
        onChange = {handleInputChange}
+       InputLabelProps={{style: { color: '#25383C' }}} 
        variant = "outlined"
        {...(errors.lastName && { error: true, helperText: errors.lastName })}
        />
@@ -79,6 +80,7 @@ export default function Register() {
        name = "userEmail"
        value={values.userEmail}
        onChange = {handleInputChange}
+       InputLabelProps={{style: { color: '#25383C' }}} 
        variant = "outlined"
        {...(errors.userEmail && { error: true, helperText: errors.userEmail })}
        />
@@ -88,6 +90,7 @@ export default function Register() {
        name = "userPassword"
        value={values.userPassword}
        onChange = {handleInputChange}
+       InputLabelProps={{style: { color: '#25383C' }}} 
        variant = "outlined"
        {...(errors.userPassword && { error: true, helperText: errors.userPassword })}
        />
@@ -104,25 +107,8 @@ export default function Register() {
 </CardContent>
    </Card>
     </Center>
-    <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
 
-			<p>
-				Mobile
-			</p>
-	</footer>
+        </Container>
     </>
 
     

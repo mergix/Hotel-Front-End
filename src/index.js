@@ -10,16 +10,17 @@ import { text } from '@fortawesome/fontawesome-svg-core';
 const darkTheme = createTheme({
   palette: {
     primary:{
-      main: '#0052cc'
+      main: '#25383C',
     },
     secondary:{
       main:'#F5F5F5'
     },
     background:{
-      default:'#353434'
+      default:'#36454F'
     },
     text:{
-      primary:'#0052cc'
+      primary:'#25383C',
+      secondary:'#fff'
     },
     
   },

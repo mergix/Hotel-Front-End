@@ -60,7 +60,7 @@ export default function UserViewBooking() {
     <>
     <Container  style={{marginTop: '100px'}}>
     <Card sx={{
-      height: '740px',width: '909px', mx: 'auto', mt: 5,
+      height: '600px',width: '900px', mx: 'auto', mt: 5,
   }}>
 
       <CardMedia image={image(book.roomPicture)} style={{height: '190px',padding:"50px"}}/>
@@ -92,10 +92,10 @@ export default function UserViewBooking() {
         Email: {book.userEmail}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-      Check-In Date: {book.dateIn}
+      Check-In Date: {moment(book.dateIn).format('LL')}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-      Check-Out Date: {book.dateOut}
+      Check-Out Date: {moment(book.dateOut).format('LL')}
       </Typography >
       </Grid>
       </Grid>
@@ -116,25 +116,6 @@ export default function UserViewBooking() {
     </Card>
     
     </Container>
-    <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
     </>
   )
 }

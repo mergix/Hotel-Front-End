@@ -3,7 +3,6 @@ import { Card, CardContent, TextField, Typography,Alert,AlertTitle,Collapse, Con
 import {Button} from '@mui/material'
 import { Box, width } from '@mui/system'
 import useForm from '../useForm'
-import { createAPIEndpoint, ENDPOINTS } from '../api'
 import useStateContext from '../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
@@ -61,6 +60,7 @@ export default function Login() {
     }
   return (
     <>
+    <Container sx={{marginTop:'20vh'}}>
     <Center>
      <Card sx = {{
         width: '400px',
@@ -81,6 +81,7 @@ export default function Login() {
         name = "userEmail"
         value={values.userEmail}
         onChange = {handleInputChange}
+        InputLabelProps={{style: { color: '#25383C' }}}
         variant = "outlined"
         {...(errors.userEmail && { error: true, helperText: errors.userEmail })}
         />
@@ -91,6 +92,8 @@ export default function Login() {
         value={values.userPassword}
         onChange = {handleInputChange}
         variant = "outlined"
+        InputLabelProps={{style: { color: '#25383C' }}}
+        sx={{color: (theme) => theme.palette.text.primary}}
         {...(errors.userPassword && { error: true, helperText: errors.userPassword })}
         />
 
@@ -101,8 +104,8 @@ export default function Login() {
         sx = {{width: '90%'}}> Login</Button>
         
     </form>
-    <Collapse in={open}>
-    <Alert severity="info" action={
+    <Collapse in={open} sx={{marginTop:"10px"}}>
+    <Alert severity="error" action={
             <IconButton
               aria-label="close"
               color="inherit"
@@ -124,25 +127,8 @@ export default function Login() {
     </Card>
 
     </Center>
-    <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
 
-			<p>
-				Mobile
-			</p>
-	</footer>
+    </Container>
     </>
       )
 }

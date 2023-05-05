@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../useStateContext'
 import axios from 'axios';
+import moment from 'moment';
 
 export default function CustomerDeleteBooking() {
 
@@ -80,7 +81,7 @@ export default function CustomerDeleteBooking() {
       }
   return (
     <>
-    <Container  maxWidth = "xl" style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
+    <Container  style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px',padding:'10px'}}>
        <Card style={{height: '750px', width:'750px',marginLeft: 200,marginTop:50,alignItems:'center'}}>
        <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
        <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>
@@ -101,11 +102,11 @@ export default function CustomerDeleteBooking() {
       </Typography >
 
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Check-In Date: {book.dateIn}
+        Check-In Date: {moment(book.dateIn).format('LL')}
       </Typography >
 
    <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-      Check-Out Date: {book.dateOut}
+      Check-Out Date: {moment(book.dateOut).format('LL')}
       </Typography >
       <Typography sx={{ fontSize: 24 }} style={{marginBottom:10}} component="div">
       Owner of booking:{book.firstName}
@@ -115,7 +116,7 @@ export default function CustomerDeleteBooking() {
       </Typography >
 
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-        Booked at : {book.dateIn}
+        Booked at : {moment(book.lastModified).format('LLL')}
       </Typography >
 
 
@@ -153,25 +154,6 @@ Are you sure you want to Delete this booking?
        </Card>
 
     </Container>
-    <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
  </>
   )
 }

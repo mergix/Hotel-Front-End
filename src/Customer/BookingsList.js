@@ -22,12 +22,9 @@ export default function BookingsList() {
       axios.get(`https://localhost:7099/userlist/${context.currentUserId}`,{ withCredentials: true })
       .then(res =>{
         if (res.data == "No cookie") {
-          console.log('yes no cookie')
         } else {
           setBook(res.data.result)
-          console.log(res)  
         }
-          console.log(res)   
           }).catch(err => console.log(err))
   },[])
 
@@ -35,7 +32,6 @@ export default function BookingsList() {
     axios.get(`https://localhost:7099/userlist/past/${context.currentUserId}`,{ withCredentials: true })
     .then(res =>{
       if (res.data == "No cookie") {
-        console.log('yes no cookie')
       } else {
         setPast(res.data.result)
       }
@@ -65,7 +61,7 @@ export default function BookingsList() {
            '& .MuiCardHeader-action': { m: 0, alignSelf: 'center',paddingTop:100 }
        }} key= {p.bookingId}>
            <CardHeader
-               title = {'booking placeholder'}
+               title = {'Your Booking'}
            />
            <CardContent>
                <Typography variant='h6'>
@@ -92,7 +88,7 @@ export default function BookingsList() {
            '& .MuiCardHeader-action': { m: 0, alignSelf: 'center',paddingTop:100 }
        }} key= {p.bookingId}>
            <CardHeader
-               title = {'booking placeholder'}
+               title = {'Your Booking'}
            />
            <CardContent>
                <Typography variant='h6'>
@@ -115,7 +111,7 @@ export default function BookingsList() {
 
  function booklist(){
   if(context.currentUserId == 0){
-    return <div style={{marginTop:'140px'}}><Alert severity="info">
+    return <div style={{marginTop:'140px',height:'80vh'}}><Alert severity="info">
 <AlertTitle>Something Went wrong</AlertTitle>
     You have not Logged In  — <strong>Please Login before you can view your bookings</strong>
 </Alert></div>
@@ -129,9 +125,10 @@ export default function BookingsList() {
  else{
   return<>
   <Container  style={{
-    marginTop: '140px',
-    backgroundColor: '#2d386d',
-    padding: '20px'
+    marginTop: '120px',
+    backgroundColor: '#5E5C5C',
+    padding: '20px',
+    paddingBottom:'60px'
     }}>
 <ToggleButtonGroup
       color="primary"
@@ -140,31 +137,12 @@ export default function BookingsList() {
       onChange={handleChange}
       aria-label="Platform"
     >
-      <ToggleButton value="Current Bookings">Current Bookings</ToggleButton>
-      <ToggleButton value="Past Booking">Past Booking</ToggleButton>
+      <ToggleButton sx={{color:'#F5F5F5'}} value="Current Bookings">Current Bookings</ToggleButton>
+      <ToggleButton value="Past Booking" sx={{color:'#F5F5F5'}}>Past Booking</ToggleButton>
     </ToggleButtonGroup>
 
 {CurrentPast()}
    </Container>
-<footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
   </>
  }
  }

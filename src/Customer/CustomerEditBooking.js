@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import useForm from '../useForm'
-import { Typography ,Card,CardActions,CardContent,Container,Stack,Box, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader} from '@mui/material'
+import { Typography ,Card,CardActions,CardContent,Container,Stack,Box, Grid, Button, CardMedia, TextField,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CardHeader,Collapse,Alert,AlertTitle} from '@mui/material'
 import { useNavigate } from 'react-router'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import useStateContext from '../useStateContext'
@@ -18,6 +18,7 @@ export default function CustomerEditBooking() {
 
 
 const [room,setRoom] = useState([])
+const [open2, setOpen2] = React.useState(false);
 
 const [open, setOpen] = React.useState(false);
 const [oneRoom,setOneRoom] = useState([])
@@ -60,14 +61,19 @@ useEffect(() => {
     e.preventDefault();
       console.log(values)
       console.log(dateIn)
-      axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,dateIn: dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:oneRoom.roomId},{ withCredentials: true }).then(res => {
-        if (res.data == "No cookie") {
-          setContext({token: false})
-          navigate("/")
-        }
-      console.log(res)
-      navigate('/booklist')
-       }).catch(err => console.log(err))
+      if ( dateOut  < Date.now()) {
+        setOpen2(true)
+      }else{
+        axios.put(`https://localhost:7099/api/Booking/${context.bookId}`,{bookingId:context.bookId,dateIn: dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:oneRoom.roomId},{ withCredentials: true }).then(res => {
+          if (res.data == "No cookie") {
+            setContext({token: false})
+            navigate("/")
+          }
+        console.log(res)
+        navigate('/booklist')
+         }).catch(err => console.log(err))
+
+      }
   }
 
   const handleClickOpen = () => {
@@ -130,14 +136,14 @@ useEffect(() => {
         }
   return (
     <>
-    <Container  style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px'}}>
+    <Container  style={{ backgroundColor: '#433f3f' ,padding: '50px',marginBottom: '100px' ,marginTop:'200px'}}>
       
      
-       <Card style={{height: '700px', width:'850px',marginLeft: 100,marginTop:50,alignItems:'center'}}>
-       <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
-       <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>
-       <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
-         Please Select a room to book as well as Your desired dates  
+       <Card style={{height: '800px', width:'850px',marginLeft: 100,marginTop:50,alignItems:'center'}}>
+       <CardMedia image={image(book.roomPicture)} style={{height: '230px'}}/>
+       <CardContent style={{marginLeft: 10,marginTop:20,alignItems:'center'}}>
+       <Typography sx={{fontSize:"23px", fontWeight:"bold",textDecoration:'underline'}}>
+         This is the booking you want to edit 
           </Typography>
            <form noValidate autoComplete='on' onSubmit={done}>
       <Grid container spacing={1} >
@@ -158,7 +164,7 @@ useEffect(() => {
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Cost:£{oneRoom.cost}
       </Typography >
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         Select Room
       </Button>
       <Dialog
@@ -239,11 +245,6 @@ useEffect(() => {
       </Stack>
       </Grid>
       </Grid>
-     
-
-      
-
-
         <Box sx={{ml:10,padding:2,mt: 5 }}>
       <Grid container spacing={20}>
       <Grid item >
@@ -251,7 +252,8 @@ useEffect(() => {
      label="Check-In Date"
      id='dateIn'
      renderInput={(params) => {
-       return <TextField {...params} />;
+       return <TextField {...params} 
+       InputLabelProps={{style: { color: '#25383C' }}}/>;
      }}
      value={dateIn}
      onChange={setDateIn}
@@ -262,12 +264,30 @@ useEffect(() => {
      label="Check-Out Date"
      value={dateOut}
      id='dateOut'
-     renderInput={(params) => <TextField {...params} />}
+     renderInput={(params) => <TextField {...params}
+     InputLabelProps={{style: { color: '#25383C' }}} />}
      onChange={setDateOut}
      sx = {{ml: 20}}
    />
      </Grid>
      </Grid>
+     <Collapse in={open2}>
+    <Alert  style={{paddingTop:"10px",marginTop:'15px'}} severity="error" action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen2(false);
+              }}
+            >
+              <IconButton fontSize="inherit" />
+            </IconButton>
+          }>
+<AlertTitle>Something Went wrong</AlertTitle>
+ <strong>Your check-out date cannot be the same or be less than the current date </strong>
+</Alert>
+</Collapse>
      </Box>
 
         <Button  type = "submit" variant='contained' style={{marginTop:'20px',marginLeft:'600px'}}>
@@ -278,25 +298,6 @@ useEffect(() => {
        </Card>
     
     </Container>
-    <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
  </>
   )
 }

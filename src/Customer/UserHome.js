@@ -1,7 +1,5 @@
 import { Typography , CssBaseline,Card,CardActions,CardContent,Container, Grid, Button, CardMedia,Box,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle} from '@mui/material'
-import { height, width } from '@mui/system'
 import React,{ useEffect, useState } from 'react'
-import { createAPIEndpoint, ENDPOINTS } from '../api';
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
 import { FaHotel } from 'react-icons/fa';
@@ -43,9 +41,9 @@ export default function UserHome() {
 <Container id="banner">
 			<div id="banner-2">
 
-				<h1>Landing Page</h1>
-				<p>Test Text Lorem ipsum dolor sit amet.</p>
-				<a href="#" class="button">Explore</a>
+				<h1>Welcome to Spectrum Hotel</h1>
+				<p>Stay with us today!</p>
+				<a href="#part-1" class="button">Explore</a>
 			</div>
 
 			<Dialog
@@ -66,47 +64,24 @@ export default function UserHome() {
       </Dialog>
 		</Container>
 
-    <section class="part-1">
+    <section id="part-1">
 		<div class="-a">
 			<p>
-				Look at API Section
+				Register With us to get started  
 			</p> 
-			<a href="first.html" >Explore</a>
+
 		</div>
-		<div class="-b">
+		<div class="-b" >
 			<p>
-				About
+				Browse Our Rooms to see luxury that awaits you 
 			</p> 
-			<a href="#" >Explore</a>
 		</div>
 		<div class="-c">
 			<p>
-				Look at Project Section
+				Login so you always keep your progress
 			</p>
-			<a href="#" >Explore</a>
 		</div>
 	</section>
-
-<footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
-
 </>
 
   )

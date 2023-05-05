@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useStateContext from '../../useStateContext';
 import { useNavigate } from 'react-router'
 import axios from 'axios';
-
+import moment from 'moment';
 export default function BookingManage() {
 
   const [open, setOpen] = React.useState(false);
@@ -78,6 +78,19 @@ export default function BookingManage() {
     console.log(president)
     setTest(president)
   }
+
+  function currentFilter(){
+    let gg = book.filter(x => new Date(x.dateOut).getTime() > Date.now())
+    console.log(gg)
+    setTest(gg)
+  }
+
+  function pastFilter(){
+    let kk = book.filter(x => new Date(x.dateOut).getTime() < Date.now())
+    console.log(new Date(book[0].dateOut).getTime())
+    console.log(Date.now())
+    setTest(kk)
+  }
   function noFilter(){
     let all = book
     console.log(all)
@@ -95,8 +108,11 @@ export default function BookingManage() {
       height:'80vh'
       }}>
 
-<Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
-         These are the users registered with the service 
+<Typography sx={{fontSize:"29px", fontWeight:"bold",textDecoration:'underline'}}>
+         Bookings
+          </Typography>
+ <Typography sx={{fontSize:"23px", fontWeight:"bold",textDecoration:'underline'}}>
+         These are all the bookings past and current
           </Typography>
     <Grid container spacing={3} style={{marginTop: '40px',marginBottom:"50px"}}>
     <Grid item >
@@ -117,7 +133,7 @@ export default function BookingManage() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Filter By room type"}
+          {"Filter by room type"}
         </DialogTitle>
         <DialogContent>
         <Stack spacing={2} direction="row">
@@ -127,11 +143,15 @@ export default function BookingManage() {
       <Button variant="contained" onClick={presidentialFilter}>Presidential Suite </Button>
       <Button variant="contained" onClick={noFilter}>All Types </Button>
           </Stack>
+          <br></br>
+          {/* <Stack spacing={2} direction="row">
+          <Button variant="contained" onClick={currentFilter}>Current Bookings</Button>
+      <Button variant="contained" onClick={pastFilter}>Past Bookings</Button>
+          </Stack> */}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
           <Button onClick={handleClose} autoFocus>
-            Agree
+            Close
           </Button>
         </DialogActions>
       </Dialog>
@@ -146,7 +166,7 @@ export default function BookingManage() {
       <th>Last name</th>
       <th>E-mail</th>
       <th>Type Of Room</th>
-      <th>Cost</th>
+      <th>Cost(£)</th>
       <th>Start date</th>
       <th>End date</th>
       <th>Time Booked</th>
@@ -160,10 +180,10 @@ export default function BookingManage() {
     <td>{p.user.userEmail}</td>
     <td>{category(p.room.categoryType)}</td>
     <td>{p.room.cost}</td>
-    <td>{p.dateIn}</td>
-    <td>{p.dateOut}</td>
-    <td>{p.lastModified}</td>
-    <td>  <Button  onClick={() => {
+    <td>{moment(p.dateIn).format('MMMM Do YYYY, h:mm:ss a')}</td>
+    <td>{moment(p.dateOut).format('MMMM Do YYYY, h:mm:ss a')}</td>
+    <td>{moment(p.lastModified).format('MMMM Do YYYY, h:mm:ss a')}</td>
+    <td>  <Button  variant="contained" onClick={() => {
             setContext({bookId: p.bookingId});
       console.log(context.bookId);
        navigate('/bookView');
@@ -178,39 +198,3 @@ export default function BookingManage() {
        </>
   )
 }
-
-// {test.map(p => (
-//   <Card sx={{
-//      minHeight:300,width: 1000, mx: 'auto', mb: 8,
-//      '& .MuiCardHeader-action': { m: 0, alignSelf: 'center',paddingTop:100 }
-//  }}>
-
-
-//      <CardHeader
-//          title = { p.user.firstName +'  '+ p.user.lastName+' ' + 'Booked a: ' + category(p.room.categoryType)}
-//      />
-
-// <CardMedia
-//     component="img"
-//     height="194"
-//     image={require(`../../img/Rooms/${p.room.roomPicture}`)}
-//     alt={p.room.roomPicture.slice(0,-4)}
-//   />
-//      <CardContent>
-//          <Typography variant='h6'>
-//          Description: {p.room.roomName}
-//          </Typography>
-//       <div> Check-In: {p.dateIn}</div>
-//       <div> Check-Out: {p.dateOut}</div>
-//       <div> Status: {status(p.room.status)}</div>
-//       <div> Booking made at: {p.lastModified}</div>
-//      </CardContent>
-//      <CardActions>
-//       <Button  onClick={() => {
-//       setContext({bookId: p.bookingId});
-//       console.log(context.bookId);
-//       navigate('/bookView');
-//       }}>View</Button>
-//      </CardActions>
-//  </Card>
-//  ))}

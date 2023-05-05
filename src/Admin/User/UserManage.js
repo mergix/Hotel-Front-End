@@ -24,29 +24,39 @@ export default function UserManage() {
           }).catch(err => console.log(err))
   },[])
 
-function dateParse(){
-
-}
+  function role(p){
+    switch (p) {
+      case 1:
+        return "Customer"
+        case 2:
+          return "Admin"
+      default:
+        return "no value"
+    }
+  }
 
 
   return (
     <>
  <Container  style={{
       marginTop: '140px',
-      backgroundColor : '#F5F5F5',
-      padding: '20px',
+      backgroundColor : '#f0efef',
+      padding: '40px',
       paddingBottom:'60px',
       marginBottom: '100px',
       height:'80vh'
       }}>
-
- <Grid container spacing={1} >
- <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+ <Typography sx={{fontSize:"29px", fontWeight:"bold",textDecoration:'underline'}}>
+         USERS
+          </Typography>
+ <Typography sx={{fontSize:"23px", fontWeight:"bold",textDecoration:'underline'}}>
          These are the users registered with the service 
           </Typography>
+ <Grid container spacing={1} style={{marginTop:'20px'}} >
  <table id="basic-data-table" class="table nowrap" style={{padding:'15px' ,height:'30vh'}}>
   <thead>
     <tr>
+      <th>Role</th>
       <th>First name</th>
       <th>Last name</th>
       <th>E-mail</th>
@@ -56,13 +66,13 @@ function dateParse(){
   <tbody>
     {user.map(p => (
     <tr>
+    <td> {role(p.roleType)}</td>
     <td> {p.firstName}</td>
     <td>{p.lastName}</td>
     <td>{p.userEmail}</td>
     <td>{moment(p.lastModified).format('MMMM Do YYYY, h:mm:ss a')}</td>
-    <td>  <Button  onClick={() => {
+    <td>  <Button variant="contained" onClick={() => {
             setContext({userId: p.userId});
-      console.log(context.bookId);
        navigate('/userView');
    }}>View</Button>
    </td> 

@@ -1,5 +1,8 @@
 
-
+html {
+    scroll-behavior: smooth;
+   }
+   
 *{
     text-decoration: none;
     }
@@ -9,8 +12,10 @@
         font-size: 17px;
         line-height: 1.6;
     }
+
+    
 #banner{
-	background-image: url('web-design-2906159_1920.jpg');
+	background-image: url('pexels-vladimir-srajber-14781212.jpg');
 	background-size: cover;
 	background-position: center;
 	height: 100vh;
@@ -20,7 +25,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 10px;
+	gap: 5px;
 	padding: 0 20px;
 }
 
@@ -30,29 +35,31 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 10px;
+	gap: 2px;
 	padding: 0 20px;
 }
 #banner-2 h1{
     font-size: 50px;
+    color: #ffffff;
     }
     
     
         #banner-2 p{
-            font-size: 20px;
+            font-size: 30px;
+            color: #ffffff
         }
     
     
     #banner-2 .button{
         font-size: 18px;
         text-decoration: none;
-        color: #121212;
-        border: #121212 1px solid;
+        color: #ffffff;
+        border: #ffffff 1px solid;
         padding: 10px 20px;
         border-radius: 10px;
     }
 
-    .part-1{
+    #part-1{
         height: 50vh;
         display: flex;
         background-color: #353434;
@@ -74,7 +81,7 @@
         width: 200px;
         border-radius: 10px;
         box-shadow: 0 4px 8px 0 #3c3939, 0 6px 20px 0 #333;
-        background-color:  #a8a8a8;
+        background-color:  #E5E4E2;
     }
     
     .-b{
@@ -88,7 +95,7 @@
         width: 200px;
         border-radius: 10px;
         box-shadow: 0 4px 8px 0 #3c3939, 0 6px 20px 0 #333;
-        background-color:  #92662c;
+        background-color:  #E5E4E2;
     }
     
     .-c{
@@ -102,10 +109,10 @@
         width: 200px;
         border-radius: 10px;
         box-shadow: 0 4px 8px 0 #3c3939, 0 6px 20px 0 #333;
-        background-color:  #92662c;
+        background-color:  #E5E4E2;
     }
     
-    .part-1 a{
+    #part-1 a{
         font-size: 18px;
         text-decoration: none;
         color: #121212;
@@ -121,11 +128,18 @@
       }
 
       th {
-        background-color: #1218cf;
+        background-color: #25383C;
         color: white;
       }
 
-      tr:nth-child(even) {background-color: #f1a660;}
+      tr:nth-child(even) {
+        background-color: #25383C;
+        color: white;
+    }
+    tr:nth-child(even) td:last-child button {
+        background-color: white;
+        color: #150f0f;
+    }
       table{
         width: 100%;
       }
@@ -138,7 +152,7 @@
 .footer{
 
     margin-top: 60px;
-	background-color:#1a203d;
+	background-color:#25383C;
 	height:20vh;
 	display: flex;
 	flex-direction: row;
@@ -146,6 +160,8 @@
 	align-items: center;
 	gap: 15px;
 }
+
+
 
 .social{
 	display: flex;
@@ -155,7 +171,7 @@
 
 .social a{
 padding: 20px;
-color: #49484f;
+color: #bbb2ec;
 }
 
 .social a:hover{

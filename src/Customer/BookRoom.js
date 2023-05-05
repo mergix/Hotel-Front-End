@@ -29,7 +29,6 @@ useEffect(() => {
   axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
   .then(res =>{
       setOneRoom(res.data)
-      console.log(res.data)  
       }).catch(err => console.log(err))
 },[])
 
@@ -47,7 +46,6 @@ useEffect(() => {
       setOpen2(true)
     } else{
       axios.post(`https://localhost:7099/api/Booking`,{dateIn:dateIn,dateOut:dateOut,userId:context.currentUserId,roomId:context.roomId},{ withCredentials: true }).then(res => {
-      console.log(res)
       navigate('/booklist')
        }).catch(err => console.log(err))
     }
@@ -66,7 +64,6 @@ useEffect(() => {
     axios.get(`https://localhost:7099/api/Room/${context.roomId}`,{ withCredentials: true })
     .then(res =>{
         setOneRoom(res.data)
-        console.log(res.data)  
         }).catch(err => console.log(err))
   };
 
@@ -116,9 +113,9 @@ useEffect(() => {
       <Card sx={{
       height: '800px',width: '870px',marginLeft:'80px'
   }}>
-    <CardMedia component="img" image={image(oneRoom.roomPicture)} style={{backgroundSize:"cover",height:'200px'}}/> 
+    <CardMedia component="img" image={image(oneRoom.roomPicture)} style={{backgroundSize:"cover",height:'230px'}}/> 
          <CardContent >
-          <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'50px',textDecoration:'underline'}}>
+          <Typography sx={{fontSize:"23px", fontWeight:"bold",marginLeft:'30px',textDecoration:'underline'}}>
          Please Select a room to book as well as Your desired dates  
           </Typography>
         <Box sx={{ml:0,padding:4}}>
@@ -145,13 +142,14 @@ useEffect(() => {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        
       >
         <DialogTitle id="alert-dialog-title" sx={{backgroundColor:"#DEDEDE"}}>
-          {"Pick a Room"}
+          {"Pick A Room"}
         </DialogTitle>
-        <DialogContent sx={{backgroundColor:"background.default"}}>
-          <DialogContentText id="alert-dialog-description">
-             <Grid container spacing={3} >
+        <DialogContent sx={{backgroundColor:"background.default",padding:'50px'}}>
+          <DialogContentText id="alert-dialog-description" sx={{marginTop:'60px'}}>
+             <Grid container spacing={5} >
             {room.map(p => (
               <Grid item >
       <Card style={{ 
@@ -202,7 +200,7 @@ useEffect(() => {
       <Grid item>
       <Stack spacing={2} direction="column">
       <Stack item>
-      <Typography sx={{ fontSize: 20 }} style={{marginBottom:30}} component="div">
+      <Typography sx={{ fontSize: 20 }} style={{marginBottom:30}}>
        Name: {cUser.firstName + "  "+ cUser.lastName}
       </Typography>
       </Stack>
@@ -222,8 +220,10 @@ useEffect(() => {
      label="Start Date"
      id='dateIn'
      renderInput={(params) => {
-       return <TextField {...params} />;
+       return <TextField {...params} 
+       InputLabelProps={{style: { color: '#25383C' }}} />;
      }}
+     
      value={dateIn}
      onChange={setDateIn}
    />
@@ -233,7 +233,9 @@ useEffect(() => {
      label="End Date"
      value={dateOut}
      id='dateOut'
-     renderInput={(params) => <TextField {...params} />}
+     renderInput={(params) => <TextField {...params} 
+     InputLabelProps={{style: { color: '#25383C' }}}
+     />}
      onChange={setDateOut}
      sx = {{ml: 20}}
    />

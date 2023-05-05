@@ -1,4 +1,4 @@
-import { Card,Typography,CardActions,CardContent,Button,TextField,CardMedia,MenuItem,Select,InputLabel } from '@mui/material';
+import { Card,Typography,CardActions,CardContent,Button,TextField,CardMedia,MenuItem,Select,InputLabel,Stack,Grid } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState,useEffect } from 'react'
 import useStateContext from '../../useStateContext';
@@ -80,7 +80,7 @@ function handleImage(e){
     <>
     <Container  style={{marginTop: '200px'}}>
     <Card sx={{
-      height: '600px',
+      height: '500px',
       width: '800px',
        mx: 'auto', 
        mt: 10,
@@ -91,7 +91,7 @@ function handleImage(e){
     padding: '10px',
     alignItems:'center'
     }}>
-      <Typography sx={{ fontSize: 34 }} color="text.secondary" gutterBottom>
+      <Typography sx={{ fontSize: 30 }} color="text.primary" gutterBottom>
         These are the details of the room you want to edit
       </Typography>
      
@@ -102,26 +102,30 @@ function handleImage(e){
           label="RoomName"
           multiline
           rows={4}
+          InputLabelProps={{style: { color: '#25383C' }}}
           value={values.roomName}
           onChange = {handleInputChange}
         />
         <TextField
           required
           name = "cost"
-          label="Cost"
+          label="Cost(£)"
           value={values.cost}
+          InputLabelProps={{style: { color: '#25383C' }}}
           onChange = {handleInputChange}
         />
-        <InputLabel id="demo-simple-select-autowidth-label">Type</InputLabel>
+         <Grid container spacing={20}>
+          <Grid item>
+        <InputLabel id="demo-simple-select-autowidth-label" sx={{color: "#25383C"}}>Room Type</InputLabel>
         <Select
-        
           autoWidth
-          label="Type"
+          label="Room Type"
           name = "categoryType"
           onChange = {handleInputChange}
+          InputLabelProps={{style: { color: '#25383C' }}}
           value={values.categoryType}
         >
-          <MenuItem value="">
+          <MenuItem value="None">
             <em>None</em>
           </MenuItem>
           <MenuItem value={1}>Single Room</MenuItem>
@@ -129,13 +133,16 @@ function handleImage(e){
           <MenuItem value={3}>Deluxe Room</MenuItem>
           <MenuItem value={4}>Presidential Suite</MenuItem>
         </Select>
-        <input style={{marginLeft: '100px'}} type='file' name= 'roomPicture' onChange={handleImage} />
-      <Typography sx={{ fontSize: 34 }} >
-        ------------
-      </Typography>
+          </Grid>
+          <Grid item>
+        <InputLabel sx={{color: "#25383C"}}>Room Picture</InputLabel>
+        <input  style={{paddingTop:'20px'}}type='file' name= 'roomPicture' label="Room Picture" onChange={handleImage} />
+          </Grid>
+         </Grid>
+
     </CardContent>
-    <CardActions  style={{marginLeft: '650px',alignItems:'center'}}>
-      <Button sx={{ fontSize: '25px' }} type = "submit">Edit</Button>
+    <CardActions  style={{marginLeft: '600px', marginTop: '50px',alignItems:'center'}}>
+      <Button variant="outlined" sx={{ fontSize: '23px',whiteSpace:'nowrap' }} type = "submit"> Finish Edit</Button>
       
     </CardActions>
       </form>

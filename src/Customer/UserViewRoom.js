@@ -69,7 +69,7 @@ export default function UserViewRoom() {
     <>
     <Container  style={{marginTop: '140px'}}>
     <Card sx={{
-      height: '620px',width: '850px', mx: 'auto', mt: 10,
+      height: '690px',width: '850px', mx: 'auto', mt: 10,
   }}>
      <CardMedia
         component="img"
@@ -78,10 +78,10 @@ export default function UserViewRoom() {
         image={image(room.roomPicture)}
       />
     <CardContent style={{marginLeft: '50px',marginTop:10,alignItems:'center'}}>
-      <Typography sx={{ mb: 1.5,fontSize: 32 }} component="div">
+      <Typography sx={{ mb: 1.5,fontSize: 32 }}>
        Type: {category(room.categoryType)}
       </Typography>
-      <Typography sx={{ mb: 1.5,fontSize: 22 }} color="text.secondary" gutterBottom>
+      <Typography sx={{ mb: 1.5,fontSize: 22 }}>
         Description:{room.roomName}
         </Typography>
       <Typography sx={{ mb: 1.5,fontSize: 22 }}>
@@ -91,7 +91,7 @@ export default function UserViewRoom() {
         Cost:£{room.cost}
       </Typography >
       <Collapse in={open}>
-      <Alert severity="info" action={
+      <Alert severity="error" action={
             <IconButton
               aria-label="close"
               color="inherit"
@@ -118,25 +118,6 @@ export default function UserViewRoom() {
     </CardActions>
     </Card>
     </Container>
-    <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
-
-			<p>
-				Mobile
-			</p>
-	</footer>
     </>
   )
 }
