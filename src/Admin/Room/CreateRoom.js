@@ -59,7 +59,7 @@ export default function CreateRoom() {
       style={{marginRight: 50,marginBottom:30}}
           required
           name = "roomName"
-          label="RoomName"
+          label="Description"
           multiline
           rows={5}
           InputLabelProps={{style: { color: '#25383C' }}}

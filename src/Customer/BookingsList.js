@@ -22,6 +22,8 @@ export default function BookingsList() {
       axios.get(`https://localhost:7099/userlist/${context.currentUserId}`,{ withCredentials: true })
       .then(res =>{
         if (res.data == "No cookie") {
+          setContext({token: false})
+          navigate("/")
         } else {
           setBook(res.data.result)
         }

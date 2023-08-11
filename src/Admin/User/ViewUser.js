@@ -45,7 +45,7 @@ export default function ViewUser() {
       height: 500,width: 700, mx: 'auto', mt: 10,
   }} >
     <CardContent style={{marginLeft: 50,marginTop:70,alignItems:'center'}}>
-      <Typography sx={{ fontSize: 22 }} color="text.primary" gutterBottom>
+      <Typography sx={{ fontSize: 22,fontWeight:"bold",textDecoration:'underline' }}  color="text.primary" gutterBottom>
         Role: {role(user.roleType)}
       </Typography>
       <Typography sx={{ fontSize: 22 }} component="div">

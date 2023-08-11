@@ -10,6 +10,7 @@ import moment from 'moment';
 
 export default function CustomerEditBooking() {
 
+      // email implement here
 
 
   const{context,setContext,resetContext} = useStateContext()
@@ -240,7 +241,7 @@ useEffect(() => {
       Check-In Date: {moment(book.dateIn).format('LL')}
       </Typography >
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
-      Check-Out Date: {moment(book.dateIn).format('LL')}
+      Check-Out Date: {moment(book.dateOut).format('LL')}
       </Typography >
       </Stack>
       </Grid>

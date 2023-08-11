@@ -97,6 +97,32 @@ export default function BookingManage() {
     setTest(all)
   }
 
+  function table(){
+    console.log(test.length)
+    if (test.length===0) {
+      return <div style={{marginTop:'60px',marginLeft:'60px',fontWeight:"bold",textDecoration:'underline'}}> There are no Bookings at this time</div>
+    }
+    else{
+      {test.map(p => (
+        <tr>
+        <td> {p.user.firstName}</td>
+        <td>{p.user.lastName}</td>
+        <td>{p.user.userEmail}</td>
+        <td>{category(p.room.categoryType)}</td>
+        <td>{p.room.cost}</td>
+        <td>{moment(p.dateIn).format('MMMM Do YYYY, h:mm:ss a')}</td>
+        <td>{moment(p.dateOut).format('MMMM Do YYYY, h:mm:ss a')}</td>
+        <td>{moment(p.lastModified).format('MMMM Do YYYY, h:mm:ss a')}</td>
+        <td>  <Button  variant="contained" onClick={() => {
+                setContext({bookId: p.bookingId});
+          console.log(context.bookId);
+           navigate('/bookView');
+       }}>View</Button>
+       </td> 
+      </tr>
+         ))}
+    }
+  }
   return (
     <>
     <Container  style={{
@@ -144,10 +170,6 @@ export default function BookingManage() {
       <Button variant="contained" onClick={noFilter}>All Types </Button>
           </Stack>
           <br></br>
-          {/* <Stack spacing={2} direction="row">
-          <Button variant="contained" onClick={currentFilter}>Current Bookings</Button>
-      <Button variant="contained" onClick={pastFilter}>Past Bookings</Button>
-          </Stack> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>

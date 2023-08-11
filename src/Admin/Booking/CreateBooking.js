@@ -135,12 +135,12 @@ export default function CreateBooking() {
      <Box sx={{ml:0,padding:4}}>
       <Grid container spacing={2} >
       <Grid item >
-      <Stack spacing={1} direction="column" sx={{minWidth:400}}>
+      <Stack spacing={1} direction="column" sx={{width:400}}>
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Type:{category(oneRoom.categoryType)}
       </Typography >
       <Typography sx={{ fontSize: 20 }} style={{marginBottom:2}}>
-       Room Name:{oneRoom.roomName}
+       Description:{oneRoom.roomName}
       </Typography>
       <Typography sx={{ mb: 1.5,fontSize: 20 }}>
         Status:{status(oneRoom.status)}
@@ -157,13 +157,11 @@ export default function CreateBooking() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id="alert-dialog-title" sx={{backgroundColor:"#DEDEDE"}}>
           {"Pick a Room"}
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-             Please pick a room you wish to book 
-
+        <DialogContent sx={{backgroundColor:"background.default",padding:'50px'}}>
+          <DialogContentText id="alert-dialog-description" sx={{marginTop:'60px'}}>
              <Grid container spacing={3} >
             {room.map(p => (
               <Grid item >
@@ -183,10 +181,10 @@ export default function CreateBooking() {
         alt={p.roomPicture.slice(0,-4)}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.primary">
          Description:{p.roomName}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.primary">
          Status :{status(p.status)}
         </Typography>
       </CardContent>
@@ -204,10 +202,7 @@ export default function CreateBooking() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
+          <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
       </Stack>

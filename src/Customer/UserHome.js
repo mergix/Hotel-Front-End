@@ -3,6 +3,7 @@ import React,{ useEffect, useState } from 'react'
 import useStateContext from '../useStateContext';
 import { useNavigate } from 'react-router'
 import { FaHotel } from 'react-icons/fa';
+import useAuth from '../useAuth'
 import { grey} from '@mui/material/colors';
 
 export default function UserHome() {
@@ -10,6 +11,7 @@ export default function UserHome() {
   const{context,setContext,resetContext} = useStateContext()
   const navigate = useNavigate()
   const [room,setRoom] = useState([])
+  const {auth,setAuth} = useAuth();
 
   const [open, setOpen] = React.useState(false);
 
@@ -22,7 +24,6 @@ export default function UserHome() {
   const alertCookie = () =>{
 	if (context.token == false) {
 		setOpen(true)
-		resetContext()
 	}
 	else{
 		console.log('No problem')
@@ -31,7 +32,7 @@ export default function UserHome() {
 
 
   useEffect(()=>{
-	alertCookie()
+	console.log(auth.token)
 }, [])
 
   return (

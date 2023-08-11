@@ -68,8 +68,8 @@ export default function ViewRoom() {
     <>
     <Container  style={{marginTop: '150px'}}>
     <Card sx={{
-      height: '630px',
-      width: '700px',
+      height: '690px',
+      width: '740px',
        mx: 'auto',
         mt: 10,
   }}>

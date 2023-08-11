@@ -30,7 +30,11 @@ import UserViewRoom from './Customer/UserViewRoom';
 import Rebook from './Customer/Rebook';
 import CustomerDeleteBooking from './Customer/CustomerDeleteBooking';
 import CustomerEditBooking from './Customer/CustomerEditBooking';
+import RequireAuth from './RequireAuth';
 import './index.css';
+
+import LoginAuth from './LoginAuth';
+import ProfilePage from './Customer/ProfilePage';
 
 function App() {
 
@@ -40,23 +44,36 @@ function App() {
     <BrowserRouter>
     <Routes>
     <Route path='/' element = {<Navbar/>}>
-    
-      <Route path='/' element = {<UserHome/>}/>
+
       <Route path='/login' element = {<Login/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route path='/' element = {<UserHome/>}/>
       <Route path='/room' element = {<Room/>}/>
-      <Route path='/book' element = {<BookRoom/>}/>
-      <Route path='/booklist' element = {<BookingsList/>}/>
       <Route path='/userViewRoom' element = {<UserViewRoom/>}/>
+      <Route path='/profile' element = {<ProfilePage/>}/>
+    </Route>
+    <Route element = {<RequireAuth allowedRoles={1}/>}>
+    <Route path='/' element = {<Navbar/>}>
+      <Route path='/booklist' element = {<BookingsList/>}/>
+      <Route path='/book' element = {<BookRoom/>}/>
       <Route path='/userViewBook' element = {<UserViewBooking/>}/>
       <Route path='/editBooking' element = {<CustomerEditBooking/>}/>
       <Route path='/deleteBooking' element = {<CustomerDeleteBooking/>}/>
       <Route path='/rebook' element = {<Rebook/>}/>
+      </Route>
+</Route>
 
-    </Route>
+
+
+
+
+
+
+
+
     <Route path='/' element = {<NavbarAdmin/>}>
     <Route path='/adminhome' element = {<AdminHome/>}/>
-    <Route path='/adminLogin' element = {<LoginAdmin/>}/>
+    {/* <Route path='/adminLogin' element = {<LoginAdmin/>}/> */}
     <Route path='/userManage' element = {<UserManage/>}/>
     <Route path='/userView' element = {<ViewUser/>}/>
     <Route path='/deleteUser' element = {<DeleteUser/>}/>

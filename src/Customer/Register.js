@@ -1,41 +1,71 @@
-import React,{ useEffect } from 'react'
+import React,{ useEffect,useReducer,useState } from 'react'
 import { Card, CardContent, TextField, Typography,Container } from '@mui/material'
-import {Button} from '@mui/material'
-import { Box, width } from '@mui/system'
-import useForm from '../useForm'
 import useStateContext from '../useStateContext'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
-import Center from '../Center'
+import useForm from '../useForm'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const getFreshModel = () =>({
     firstName: '' ,
     lastName: '' ,
     userEmail: '',
-    userPassword: ''
+    userPasswordHash: '',
+    address:'',
+    address2:'',
+    address3:'',
+    phoneNo:'',
 })
 export default function Register() {
 
+
+
+    
+    useEffect(() => {
+      resetContext()
+    }, [])
+    
+    
     const{context,setContext,resetContext} = useStateContext()
     const navigate = useNavigate()
+    const [submitting, setSubmitting] = useState(false);
+
 
     const{
-        values,
-        setValues,
-        errors,
-        setErrors,
-        handleInputChange
-    } = useForm(getFreshModel);
+      values,
+      setValues,
+      errors,
+      setErrors,
+      handleInputChange
+  } = useForm(getFreshModel);
+    
 
-    useEffect(() => {
-        resetContext()
-    }, [])
+    const handleSubmit = event => {
+        event.preventDefault();
+        setSubmitting(true);
+        console.log(values)
+        register();
+        setTimeout(() => {
+          setSubmitting(false);
+          // setFormData({
+          //   reset: true
+          // })
+        }, 3000)
+      }
 
-    const register = e =>{
-        e.preventDefault();
+
+      const handleChange = event => {
+        const isCheckbox = event.target.type === 'checkbox';
+        // setFormData({
+        //   name: event.target.name,
+        //   value: isCheckbox ? event.target.checked : event.target.value,
+        // });
+      }
+
+      async function register(){
        axios.post('https://localhost:7099/api/User',values,{ withCredentials: true }).then(res => {
-        setContext({userId: res.data.userId})
+        setContext({userId: res.data.userId,token:true})
         console.log(res.data.userId)
         console.log(values)
         navigate('/')
@@ -44,69 +74,70 @@ export default function Register() {
 
   return (
     <>
-        <Container sx={{marginTop:'20vh'}}>
-    <Center>
-    <Card sx = {{width: '400px'}}>
-       <CardContent sx={{textAlign:'center'}}>
-           <Typography variant='h3' sx={{marginY: 3}}> Make a new account</Typography>
-       <Box sx={{
-       '& 	.MuiTextField-root':{
-           margin: 1,
-           width: '90%'
-       }
-   }}>
-   <form noValidate autoComplete='on' onSubmit={register}>
-   <TextField
-       label = "FirstName"
-       name = "firstName"
-       value={values.firstName}
-       onChange = {handleInputChange}
-       InputLabelProps={{style: { color: '#25383C' }}} 
-       variant = "outlined"
-       {...(errors.firstName && { error: true, helperText: errors.firstName })}
-       />
-              <TextField
-       label = "LastName"
-       name = "lastName"
-       value={values.lastName}
-       onChange = {handleInputChange}
-       InputLabelProps={{style: { color: '#25383C' }}} 
-       variant = "outlined"
-       {...(errors.lastName && { error: true, helperText: errors.lastName })}
-       />
+        <Container sx={{marginTop:'5vh'}}>
+        <div class = "register-wrapper">
+   <form class= "formBox" onSubmit={handleSubmit}>
+   <h1>Create Account</h1>
+    <div class = "twobytwo">
 
-       <TextField
-       label = "Email"
-       name = "userEmail"
-       value={values.userEmail}
-       onChange = {handleInputChange}
-       InputLabelProps={{style: { color: '#25383C' }}} 
-       variant = "outlined"
-       {...(errors.userEmail && { error: true, helperText: errors.userEmail })}
-       />
+<fieldset disabled={submitting}>
+         <label>
+           <p>First Name</p>
+           {/* <a><FontAwesomeIcon icon="fa-solid fa-envelope" /></a> */}
+           <input name="firstName" onChange={handleInputChange} value={values.firstName || ''} />
+         </label>
+       </fieldset>
+<fieldset disabled={submitting}>
+         <label>
+           <p>Last Name</p>
+           {/* <a><FontAwesomeIcon icon="fa-solid fa-envelope" /></a> */}
+           <input name="lastName" onChange={handleInputChange} value={values.lastName || ''} />
+         </label>
+       </fieldset>
+    </div>
+    <div class = "twobytwo">
 
-       <TextField
-       label = "Password"
-       name = "userPassword"
-       value={values.userPassword}
-       onChange = {handleInputChange}
-       InputLabelProps={{style: { color: '#25383C' }}} 
-       variant = "outlined"
-       {...(errors.userPassword && { error: true, helperText: errors.userPassword })}
-       />
+<fieldset disabled={submitting}>
+         <label>
+           <p>E-mail Address</p>
+           {/* <a><FontAwesomeIcon icon="fa-solid fa-envelope" /></a> */}
+           <input name="userEmail" onChange={handleInputChange} value={values.userEmail || ''} />
+         </label>
+       </fieldset>
+<fieldset disabled={submitting}>
+         <label>
+           <p>Password</p>
+           {/* <a><FontAwesomeIcon icon="fa-solid fa-envelope" /></a> */}
+           <input name="userPasswordHash" onChange={handleInputChange} value={values.userPasswordHash || ''} />
+         </label>
+       </fieldset>
+    </div>
 
-       <Button
-       type = "submit"
-       variant = "contained"
-       size = "large"
-       sx = {{width: '90%'}}> Create Account</Button>
-       
+<div class = "twobytwo">
+
+       <fieldset disabled={submitting}>
+         <label>
+           <p>Address</p>
+           {/* <a><FontAwesomeIcon icon="fa-solid fa-envelope" /></a> */}
+           <input name="address" onChange={handleInputChange} value={values.address || ''} />
+           <input name="address2" onChange={handleInputChange} value={values.address2 || ''} />
+           <input name="address3" onChange={handleInputChange} value={values.address3 || ''} />
+         </label>
+       </fieldset>
+       <fieldset disabled={submitting}>
+         <label>
+           <p>Phone No</p>
+           {/* <a><FontAwesomeIcon icon="fa-solid fa-envelope" /></a> */}
+           <input name="phoneNo" onChange={handleInputChange} value={values.phoneNo || ''} />
+         </label>
+       </fieldset>
+</div>
+       <p> Already have an account? <a href='#' class ="forgot">Login here</a></p>
+       <button type="submit">Sign Up</button>
    </form>
-   </Box>
 
-</CardContent>
-   </Card>
-    </Center>
+        </div>
+
 
         </Container>
     </>

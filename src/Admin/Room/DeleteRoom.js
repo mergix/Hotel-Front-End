@@ -61,8 +61,8 @@ function image(x){
     <>
     <Container  style={{marginTop: '150px'}}>
     <Card sx={{
-      height: '600px',
-      width: '700px',
+      height: '640px',
+      width: '740px',
        mx: 'auto',
         mt: 10,
   }}>

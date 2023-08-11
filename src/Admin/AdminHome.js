@@ -60,7 +60,7 @@ export default function AdminHome() {
             This is the Adminstative Side for the management of the Hotel Spectrum
     </Typography>
     <Typography variant='h6' sx={{color: (theme) => theme.palette.secondary.main}}>
-          You can view the pages for management in the navbar above
+         Once logged in you can view the pages for management in the navbar above.
     </Typography>
      </Container>
     

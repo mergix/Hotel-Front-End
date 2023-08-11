@@ -69,7 +69,7 @@ export default function UserViewRoom() {
     <>
     <Container  style={{marginTop: '140px'}}>
     <Card sx={{
-      height: '690px',width: '850px', mx: 'auto', mt: 10,
+      height: '720px',width: '850px', mx: 'auto', mt: 10,
   }}>
      <CardMedia
         component="img"

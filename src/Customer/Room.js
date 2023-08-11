@@ -142,17 +142,16 @@ export default function Room() {
 <Container style={{marginTop: '20vh'}}>
 
 
-<Grid container spacing={1} sx={{
+<Grid direction={'column'}   container spacing={1} sx={{
       marginTop: '40px',
       marginBottom: '50px',
-      backgroundColor:'#F5F5F5',
       padding:'10px',
       }}>
             <Grid item >
-  <Typography> All the Rooms</Typography>
+  <Typography style={{fontSize:'30px',fontWeight:"bold",textDecoration:'underline'}}> All the Rooms</Typography>
             </Grid>
             <Grid item >
-  <Button variant="outlined" onClick={handleClickOpen} sx={{color: (theme) => theme.palette.text.primary}}>
+  <Button variant="contained" onClick={handleClickOpen} sx={{color: (theme) => theme.palette.text.secondary,background:'#2998cf'}}>
         Filter the list
       </Button>
       <Dialog
@@ -198,7 +197,7 @@ export default function Room() {
   <Grid item >
 <Card style={{ 
   width: '505px',
-  height:'405px'
+  height:'405px',
   }}>
 <CardHeader
   action={

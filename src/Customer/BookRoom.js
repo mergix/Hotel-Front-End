@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 
 export default function BookRoom() {
 
+      // email implement here
+
   const{context,setContext,resetContext} = useStateContext()
   const [room,setRoom] = useState([])
   const [open, setOpen] = React.useState(false);
@@ -111,7 +113,7 @@ useEffect(() => {
 
       <form noValidate autoComplete='on' onSubmit={book}>
       <Card sx={{
-      height: '800px',width: '870px',marginLeft:'80px'
+      height: '840px',width: '870px',marginLeft:'80px'
   }}>
     <CardMedia component="img" image={image(oneRoom.roomPicture)} style={{backgroundSize:"cover",height:'230px'}}/> 
          <CardContent >
@@ -154,7 +156,7 @@ useEffect(() => {
               <Grid item >
       <Card style={{ 
   width: '505px',
-  height:'390px'
+  height:'410px'
   }}>
       <CardHeader
         action={

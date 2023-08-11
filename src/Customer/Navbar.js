@@ -1,108 +1,171 @@
-import { AppBar, Button, Toolbar, Typography,Box, Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
+import { useEffect } from 'react'
+import '../Script.js';
 import { Outlet, useNavigate } from 'react-router-dom'
-import useStateContext from '../useStateContext'
-import { BiHotel } from "react-icons/bi";
-import { grey} from '@mui/material/colors';
+import useLogout from '../useLogout'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBed, faHome, faHouseChimney } from '@fortawesome/free-solid-svg-icons'
 
 export default function Navbar() {
 
-    const{context,resetContext} = useStateContext()
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const logout = useLogout();
 
-    const logout = () =>{
-        resetContext()
+    const login = () =>{
+      navigate("/login")
+    }
+    const register = () =>{
+      navigate("/register")
+    }
+    const home = () =>{
+      navigate("/")
+    }
+    const signOut = () =>{
+        logout();
         navigate("/")
     }
-    const toRoom = () =>{
+    const room = () =>{
       navigate("/room")
   }
-  const toBookingList = () =>{
+  const bookingList = () =>{
     navigate("/booklist")
 }
-const login = () =>{
-  navigate("/login")
-}
-const home = () =>{
-  navigate("/")
-}
-const register = () =>{
-  navigate("/register")
+
+const profilePage = () =>{
+  navigate("/profile")
 }
 
-function LoginButtons(){
-  if (context.currentUserId == 0) {
-    return <Grid container spacing={1} sx={{paddingLeft:'100px'}}>
-    <Grid item  sx={{mr:0}}>
-    <Button onClick={login} sx={{color: (theme) => theme.palette.secondary.main}}>Login</Button>
-    </Grid>
-    <Grid item  sx={{mr:0}}>
-    <Button onClick={register} sx={{color: (theme) => theme.palette.secondary.main}}>SignUp</Button>
-    </Grid>
-    </Grid>
-  } else {
-    return <Grid container spacing={1}>
-
-      <Grid item  sx={{mr:0}}>
-
-<Button  onClick={toBookingList}sx={{marginRight: '20px',color: (theme) => theme.palette.secondary.main}}>View Your Bookings</Button> 
-  </Grid>
-  <Grid item  sx={{mr:0}}>
-
-  <Button onClick={logout} sx={{color: (theme) => theme.palette.secondary.main}} >Logout</Button>
-  </Grid>
-  
-    </Grid>
-  }
-}
   return (
     <>
-    <AppBar  sx={{position : 'fixed' ,height: '80px' ,backgroundColor:'#454545'}}>
-        <Toolbar sx={{width: 650, margin:'auto'}}>
-        <Box  onClick={home} sx={ { display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',paddingRight:"30px"}}>
-      <BiHotel size={40} color={grey[500]}/>
-      <Typography
-        sx={{
-          ml: 1,
-          color: (theme) => theme.palette.secondary.main,
-          fontSize: '25px',
-          fontWeight: 'bold',
-        }}
-        component="h3"
-      >
-        SH
-      </Typography>
-    </Box>
-        <Box sx={{ flexGrow: 1, display: {flexDirection: 'row', md: 'flex' } }} >
-        <Button  onClick={toRoom} sx={{paddingLeft: '60px',color: (theme) => theme.palette.secondary.main , whiteSpace:'nowrap'}}>View Our Rooms</Button>
-        </Box>
-        {LoginButtons()}
-        </Toolbar>
-    </AppBar>
-    <Container>
+    <header class="navHeader">
+            <FontAwesomeIcon icon={faBed}/>
+            <span>Spectrum Hotels</span>
+        <nav>
+          <div className='left'>
+
+          </div>
+
+          <a onClick={home} className='home-btn'><FontAwesomeIcon icon={faHouseChimney}/></a>
+          <div class="dropdown" data-dropdown>
+          <button class="link" data-dropdown-button>Rooms</button>
+          <div class="dropdown-menu information-grid">
+            <div>
+            <div class="dropdown-heading">
+              Test title
+            </div>
+             <div class="dropdown-links">
+              <a href='#' class="link"> All</a>
+              <a href='#' class="link"> None</a>
+              <a href='#' class="link"> Half</a>
+             </div>
+            </div>
+            <div>
+            <div class="dropdown-heading">
+              Test title
+            </div>
+             <div class="dropdown-links">
+              <a href='#' class="link"> All</a>
+              <a href='#' class="link"> None</a>
+              <a href='#' class="link"> Half</a>
+             </div>
+            </div>
+            <div>
+            <div class="dropdown-heading">
+              Test title
+            </div>
+             <div class="dropdown-links">
+              <a href='#' class="link">All</a>
+              <a href='#' class="link"> None</a>
+              <a href='#' class="link"> Half</a>
+             </div>
+            </div>
+            <div>
+            <div class="dropdown-heading">
+              Test title
+            </div>
+             <div class="dropdown-links">
+              <a href='#' class="link"> All</a>
+              <a href='#' class="link"> None</a>
+              <a href='#' class="link"> Half</a>
+             </div>
+            </div>
+          </div>
+          </div>
+          <a onClick={bookingList}>Manage Bookings</a>
+          <div className='right'>
+          <div class="dropdown" data-dropdown>
+          <button class="link" data-dropdown-button>Profile</button>
+          <div class="dropdown-menu information-grid">
+            <div>
+            <div class="dropdown-heading">
+              Test title
+            </div>
+             <div class="dropdown-links">
+              <a href='#' class="link"> User name</a>
+              <a href='#' class="link" onClick={profilePage}> Manage account/Settings</a>
+              <a href='#' class="link"> Sign Out</a>
+              <a href='#' class="link" onClick={logout} >Logout</a>
+              <a  href='#' class="link" onClick={login} >Login</a>
+              <a  href='#' class="link"onClick={register}>Sign Up</a>
+             </div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+          <button className='nav-btn nav-close-btn'>
+            X
+          </button>
+        </nav>
+        <button className='nav-btn'>
+        O
+        </button>
+    </header>
+    <Container class = "userContainer">
     <Outlet/>
     </Container>
 <footer class="footer">
-			<p>
-			Ismail Fagbenro
-			</p>
-			<p>
-				These are My links to contact me.
-			</p>
-			<div class="social">
-				<a href="first.html" ><i class="fa-brands fa-github fa-2xl"></i></a>
-				<a href="first.html" class="first"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
-			</div>
-			<p>
-				Email
-			</p>
+<div class="container">
+  <div class="row">
+    <div class ="footer-col">
+      <h4> Check me out!!</h4>
+      <ul>
+        <li>
+        <a href='#'>Linkedin</a>
+        </li>
+        <li>
+        <a href='#'> Twitter</a>
+        </li>
+        <li>
+        <a href='#'> Instagram</a>
+        </li>
+      </ul>
+    </div>
+    <div class ="footer-col">
+      <h4> My Email</h4>
+      <ul>
+        <li>
+        <a href='#'>ismail.fagbenro@yahoo.com</a>
+        </li>
+      </ul>
+    </div>
+ 
+    <div class ="footer-col">
+        <h4>
+            Ismail Fagbenro
+        </h4>
+        <ul>
+        <li>
+        <a href='#'>Copyright 2023© </a>
+        </li>
+      </ul>
+    </div>
 
-			<p>
-				Mobile
-			</p>
+    
+  </div>
+</div>
+
 	</footer>
     </>
   )

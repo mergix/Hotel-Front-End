@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router'
 import moment from 'moment';
 
-export default function UserViewBooking() {
+export default function UserViewBooking({ setToken }) {
 
     const navigate = useNavigate()
     const{context,setContext,resetContext} = useStateContext()
@@ -16,6 +16,7 @@ export default function UserViewBooking() {
           .then(res =>{
             if (res.data == "No cookie") {
               setContext({token: false})
+              setToken(false);
               navigate("/")
             }
             console.log(res)
@@ -60,7 +61,7 @@ export default function UserViewBooking() {
     <>
     <Container  style={{marginTop: '100px'}}>
     <Card sx={{
-      height: '600px',width: '900px', mx: 'auto', mt: 5,
+      height: '720px',width: '900px', mx: 'auto', mt: 5,
   }}>
 
       <CardMedia image={image(book.roomPicture)} style={{height: '190px',padding:"50px"}}/>
@@ -81,7 +82,7 @@ export default function UserViewBooking() {
         Status : {status(book.status)}
       </Typography >
       <Typography sx={{ fontSize: 20 }}>
-        Cost: {book.cost}
+        Cost: £{book.cost}
       </Typography >
       </Grid>
       <Grid item>
@@ -100,7 +101,7 @@ export default function UserViewBooking() {
       </Grid>
       </Grid>
       </Box>
-      <Typography sx={{ fontSize: 20,ml:'25px' }} >
+      <Typography sx={{ fontSize: 20,ml:'10px' }} >
         Last Modified:{ moment(book.lastModified).format('LLL')}
       </Typography>
     </CardContent>

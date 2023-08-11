@@ -9,6 +9,8 @@ import moment from 'moment';
 
 export default function CustomerDeleteBooking() {
 
+      // email implement here
+
     const{context,setContext,resetContext} = useStateContext()
     const [book,setBook] = useState([])
     const navigate = useNavigate()
@@ -81,7 +83,7 @@ export default function CustomerDeleteBooking() {
       }
   return (
     <>
-    <Container  style={{ backgroundColor: '#433f3f' ,height: '100vh',marginBottom: '100px' ,marginTop:'200px',padding:'10px'}}>
+    <Container  style={{ backgroundColor: '#433f3f' ,height: '120vh',marginBottom: '100px' ,marginTop:'200px',padding:'10px'}}>
        <Card style={{height: '750px', width:'750px',marginLeft: 200,marginTop:50,alignItems:'center'}}>
        <CardMedia image={image(book.roomPicture)} style={{height: '190px'}}/>
        <CardContent style={{marginLeft: 10,marginTop:40,alignItems:'center'}}>

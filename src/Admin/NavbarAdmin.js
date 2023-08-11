@@ -36,11 +36,16 @@ function LoginButtons(){
   if (context.currentUserId == 0) {
     return <Grid container spacing={1}>
     <Grid item  sx={{mr:0}}>
-    <Button onClick={login}style={{marginLeft: '100px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Login</Button>
+    <Button onClick={login}style={{marginLeft: '500px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Login</Button>
     </Grid>
     </Grid>
   } else {
-    return    <Button onClick={logout} style={{marginLeft: '100px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Logout</Button>
+    return <Box sx={{ flexGrow: 1, display: {flexDirection: 'row', md: 'flex' },ml: 10 }} >
+    <Button onClick={navigateRoom}  style={{marginRight: '20px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Manage Rooms</Button>
+    <Button  onClick={navigateUser} style={{marginRight: '20px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Manage Users</Button>
+    <Button onClick={navigateBooking} style={{marginRight: '20px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Manage Bookings</Button>
+    <Button onClick={logout} style={{marginLeft: '100px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Logout</Button>
+    </Box>
     
   }
 }
@@ -66,11 +71,7 @@ function LoginButtons(){
         SH Admin Side
       </Typography>
     </Box>
-        <Box sx={{ flexGrow: 1, display: {flexDirection: 'row', md: 'flex' },ml: 10 }} >
-        <Button onClick={navigateRoom}  style={{marginRight: '20px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Manage Rooms</Button>
-        <Button  onClick={navigateUser} style={{marginRight: '20px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Manage Users</Button>
-        <Button onClick={navigateBooking} style={{marginRight: '20px'}} sx={{color: (theme) => theme.palette.secondary.main}}>Manage Bookings</Button>
-        </Box>
+
             {LoginButtons()}
         </Toolbar>
     </AppBar>

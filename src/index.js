@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 import { ContextProvider } from './useStateContext';
+import { AuthProvider } from './AuthProvider';
 import { text } from '@fortawesome/fontawesome-svg-core';
 
 const darkTheme = createTheme({
@@ -32,7 +33,9 @@ root.render(
     <ContextProvider>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline/>
-     <App/>
+      <AuthProvider>
+       <App/>
+      </AuthProvider>
     </ThemeProvider>
     </ContextProvider>
   </React.StrictMode>
